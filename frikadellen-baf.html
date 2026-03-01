@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>frikadellen-baf | Enterprise Macro Platform</title>
+  <title>frikadellen-baf | Documented Features</title>
   <style>
     :root {
       --bg: #070b14;
@@ -158,16 +158,16 @@
       <nav class="nav-links">
         <a class="btn-outline" href="index.html">Back to main site</a>
         <a class="btn-outline" href="https://github.com/TreXito/frikadellen-baf" target="_blank" rel="noopener noreferrer">GitHub repository</a>
-        <a class="btn" href="#hosting">Get hosting</a>
+        <a class="btn" href="#details">Project details</a>
       </nav>
     </header>
 
     <section class="hero glass">
       <span class="kicker">TreXito Product Site</span>
-      <h1>Enterprise-grade landing page for trexito/frikadellen-baf.</h1>
+      <h1>TreXito/frikadellen-baf feature overview.</h1>
       <p class="lead">
-        BAF (Bazaar Auction Flipper) is a headless automation client for Hypixel Skyblock with configurable workflows,
-        cross-platform builds, and operator-focused diagnostics. This page highlights macro capabilities and managed hosting options.
+        BAF (Bazaar Auction Flipper) is a headless (no UI) automation client for Hypixel Skyblock.
+        This page lists documented project features from the repository README.
       </p>
       <a class="btn" href="https://github.com/TreXito/frikadellen-baf" target="_blank" rel="noopener noreferrer">Open source on GitHub</a>
       <p class="notice">
@@ -179,10 +179,10 @@
       <article class="card glass">
         <h2>Macro features</h2>
         <ul class="feature-list">
-          <li>Automatic buy/sell flipping flow with account authentication and island routing.</li>
-          <li>Skip-confirmation controls based on profit, finder source, skins, and price thresholds.</li>
-          <li>Automatic account switching with timed rotation across multiple usernames.</li>
-          <li>SOCKS5 proxy support with optional username/password authentication.</li>
+          <li>Authentication flow, then automated buy/sell flipping after joining Hypixel and teleporting to island.</li>
+          <li>Skip-confirmation controls in <code>config.toml</code> using profit, finder source, skins, and price thresholds.</li>
+          <li>Automatic account switching with timed rotation across configured usernames.</li>
+          <li>SOCKS5 proxy support including optional username/password authentication.</li>
         </ul>
       </article>
 
@@ -191,30 +191,30 @@
         <ul class="feature-list">
           <li>Webhook notifications for init, purchasing, selling, and relisting events.</li>
           <li>Bazaar flip debugging logs for message parsing, GUI state, and action traces.</li>
-          <li>Config-driven startup via <code>config.toml</code> with runtime persistence.</li>
-          <li>Release pipeline provides pre-built executables for Windows, Linux, and macOS.</li>
+          <li>Config-driven startup via <code>config.toml</code> (username, skip config, proxy config, account switching, webhook URL).</li>
+          <li>Pre-built executables for Windows, Linux, and macOS in GitHub Releases.</li>
         </ul>
       </article>
     </section>
 
-    <section class="grid" id="hosting">
+    <section class="grid" id="details">
       <article class="card glass">
-        <h3>Managed hosting service (offering)</h3>
+        <h3>Requirements (from README)</h3>
         <p>
-          Fully managed frikadellen-baf hosting by TreXito: secure runtime provisioning, update rollouts,
-          restart automation, and log retention with controlled access.
+          Requires an active Booster Cookie to purchase auctions outside hub, enough coins in purse (not bank),
+          inventory space for purchased flips, and a paid plan from sky.coflnet.com.
         </p>
-        <span class="pill ok">Includes health checks & uptime monitoring</span>
+        <span class="pill ok">System requirements listed: any OS, 500MB RAM, 1 CPU core, stable ping</span>
       </article>
 
       <article class="card glass">
-        <h3>Suggested service tiers</h3>
+        <h3>Builds & start scripts</h3>
         <ul class="feature-list">
-          <li><strong>Starter:</strong> Single instance, basic updates, daily status reports.</li>
-          <li><strong>Scale:</strong> Multi-account rotation support, proactive monitoring, priority updates.</li>
-          <li><strong>Custom:</strong> Dedicated infrastructure, tailored rollout windows, advanced alerting.</li>
+          <li>Releases include executables for Windows, Linux, and macOS.</li>
+          <li>Windows start script (<code>BAF.ps1</code>) downloads/updates the newest version.</li>
+          <li>Source usage is documented with <code>npm install</code> and <code>npm run start</code>.</li>
         </ul>
-        <span class="pill danger">Client remains responsible for third-party Terms of Service compliance</span>
+        <span class="pill danger">Usage remains against Hypixel ToS according to the project README</span>
       </article>
     </section>
 
