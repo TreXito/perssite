@@ -3,1450 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TreXito | DevOps & Cybersecurity</title>
-  
-  <!-- Favicon - Cat Avatar -->
-  <link rel="icon" type="image/webp" href="https://cdn.discordapp.com/avatars/589153757346922497/6f6225709a4c88ae70968c4ebd8b0c0f.webp?size=32">
-  <link rel="apple-touch-icon" href="https://cdn.discordapp.com/avatars/589153757346922497/6f6225709a4c88ae70968c4ebd8b0c0f.webp?size=180">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
+  <title>TreXito | Automation & Infrastructure</title>
   <style>
     :root {
-      --bg-dark: #0a0a0f;
-      --bg-card: rgba(15, 15, 25, 0.85);
-      --neon-cyan: #00fff2;
-      --neon-pink: #ff00aa;
-      --neon-purple: #b967ff;
-      --neon-green: #39ff14;
-      --text-primary: #e8e8f0;
-      --text-muted: #6a6a8a;
-      --border-glow: rgba(0, 255, 242, 0.3);
+      --bg: #070b14;
+      --bg-2: #0f1729;
+      --glass: rgba(255, 255, 255, 0.07);
+      --glass-strong: rgba(255, 255, 255, 0.12);
+      --line: rgba(255, 255, 255, 0.18);
+      --text: #e8eefc;
+      --muted: #a5b3d2;
+      --accent: #6da8ff;
+      --accent-2: #6ce5d8;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Outfit', sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-primary);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 10%, #264ea755, transparent 38%),
+        radial-gradient(circle at 85% 15%, #31b8a533, transparent 35%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 65%, #0b1223 100%);
       min-height: 100vh;
-      overflow-x: hidden;
-      cursor: crosshair;
-    }
-
-    /* Matrix Rain Canvas */
-    #matrix-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      opacity: 0.15;
-      pointer-events: none;
-    }
-
-    /* Cursor Trail */
-    .cursor-trail {
-      position: fixed;
-      width: 8px;
-      height: 8px;
-      background: var(--neon-cyan);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      opacity: 0;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
-      transition: opacity 0.3s;
-    }
-
-    /* Main Container */
-    .main-container {
-      position: relative;
-      z-index: 1;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .hero-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      width: 100%;
-    }
-
-    @media (max-width: 900px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-    }
-
-    /* Avatar Section */
-    .avatar-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .avatar-ring {
-      position: relative;
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-ring::before {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple), var(--neon-cyan));
-      animation: spin-glow 4s linear infinite;
-      z-index: -1;
-    }
-
-    .avatar-ring::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: conic-gradient(from 0deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple), var(--neon-cyan));
-      filter: blur(20px);
-      animation: spin-glow 4s linear infinite;
-      z-index: -2;
-      opacity: 0.6;
-    }
-
-    @keyframes spin-glow {
-      100% { transform: rotate(360deg); }
-    }
-
-    .avatar {
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid var(--bg-dark);
-      transition: transform 0.4s ease;
-    }
-
-    .avatar:hover {
-      transform: scale(1.05);
-    }
-
-    /* Info Section */
-    .info-section h1 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(3rem, 8vw, 5rem);
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.5rem;
-      position: relative;
-    }
-
-    .info-section h1::after {
-      content: '_';
-      animation: blink 1s step-end infinite;
-      -webkit-text-fill-color: var(--neon-cyan);
-    }
-
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-
-    .tagline {
-      font-size: 1.4rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .tagline span {
-      color: var(--neon-green);
-      font-weight: 600;
-    }
-
-    .tagline .future {
-      color: var(--neon-cyan);
-    }
-
-    .bio-line {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1rem;
-      color: var(--neon-purple);
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .bio-line::before {
-      content: '> ';
-      color: var(--neon-cyan);
-    }
-
-    /* Links Grid */
-    .links-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 500px) {
-      .links-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .link-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.5rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-glow);
-      border-radius: 12px;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .link-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, transparent, rgba(0, 255, 242, 0.1));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .link-card:hover::before {
-      opacity: 1;
-    }
-
-    .link-card:hover {
-      transform: translateY(-4px) scale(1.02);
-      border-color: var(--neon-cyan);
-      box-shadow: 0 10px 40px rgba(0, 255, 242, 0.2);
-    }
-
-    .link-card .icon {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .link-card .icon svg {
-      width: 28px;
-      height: 28px;
-      fill: currentColor;
-    }
-
-    .link-card .link-info h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.2rem;
-    }
-
-    .link-card .link-info p {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .link-card.discord { --accent: #5865F2; }
-    .link-card.discord:hover { border-color: #5865F2; box-shadow: 0 10px 40px rgba(88, 101, 242, 0.3); }
-    .link-card.discord .icon svg { fill: #5865F2; }
-
-    .link-card.github { --accent: #ffffff; }
-    .link-card.github:hover { border-color: #ffffff; box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2); }
-    .link-card.github .icon svg { fill: #ffffff; }
-
-    .link-card.linode { --accent: #00a95c; }
-    .link-card.linode:hover { border-color: #00a95c; box-shadow: 0 10px 40px rgba(0, 169, 92, 0.3); }
-
-    .link-card.hetzner { --accent: #d50c2d; }
-    .link-card.hetzner:hover { border-color: #d50c2d; box-shadow: 0 10px 40px rgba(213, 12, 45, 0.3); }
-
-    .link-card.coflnet { --accent: #ff9500; }
-    .link-card.coflnet:hover { border-color: #ff9500; box-shadow: 0 10px 40px rgba(255, 149, 0, 0.3); }
-
-    /* Interactive Terminal */
-    .terminal-section {
-      margin-top: 6rem;
-      padding: 3rem 0;
-    }
-
-    .terminal-section h2 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem;
-      color: var(--neon-cyan);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .terminal-section h2::before {
-      content: '▸';
-      color: var(--neon-green);
-    }
-
-    .terminal {
-      background: rgba(10, 10, 18, 0.95);
-      border: 1px solid var(--border-glow);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 255, 242, 0.1);
-    }
-
-    .terminal-header {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 1rem 1.5rem;
-      background: rgba(30, 30, 50, 0.8);
-      border-bottom: 1px solid var(--border-glow);
-    }
-
-    .terminal-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-    }
-
-    .terminal-dot.red { background: #ff5f56; }
-    .terminal-dot.yellow { background: #ffbd2e; }
-    .terminal-dot.green { background: #27ca40; }
-
-    .terminal-title {
-      margin-left: 1rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .terminal-body {
-      padding: 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      min-height: 300px;
-      max-height: 400px;
-      overflow-y: auto;
-    }
-
-    .terminal-output {
-      line-height: 1.8;
-    }
-
-    .terminal-line {
-      margin-bottom: 0.5rem;
-    }
-
-    .terminal-line.input::before {
-      content: 'guest@trexito:~$ ';
-      color: var(--neon-green);
-    }
-
-    .terminal-line.output {
-      color: var(--text-muted);
-      padding-left: 1rem;
-    }
-
-    .terminal-line.output.success {
-      color: var(--neon-green);
-    }
-
-    .terminal-line.output.error {
-      color: #ff5f56;
-    }
-
-    .terminal-line.output.info {
-      color: var(--neon-cyan);
-    }
-
-    .terminal-input-line {
-      display: flex;
-      align-items: center;
-      margin-top: 1rem;
-    }
-
-    .terminal-input-line::before {
-      content: 'guest@trexito:~$ ';
-      color: var(--neon-green);
-      white-space: nowrap;
-    }
-
-    #terminal-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: var(--text-primary);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      outline: none;
-      caret-color: var(--neon-cyan);
-    }
-
-    /* Stats Dashboard */
-    .stats-section {
-      margin-top: 6rem;
-    }
-
-    .stats-section h2 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem;
-      color: var(--neon-pink);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .stats-section h2::before {
-      content: '◈';
-      color: var(--neon-cyan);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .stat-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glow);
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
-    }
-
-    .stat-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 50px rgba(0, 255, 242, 0.15);
-    }
-
-    .stat-value {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-value.text-stat {
-      font-size: 1.8rem;
-    }
-
-    .stat-label {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-top: 0.5rem;
-    }
-
-    /* Currently Learning Section */
-    .learning-section {
-      margin-top: 6rem;
-    }
-
-    .learning-section h2 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem;
-      color: var(--neon-green);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .learning-section h2::before {
-      content: '📚';
-    }
-
-    .learning-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .learning-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glow);
-      border-radius: 16px;
-      padding: 1.5rem;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .learning-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--neon-cyan);
-      box-shadow: 0 10px 40px rgba(0, 255, 242, 0.15);
-    }
-
-    .learning-card .emoji {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .learning-card h3 {
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-      color: var(--neon-cyan);
-    }
-
-    .learning-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .learning-card .status {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.3rem 0.8rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      border-radius: 20px;
-      background: rgba(57, 255, 20, 0.15);
-      color: var(--neon-green);
-      border: 1px solid var(--neon-green);
-    }
-
-    .learning-card .status.wip {
-      background: rgba(255, 149, 0, 0.15);
-      color: #ff9500;
-      border-color: #ff9500;
-    }
-
-    .learning-card .status.soon {
-      background: rgba(185, 103, 255, 0.15);
-      color: var(--neon-purple);
-      border-color: var(--neon-purple);
-    }
-
-    /* Mini Game */
-    .game-section {
-      margin-top: 6rem;
-    }
-
-    .game-section h2 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem;
-      color: var(--neon-purple);
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .game-section h2::before {
-      content: '🎮';
-    }
-
-    .game-container {
-      background: var(--bg-card);
-      border: 1px solid var(--border-glow);
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .game-description {
-      color: var(--text-muted);
-      margin-bottom: 1.5rem;
       line-height: 1.6;
     }
 
-    .hack-game {
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    .nav {
+      padding: 0.85rem 1rem;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 1.5rem;
+      justify-content: space-between;
+      margin-bottom: 2rem;
     }
 
-    .hack-display {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 2rem;
-      letter-spacing: 0.5rem;
-      color: var(--neon-green);
-      padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--neon-green);
-      border-radius: 8px;
-      min-width: 300px;
-    }
+    .brand { font-weight: 800; letter-spacing: 0.03em; }
 
-    .hack-input {
+    .nav-links {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.65rem;
       flex-wrap: wrap;
-      justify-content: center;
     }
 
-    .hack-input input {
-      width: 50px;
-      height: 50px;
-      text-align: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 1.5rem;
-      background: rgba(0, 0, 0, 0.5);
-      border: 2px solid var(--border-glow);
-      border-radius: 8px;
-      color: var(--text-primary);
-      outline: none;
-      text-transform: uppercase;
-      transition: all 0.3s;
-    }
-
-    .hack-input input:focus {
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 20px rgba(0, 255, 242, 0.3);
-    }
-
-    .hack-input input.correct {
-      border-color: var(--neon-green);
-      background: rgba(57, 255, 20, 0.2);
-    }
-
-    .hack-input input.wrong {
-      border-color: #ff5f56;
-      background: rgba(255, 95, 86, 0.2);
-    }
-
-    .game-controls {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .game-btn {
-      padding: 0.8rem 2rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-transform: uppercase;
-    }
-
-    .game-btn.primary {
-      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
-      color: var(--bg-dark);
-    }
-
-    .game-btn.secondary {
-      background: transparent;
-      border: 1px solid var(--neon-cyan);
-      color: var(--neon-cyan);
-    }
-
-    .game-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(0, 255, 242, 0.3);
-    }
-
-    .game-stats {
-      display: flex;
-      gap: 2rem;
-      justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
-      color: var(--text-muted);
-    }
-
-    .game-stats span {
-      color: var(--neon-cyan);
-    }
-
-    /* Footer */
-    .footer {
-      margin-top: 6rem;
-      padding: 3rem 0;
-      text-align: center;
-      border-top: 1px solid var(--border-glow);
-    }
-
-    .footer-text {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .footer-text a {
-      color: var(--neon-cyan);
+    .btn, .btn-outline {
       text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .footer-text a:hover {
-      color: var(--neon-pink);
-    }
-
-    /* Scroll indicator */
-    .scroll-indicator {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      animation: bounce 2s infinite;
+      justify-content: center;
+      transition: transform 0.2s ease, background 0.2s ease;
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(10px); }
+    .btn {
+      color: #071328;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
     }
 
-    .scroll-indicator .arrow {
-      font-size: 1.5rem;
-      color: var(--neon-cyan);
+    .btn-outline {
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: var(--glass);
     }
 
-    /* Glitch Effect */
-    .glitch {
-      animation: glitch 0.3s ease;
+    .btn:hover, .btn-outline:hover { transform: translateY(-1px); }
+
+    .hero {
+      padding: clamp(2rem, 6vw, 4rem);
+      margin-bottom: 1.4rem;
     }
 
-    @keyframes glitch {
-      0% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(-2px, -2px); }
-      60% { transform: translate(2px, 2px); }
-      80% { transform: translate(2px, -2px); }
-      100% { transform: translate(0); }
+    .hero h1 {
+      font-size: clamp(2rem, 5.8vw, 3.8rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
+    .hero p {
+      color: var(--muted);
+      max-width: 740px;
+      margin-bottom: 1.6rem;
+      font-size: clamp(1rem, 2.8vw, 1.18rem);
     }
 
-    ::-webkit-scrollbar-track {
-      background: var(--bg-dark);
+    .hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
     }
 
-    ::-webkit-scrollbar-thumb {
-      background: var(--neon-cyan);
-      border-radius: 4px;
+    .card {
+      padding: 1.15rem;
     }
 
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--neon-pink);
+    .card h2, .card h3 {
+      font-size: 1.02rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .kicker {
+      display: inline-block;
+      margin-bottom: 0.65rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-2);
+      font-weight: 700;
+    }
+
+    footer {
+      margin-top: 1.8rem;
+      padding: 1rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
-  <!-- Matrix Rain Background -->
-  <canvas id="matrix-canvas"></canvas>
-  
-  <!-- Cursor Trail -->
-  <div class="cursor-trail" id="cursor-trail"></div>
+  <div class="container">
+    <header class="nav glass">
+      <div class="brand">TreXito</div>
+      <nav class="nav-links">
+        <a class="btn-outline" href="https://github.com/trexito" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="btn" href="/frikadellen-baf.html">frikadellen-baf</a>
+      </nav>
+    </header>
 
-  <div class="main-container">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <div class="avatar-container">
-          <div class="avatar-ring">
-            <img 
-              src="https://cdn.discordapp.com/avatars/589153757346922497/6f6225709a4c88ae70968c4ebd8b0c0f.webp?size=512" 
-              alt="TreXito Avatar" 
-              class="avatar"
-              id="avatar"
-            >
-          </div>
-        </div>
-        
-        <div class="info-section">
-          <h1 id="title">TreXito</h1>
-          <p class="tagline"><span>20</span> • Currently ScriptKiddie, <span class="future">future DevOps</span></p>
-          <p class="bio-line">Open Source everything. Automate everything. Break everything.</p>
-          
-          <div class="links-grid">
-            <a href="https://discord.com/users/peenarweenar" target="_blank" class="link-card discord">
-              <span class="icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
-                </svg>
-              </span>
-              <div class="link-info">
-                <h3>Discord</h3>
-                <p>peenarweenar</p>
-              </div>
-            </a>
-            
-            <a href="https://github.com/trexito" target="_blank" class="link-card github">
-              <span class="icon">
-                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                </svg>
-              </span>
-              <div class="link-info">
-                <h3>GitHub</h3>
-                <p>@trexito</p>
-              </div>
-            </a>
-            
-            <a href="https://www.linode.com/lp/refer/?r=434c0fe68b0def534e2e5e9198f9d75b08159988" target="_blank" class="link-card linode">
-              <span class="icon">
-                <img src="linode-logo.png" alt="Linode" style="width: 28px; height: 28px; object-fit: contain;">
-              </span>
-              <div class="link-info">
-                <h3>Linode</h3>
-                <p>Chicago VPS for AH</p>
-              </div>
-            </a>
-            
-            <a href="https://www.hetzner.com" target="_blank" class="link-card hetzner">
-              <span class="icon">
-                <img src="hetzner-logo.png" alt="Hetzner" style="width: 28px; height: 28px; object-fit: contain; border-radius: 50%;">
-              </span>
-              <div class="link-info">
-                <h3>Hetzner</h3>
-                <p>VPS Elsewhere</p>
-              </div>
-            </a>
-            
-            <a href="https://sky.coflnet.com/flipper?refId=9KKPN9" target="_blank" class="link-card coflnet">
-              <span class="icon">
-                <img src="coflnet-logo.png" alt="Coflnet" style="width: 28px; height: 28px; object-fit: contain;">
-              </span>
-              <div class="link-info">
-                <h3>Coflnet</h3>
-                <p>Skyblock Flipping Tool</p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-      
-      <div class="scroll-indicator">
-        <span>Explore</span>
-        <span class="arrow">↓</span>
-      </div>
-    </section>
-
-    <!-- Interactive Terminal -->
-    <section class="terminal-section">
-      <h2>Interactive Terminal</h2>
-      <div class="terminal">
-        <div class="terminal-header">
-          <span class="terminal-dot red"></span>
-          <span class="terminal-dot yellow"></span>
-          <span class="terminal-dot green"></span>
-          <span class="terminal-title">trexito@server ~ bash</span>
-        </div>
-        <div class="terminal-body">
-          <div class="terminal-output" id="terminal-output">
-            <div class="terminal-line output info">Welcome to TreXito's terminal! Type 'help' for available commands.</div>
-          </div>
-          <div class="terminal-input-line">
-            <input type="text" id="terminal-input" placeholder="Type a command...">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats-section">
-      <h2>Dashboard Stats</h2>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-value" id="stat-monster">0</div>
-          <div class="stat-label">Cans of Monster</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value" id="stat-projects">0</div>
-          <div class="stat-label">Side Projects</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value text-stat" id="stat-bugs">idk</div>
-          <div class="stat-label">Bugs Fixed</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Currently Learning Section -->
-    <section class="learning-section">
-      <h2>What I'm Up To</h2>
-      <div class="learning-grid">
-        <div class="learning-card">
-          <div class="emoji">🐧</div>
-          <h3>Linux & Servers</h3>
-          <p>Messing around with VPS setups, breaking things, and occasionally fixing them.</p>
-          <span class="status">Learning</span>
-        </div>
-        <div class="learning-card">
-          <div class="emoji">🐍</div>
-          <h3>Python Scripting</h3>
-          <p>Automating stuff that probably doesn't need to be automated. But it's fun.</p>
-          <span class="status wip">Work in Progress</span>
-        </div>
-        <div class="learning-card">
-          <div class="emoji">🔒</div>
-          <h3>Cybersecurity</h3>
-          <p>Currently at the "watching YouTube tutorials" stage. We all start somewhere.</p>
-          <span class="status soon">Soon™</span>
-        </div>
-        <div class="learning-card">
-          <div class="emoji">☁️</div>
-          <h3>Cloud Stuff</h3>
-          <p>Spinning up VMs, paying for things I forget to turn off. The usual.</p>
-          <span class="status wip">Work in Progress</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Mini Game -->
-    <section class="game-section">
-      <h2>Hack the System</h2>
-      <div class="game-container">
-        <p class="game-description">
-          Crack the code before time runs out! Match the sequence to prove your hacking skills.
-        </p>
-        <div class="hack-game">
-          <div class="hack-display" id="hack-display">_ _ _ _ _</div>
-          <div class="hack-input" id="hack-input">
-            <!-- Input fields generated by JS -->
-          </div>
-          <div class="game-stats">
-            <div>Time: <span id="game-time">30</span>s</div>
-            <div>Score: <span id="game-score">0</span></div>
-            <div>Level: <span id="game-level">1</span></div>
-          </div>
-          <div class="game-controls">
-            <button class="game-btn primary" id="start-game">Start Hack</button>
-            <button class="game-btn secondary" id="reset-game">Reset</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <p class="footer-text">
-        © 2026 TreXito • Built with <span style="color: var(--neon-pink);">♥</span> and too much Monster
-        <br><br>
-        <a href="https://discord.com/users/peenarweenar">Discord</a> • 
-        <a href="https://github.com/trexito">GitHub</a>
+    <section class="hero glass">
+      <span class="kicker">Automation • Infrastructure • Open Source</span>
+      <h1>Glassy, enterprise-ready digital presence for TreXito.</h1>
+      <p>
+        I build and run practical automation systems with a focus on reliability, observability, and smooth deployment.
+        This portfolio now includes a dedicated product page for <strong>frikadellen-baf</strong> with feature overview,
+        GitHub access, and managed hosting options.
       </p>
+      <div class="hero-cta">
+        <a class="btn" href="/frikadellen-baf.html">View frikadellen-baf</a>
+        <a class="btn-outline" href="https://github.com/TreXito/frikadellen-baf" target="_blank" rel="noopener noreferrer">Repository</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card glass">
+        <h2>Platform Engineering</h2>
+        <p>Cloud-hosted runtime setups, deployment pipelines, and operations playbooks tailored to small teams and solo builders.</p>
+      </article>
+      <article class="card glass">
+        <h2>Automation Delivery</h2>
+        <p>From scripts to production workflows: fast implementation with operational guardrails and clear ownership.</p>
+      </article>
+      <article class="card glass">
+        <h2>Security-Aware Operations</h2>
+        <p>Defensive defaults, transparent configs, and logging-first approach to keep systems maintainable.</p>
+      </article>
+    </section>
+
+    <section class="grid">
+      <article class="card glass">
+        <span class="kicker">Featured Product</span>
+        <h3>trexito/frikadellen-baf</h3>
+        <p>A dedicated landing page is now available with macro capabilities, setup flow, and managed hosting service tiers.</p>
+        <a class="btn" href="/frikadellen-baf.html">Open product site</a>
+      </article>
+      <article class="card glass">
+        <span class="kicker">Contact</span>
+        <h3>Work with TreXito</h3>
+        <p>For custom automation and hosting inquiries, open an issue or reach out directly on GitHub.</p>
+        <a class="btn-outline" href="https://github.com/trexito" target="_blank" rel="noopener noreferrer">Contact via GitHub</a>
+      </article>
+    </section>
+
+    <footer class="glass">
+      © <span id="year"></span> TreXito · Built with an enterprise glass design language.
     </footer>
   </div>
 
   <script>
-    // ============================================
-    // MATRIX RAIN EFFECT
-    // ============================================
-    const canvas = document.getElementById('matrix-canvas');
-    const ctx = canvas.getContext('2d');
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const fontSize = 14;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = Array(columns).fill(1);
-
-    function drawMatrix() {
-      ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.fillStyle = '#00fff2';
-      ctx.font = `${fontSize}px monospace`;
-      
-      for (let i = 0; i < drops.length; i++) {
-        const char = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-        
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0;
-        }
-        drops[i]++;
-      }
-    }
-
-    setInterval(drawMatrix, 50);
-
-    // ============================================
-    // CURSOR TRAIL
-    // ============================================
-    const trail = document.getElementById('cursor-trail');
-    let mouseX = 0, mouseY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      trail.style.left = mouseX + 'px';
-      trail.style.top = mouseY + 'px';
-      trail.style.opacity = '1';
-    });
-
-    document.addEventListener('mouseleave', () => {
-      trail.style.opacity = '0';
-    });
-
-    // ============================================
-    // TYPEWRITER EFFECT FOR TITLE
-    // ============================================
-    const titleEl = document.getElementById('title');
-    const titleText = 'TreXito';
-    let charIndex = 0;
-    titleEl.textContent = '';
-
-    function typeWriter() {
-      if (charIndex < titleText.length) {
-        titleEl.textContent = titleText.slice(0, charIndex + 1);
-        charIndex++;
-        setTimeout(typeWriter, 150);
-      }
-    }
-
-    setTimeout(typeWriter, 500);
-
-    // ============================================
-    // INTERACTIVE TERMINAL
-    // ============================================
-    const terminalInput = document.getElementById('terminal-input');
-    const terminalOutput = document.getElementById('terminal-output');
-
-    const commands = {
-      help: () => `
-<span style="color: var(--neon-cyan);">Available commands:</span>
-  help     - Show this help message
-  about    - Learn about TreXito
-  skills   - What I'm learning
-  contact  - Get contact info
-  clear    - Clear terminal
-  matrix   - Toggle matrix rain
-  hack     - Start hacking minigame
-  monster  - 🥫
-  sudo     - Nice try ;)
-  date     - Current date/time
-  whoami   - Who are you?
-  neofetch - System info`,
-      
-      about: () => `
-<span style="color: var(--neon-pink);">╔══════════════════════════════════════╗
-║           About TreXito              ║
-╚══════════════════════════════════════╝</span>
-  Age: 20
-  Status: Currently ScriptKiddie
-  Goal: Future DevOps & Cybersecurity
-  Motto: Break everything, learn from it
-  
-  Open Source everything. Automate everything.`,
-      
-      skills: () => `
-<span style="color: var(--neon-green);">Currently Learning:</span>
-  ▸ Linux (breaking VPS daily)
-  ▸ Python (automation addiction)
-  ▸ Cloud stuff (VMs go brrr)
-  ▸ Cybersecurity (YouTube university)
-  
-<span style="color: var(--text-muted);">Skill level: ScriptKiddie (for now)</span>`,
-      
-      contact: () => `
-<span style="color: var(--neon-purple);">Contact Information:</span>
-  Discord: peenarweenar
-  GitHub:  github.com/trexito
-  
-  <span style="color: var(--text-muted);">DMs open!</span>`,
-      
-      clear: () => {
-        terminalOutput.innerHTML = '';
-        return null;
-      },
-      
-      matrix: () => {
-        const matrixCanvas = document.getElementById('matrix-canvas');
-        matrixCanvas.style.display = matrixCanvas.style.display === 'none' ? 'block' : 'none';
-        return `Matrix rain ${matrixCanvas.style.display === 'none' ? 'disabled' : 'enabled'}`;
-      },
-      
-      hack: () => {
-        document.getElementById('start-game').click();
-        return '<span style="color: var(--neon-green);">Initiating hack sequence... Scroll down!</span>';
-      },
-      
-      monster: () => '🥫 *cracks open a Monster* Time to code until 4am.',
-      
-      sudo: () => '<span style="color: #ff5f56;">Permission denied. Nice try though! 😏</span>',
-      
-      date: () => new Date().toLocaleString(),
-      
-      whoami: () => 'guest@trexito - Welcome to my digital chaos!',
-      
-      neofetch: () => `
-<span style="color: var(--neon-cyan);">
-   ████████╗██████╗ ███████╗██╗  ██╗
-   ╚══██╔══╝██╔══██╗██╔════╝╚██╗██╔╝
-      ██║   ██████╔╝█████╗   ╚███╔╝ 
-      ██║   ██╔══██╗██╔══╝   ██╔██╗ 
-      ██║   ██║  ██║███████╗██╔╝ ██╗
-      ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝</span>
-  <span style="color: var(--neon-pink);">OS:</span> TreXito OS v0.1-alpha
-  <span style="color: var(--neon-pink);">Host:</span> Some VPS somewhere
-  <span style="color: var(--neon-pink);">Kernel:</span> Monster-Powered
-  <span style="color: var(--neon-pink);">Shell:</span> bash (I think)
-  <span style="color: var(--neon-pink);">CPU:</span> Brain @ 1.2GHz (needs Monster)
-  <span style="color: var(--neon-pink);">Status:</span> ScriptKiddie (upgrading soon)`
-    };
-
-    function addTerminalLine(content, type = 'output') {
-      const line = document.createElement('div');
-      line.className = `terminal-line ${type}`;
-      line.innerHTML = content;
-      terminalOutput.appendChild(line);
-      terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    }
-
-    terminalInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const cmd = terminalInput.value.trim().toLowerCase();
-        
-        if (cmd) {
-          addTerminalLine(cmd, 'input');
-          
-          if (commands[cmd]) {
-            const result = commands[cmd]();
-            if (result) {
-              addTerminalLine(result, 'output');
-            }
-          } else {
-            addTerminalLine(`Command not found: ${cmd}. Type 'help' for available commands.`, 'output error');
-          }
-        }
-        
-        terminalInput.value = '';
-      }
-    });
-
-    // ============================================
-    // ANIMATED STATS
-    // ============================================
-    function animateValue(element, end, duration) {
-      let start = 0;
-      const increment = end / (duration / 16);
-      
-      function update() {
-        start += increment;
-        if (start < end) {
-          element.textContent = Math.floor(start);
-          requestAnimationFrame(update);
-        } else {
-          element.textContent = end;
-        }
-      }
-      update();
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateValue(document.getElementById('stat-monster'), 420, 2000);
-          animateValue(document.getElementById('stat-projects'), 7, 1500);
-          // bugs fixed stays as "idk"
-          observer.disconnect();
-        }
-      });
-    });
-
-    observer.observe(document.querySelector('.stats-section'));
-
-    // ============================================
-    // LEARNING CARDS ANIMATION
-    // ============================================
-    const learningObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const cards = entry.target.querySelectorAll('.learning-card');
-          cards.forEach((card, i) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            setTimeout(() => {
-              card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
-            }, i * 150);
-          });
-          learningObserver.disconnect();
-        }
-      });
-    });
-
-    learningObserver.observe(document.querySelector('.learning-section'));
-
-    // ============================================
-    // HACKING MINI GAME
-    // ============================================
-    let gameActive = false;
-    let currentCode = '';
-    let gameTimer = null;
-    let timeLeft = 30;
-    let score = 0;
-    let level = 1;
-
-    const hackDisplay = document.getElementById('hack-display');
-    const hackInput = document.getElementById('hack-input');
-    const gameTime = document.getElementById('game-time');
-    const gameScore = document.getElementById('game-score');
-    const gameLevel = document.getElementById('game-level');
-    const startBtn = document.getElementById('start-game');
-    const resetBtn = document.getElementById('reset-game');
-
-    function generateCode(length) {
-      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-      let code = '';
-      for (let i = 0; i < length; i++) {
-        code += chars[Math.floor(Math.random() * chars.length)];
-      }
-      return code;
-    }
-
-    function createInputFields(length) {
-      hackInput.innerHTML = '';
-      for (let i = 0; i < length; i++) {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.maxLength = 1;
-        input.dataset.index = i;
-        
-        input.addEventListener('input', (e) => {
-          const val = e.target.value.toUpperCase();
-          e.target.value = val;
-          
-          if (val === currentCode[i]) {
-            e.target.classList.add('correct');
-            e.target.classList.remove('wrong');
-            
-            // Move to next input
-            const next = hackInput.querySelector(`input[data-index="${i + 1}"]`);
-            if (next) next.focus();
-            
-            // Check if all correct
-            checkWin();
-          } else if (val) {
-            e.target.classList.add('wrong');
-            e.target.classList.remove('correct');
-          }
-        });
-        
-        input.addEventListener('keydown', (e) => {
-          if (e.key === 'Backspace' && !e.target.value) {
-            const prev = hackInput.querySelector(`input[data-index="${i - 1}"]`);
-            if (prev) prev.focus();
-          }
-        });
-        
-        hackInput.appendChild(input);
-      }
-    }
-
-    function checkWin() {
-      const inputs = hackInput.querySelectorAll('input');
-      let allCorrect = true;
-      
-      inputs.forEach((input, i) => {
-        if (input.value.toUpperCase() !== currentCode[i]) {
-          allCorrect = false;
-        }
-      });
-      
-      if (allCorrect) {
-        score += level * 100 + timeLeft * 10;
-        level++;
-        gameScore.textContent = score;
-        gameLevel.textContent = level;
-        
-        // Flash effect
-        hackDisplay.style.color = 'var(--neon-green)';
-        setTimeout(() => {
-          hackDisplay.style.color = '';
-          startNewRound();
-        }, 500);
-      }
-    }
-
-    function startNewRound() {
-      const codeLength = Math.min(4 + level, 8);
-      currentCode = generateCode(codeLength);
-      hackDisplay.textContent = currentCode.split('').join(' ');
-      createInputFields(codeLength);
-      
-      // Show code briefly then hide
-      setTimeout(() => {
-        hackDisplay.textContent = currentCode.split('').map(() => '_').join(' ');
-        hackInput.querySelector('input').focus();
-      }, 2000 - (level * 100));
-    }
-
-    function startGame() {
-      if (gameActive) return;
-      
-      gameActive = true;
-      score = 0;
-      level = 1;
-      timeLeft = 30;
-      
-      gameScore.textContent = score;
-      gameLevel.textContent = level;
-      gameTime.textContent = timeLeft;
-      
-      startBtn.textContent = 'Hacking...';
-      startBtn.disabled = true;
-      
-      startNewRound();
-      
-      gameTimer = setInterval(() => {
-        timeLeft--;
-        gameTime.textContent = timeLeft;
-        
-        if (timeLeft <= 0) {
-          endGame();
-        }
-      }, 1000);
-    }
-
-    function endGame() {
-      gameActive = false;
-      clearInterval(gameTimer);
-      
-      hackDisplay.textContent = `GAME OVER`;
-      hackDisplay.style.color = '#ff5f56';
-      hackInput.innerHTML = `<p style="color: var(--text-muted);">Final Score: ${score} | Level: ${level}</p>`;
-      
-      startBtn.textContent = 'Play Again';
-      startBtn.disabled = false;
-      
-      setTimeout(() => {
-        hackDisplay.style.color = '';
-      }, 2000);
-    }
-
-    function resetGame() {
-      gameActive = false;
-      clearInterval(gameTimer);
-      
-      score = 0;
-      level = 1;
-      timeLeft = 30;
-      
-      gameScore.textContent = score;
-      gameLevel.textContent = level;
-      gameTime.textContent = timeLeft;
-      
-      hackDisplay.textContent = '_ _ _ _ _';
-      hackDisplay.style.color = '';
-      hackInput.innerHTML = '';
-      
-      startBtn.textContent = 'Start Hack';
-      startBtn.disabled = false;
-    }
-
-    startBtn.addEventListener('click', startGame);
-    resetBtn.addEventListener('click', resetGame);
-
-    // ============================================
-    // AVATAR GLITCH ON HOVER
-    // ============================================
-    const avatar = document.getElementById('avatar');
-    
-    avatar.addEventListener('mouseenter', () => {
-      avatar.classList.add('glitch');
-    });
-    
-    avatar.addEventListener('animationend', () => {
-      avatar.classList.remove('glitch');
-    });
-
-    // ============================================
-    // SCROLL REVEAL ANIMATION
-    // ============================================
-    const revealElements = document.querySelectorAll('section');
-    
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, { threshold: 0.1 });
-
-    revealElements.forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(30px)';
-      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      revealObserver.observe(el);
-    });
-
-    // Make hero visible immediately
-    document.querySelector('.hero').style.opacity = '1';
-    document.querySelector('.hero').style.transform = 'translateY(0)';
+    document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
