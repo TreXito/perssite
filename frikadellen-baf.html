@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>frikadellen-baf | Enterprise Macro Platform</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --bg-2: #0f1729;
+      --glass: rgba(255, 255, 255, 0.07);
+      --line: rgba(255, 255, 255, 0.18);
+      --text: #e8eefc;
+      --muted: #a5b3d2;
+      --accent: #6da8ff;
+      --accent-2: #6ce5d8;
+      --warn: #ffd074;
+      --danger: #ff8f8f;
+      --ok: #93ffce;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 10%, #264ea755, transparent 38%),
+        radial-gradient(circle at 85% 15%, #31b8a533, transparent 35%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 65%, #0b1223 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+    }
+
+    .nav {
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .brand { font-weight: 800; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 0.65rem; flex-wrap: wrap; }
+
+    .btn, .btn-outline {
+      text-decoration: none;
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .btn { color: #071328; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+    .btn-outline { color: var(--text); border: 1px solid var(--line); background: var(--glass); }
+    .btn:hover, .btn-outline:hover { transform: translateY(-1px); }
+
+    .hero { padding: clamp(2rem, 6vw, 3.3rem); margin-bottom: 1rem; }
+
+    .kicker {
+      display: inline-block;
+      margin-bottom: 0.65rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-2);
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5.6vw, 3.5rem);
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      color: var(--muted);
+      max-width: 820px;
+      margin-bottom: 1.2rem;
+      font-size: clamp(1rem, 2.7vw, 1.12rem);
+    }
+
+    .notice {
+      margin-top: 0.9rem;
+      border-radius: 12px;
+      padding: 0.65rem 0.8rem;
+      border: 1px solid rgba(255, 208, 116, 0.35);
+      background: rgba(255, 208, 116, 0.08);
+      color: var(--warn);
+      font-size: 0.9rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .card { padding: 1.1rem; }
+    .card h2, .card h3 { font-size: 1.03rem; margin-bottom: 0.45rem; }
+    .card p { color: var(--muted); font-size: 0.95rem; }
+
+    .feature-list {
+      margin-left: 1.1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .feature-list li { margin-bottom: 0.4rem; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      padding: 0.32rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-top: 0.6rem;
+    }
+
+    .pill.ok { color: var(--ok); border: 1px solid rgba(147, 255, 206, 0.4); background: rgba(147, 255, 206, 0.09); }
+    .pill.danger { color: var(--danger); border: 1px solid rgba(255, 143, 143, 0.4); background: rgba(255, 143, 143, 0.09); }
+
+    footer {
+      margin-top: 1.4rem;
+      padding: 1rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="nav glass">
+      <div class="brand">frikadellen-baf</div>
+      <nav class="nav-links">
+        <a class="btn-outline" href="index.html">Back to main site</a>
+        <a class="btn-outline" href="https://github.com/TreXito/frikadellen-baf" target="_blank" rel="noopener noreferrer">GitHub repository</a>
+        <a class="btn" href="#hosting">Get hosting</a>
+      </nav>
+    </header>
+
+    <section class="hero glass">
+      <span class="kicker">TreXito Product Site</span>
+      <h1>Enterprise-grade landing page for trexito/frikadellen-baf.</h1>
+      <p class="lead">
+        BAF (Bazaar Auction Flipper) is a headless automation client for Hypixel Skyblock with configurable workflows,
+        cross-platform builds, and operator-focused diagnostics. This page highlights macro capabilities and managed hosting options.
+      </p>
+      <a class="btn" href="https://github.com/TreXito/frikadellen-baf" target="_blank" rel="noopener noreferrer">Open source on GitHub</a>
+      <p class="notice">
+        Use at your own risk: according to the project documentation, this can violate Hypixel Terms of Service and may lead to bans.
+      </p>
+    </section>
+
+    <section class="grid">
+      <article class="card glass">
+        <h2>Macro features</h2>
+        <ul class="feature-list">
+          <li>Automatic buy/sell flipping flow with account authentication and island routing.</li>
+          <li>Skip-confirmation controls based on profit, finder source, skins, and price thresholds.</li>
+          <li>Automatic account switching with timed rotation across multiple usernames.</li>
+          <li>SOCKS5 proxy support with optional username/password authentication.</li>
+        </ul>
+      </article>
+
+      <article class="card glass">
+        <h2>Operations & observability</h2>
+        <ul class="feature-list">
+          <li>Webhook notifications for init, purchasing, selling, and relisting events.</li>
+          <li>Bazaar flip debugging logs for message parsing, GUI state, and action traces.</li>
+          <li>Config-driven startup via <code>config.toml</code> with runtime persistence.</li>
+          <li>Release pipeline provides pre-built executables for Windows, Linux, and macOS.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="grid" id="hosting">
+      <article class="card glass">
+        <h3>Managed hosting service (offering)</h3>
+        <p>
+          Fully managed frikadellen-baf hosting by TreXito: secure runtime provisioning, update rollouts,
+          restart automation, and log retention with controlled access.
+        </p>
+        <span class="pill ok">Includes health checks & uptime monitoring</span>
+      </article>
+
+      <article class="card glass">
+        <h3>Suggested service tiers</h3>
+        <ul class="feature-list">
+          <li><strong>Starter:</strong> Single instance, basic updates, daily status reports.</li>
+          <li><strong>Scale:</strong> Multi-account rotation support, proactive monitoring, priority updates.</li>
+          <li><strong>Custom:</strong> Dedicated infrastructure, tailored rollout windows, advanced alerting.</li>
+        </ul>
+        <span class="pill danger">Client remains responsible for third-party Terms of Service compliance</span>
+      </article>
+    </section>
+
+    <footer class="glass">
+      © <span id="year"></span> TreXito · frikadellen-baf product page
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
