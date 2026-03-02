@@ -29,7 +29,23 @@
         linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 65%, #0b1223 100%);
       min-height: 100vh;
       line-height: 1.6;
+      overflow-x: hidden;
     }
+
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      width: 34rem;
+      height: 34rem;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.18;
+      z-index: -1;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+
+    body::before { background: #6da8ff; top: -10rem; left: -8rem; }
+    body::after { background: #6ce5d8; right: -10rem; bottom: -12rem; animation-delay: 2s; }
 
     .container {
       max-width: 1120px;
@@ -44,6 +60,8 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       box-shadow: var(--shadow);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      animation: rise-in 0.8s ease both;
     }
 
     .nav {
@@ -89,6 +107,12 @@
       transform: translateY(-2px);
       box-shadow: 0 10px 30px rgba(109, 168, 255, 0.28);
       border-color: rgba(108, 229, 216, 0.6);
+    }
+
+    .glass:hover {
+      transform: translateY(-2px);
+      border-color: rgba(108, 229, 216, 0.32);
+      box-shadow: 0 26px 75px rgba(0, 0, 0, 0.52);
     }
 
     .hero {
@@ -161,6 +185,23 @@
     .news {
       margin-top: 1rem;
       padding: 1rem;
+    }
+
+    .container > :nth-child(2) { animation-delay: 0.08s; }
+    .container > :nth-child(3) { animation-delay: 0.16s; }
+    .container > :nth-child(4) { animation-delay: 0.24s; }
+    .container > :nth-child(5) { animation-delay: 0.32s; }
+    .container > :nth-child(6) { animation-delay: 0.4s; }
+    .container > :nth-child(7) { animation-delay: 0.48s; }
+
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(12px) scale(0.99); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes drift {
+      from { transform: translate3d(0, 0, 0); }
+      to { transform: translate3d(32px, -24px, 0); }
     }
   </style>
 </head>
@@ -238,7 +279,7 @@
     </section>
 
     <footer class="glass">
-      © <span id="year"></span> TreXito · Built with an enterprise glass design language.
+      © <span id="year"></span> TreXito · Built for reliable automation workflows.
     </footer>
   </div>
 
