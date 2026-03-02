@@ -127,9 +127,9 @@
       margin-top: 0.9rem;
       border-radius: 12px;
       padding: 0.65rem 0.8rem;
-      border: 1px solid rgba(255, 208, 116, 0.35);
-      background: rgba(255, 208, 116, 0.08);
-      color: var(--warn);
+      border: 1px solid rgba(255, 143, 143, 0.4);
+      background: rgba(255, 143, 143, 0.09);
+      color: var(--danger);
       font-size: 0.9rem;
     }
 
@@ -202,25 +202,14 @@
 </head>
 <body>
   <div class="container">
-    <header class="nav glass">
-      <div class="brand">frikadellen-baf</div>
-      <nav class="nav-links">
-        <a class="btn-outline" href="index.html">Back to main site</a>
-        <a class="btn-outline" href="https://github.com/TreXito/frikadellen-baf" target="_blank" rel="noopener noreferrer">GitHub repository</a>
-        <a class="btn" href="#details">Project details</a>
-      </nav>
-    </header>
-
     <section class="hero glass">
-      <span class="kicker">TreXito Product Site</span>
-      <h1>TreXito/frikadellen-baf feature overview.</h1>
+      <h1>Frikadellen BAF</h1>
       <p class="lead">
-        BAF (Bazaar Auction Flipper) is a headless (no UI) automation client for Hypixel Skyblock.
-        This page lists documented project features from the repository README.
+        BAF (Bazaar Auction Flipper) is a headless macro client for Hypixel Skyblock.
       </p>
-      <a class="btn" href="https://github.com/TreXito/frikadellen-baf" target="_blank" rel="noopener noreferrer">Open source on GitHub</a>
+      <a class="btn" href="https://github.com/TreXito/frikadellen-baf121" target="_blank" rel="noopener noreferrer">GitHub</a>
       <p class="notice">
-        Use at your own risk: according to the project documentation, this can violate Hypixel Terms of Service and may lead to bans.
+        Use at your own risk: the macro violates Hypixels TOS and can get you banned
       </p>
     </section>
 
@@ -246,34 +235,9 @@
       </article>
     </section>
 
-    <section class="grid" id="details">
-      <article class="card glass">
-        <h3>Requirements (from README)</h3>
-        <p>
-          Requires an active Booster Cookie to purchase auctions outside hub, enough coins in purse (not bank),
-          inventory space for purchased flips, and a paid plan from sky.coflnet.com.
-        </p>
-        <span class="pill ok">System requirements listed: any OS, 500MB RAM, 1 CPU core, stable ping</span>
-      </article>
-
-      <article class="card glass">
-        <h3>Builds & start scripts</h3>
-        <ul class="feature-list">
-          <li>Releases include executables for Windows, Linux, and macOS.</li>
-          <li>Windows start script (<code>BAF.ps1</code>) downloads/updates the newest version.</li>
-          <li>Source usage is documented with <code>npm install</code> and <code>npm run start</code>.</li>
-        </ul>
-        <span class="pill danger">Usage remains against Hypixel ToS according to the project README</span>
-      </article>
-    </section>
-
     <footer class="glass">
-      © <span id="year"></span> TreXito · frikadellen-baf product page
+      © 2026 TreXito
     </footer>
   </div>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>

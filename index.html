@@ -217,14 +217,6 @@
 </head>
 <body>
   <div class="container">
-    <header class="nav glass">
-      <div class="brand">TreXito</div>
-      <nav class="nav-links">
-        <a class="btn-outline" href="https://github.com/trexito" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="btn" href="frikadellen-baf.html">frikadellen-baf</a>
-      </nav>
-    </header>
-
     <section class="hero glass">
       <span class="kicker">Automation • Infrastructure • Open Source</span>
       <h1>Production-ready home base for TreXito.</h1>
@@ -233,8 +225,7 @@
         observability, and smooth deployment.
       </p>
       <div class="hero-cta">
-        <a class="btn" href="frikadellen-baf.html">View frikadellen-baf page</a>
-        <a class="btn-outline" href="https://github.com/TreXito/frikadellen-baf" target="_blank" rel="noopener noreferrer">Repository</a>
+        <a class="btn" href="https://tpm.auction" target="_blank" rel="noopener noreferrer">Frikadellen BAF</a>
       </div>
     </section>
 
@@ -255,12 +246,6 @@
 
     <section class="grid">
       <article class="card glass">
-        <span class="kicker">Featured Product</span>
-        <h3>trexito/frikadellen-baf</h3>
-        <p>A dedicated landing page is now available with macro capabilities, setup flow, and managed hosting service tiers.</p>
-        <a class="btn" id="frikadellen-link" href="https://frikadellen.baf" target="_blank" rel="noopener noreferrer">Open frikadellen.baf</a>
-      </article>
-      <article class="card glass">
         <span class="kicker">Links</span>
         <h3>TreXito Platform Stack</h3>
         <p>Useful links for projects, infrastructure, and community updates.</p>
@@ -279,17 +264,8 @@
       <p id="news-message">No news currently.</p>
     </section>
 
-    <section class="grid">
-      <article class="card glass">
-        <span class="kicker">Quick Profile</span>
-        <h3>TreXito</h3>
-        <p>Age: 20 · Focus: automation, infrastructure, and reliable operations.</p>
-        <a class="btn-outline" href="https://github.com/trexito" target="_blank" rel="noopener noreferrer">Contact via GitHub</a>
-      </article>
-    </section>
-
     <footer class="glass">
-      © <span id="year"></span> TreXito · Built for reliable automation workflows.
+      © 2026 TreXito
     </footer>
   </div>
 
@@ -300,16 +276,12 @@
     const LINODE_URL = 'https://www.linode.com/';
     const COFLNET_URL = 'https://coflnet.com/';
     const DISCORD_URL = 'https://discord.com/';
-    const FRIKADELLEN_BAF_URL = 'https://frikadellen.baf';
-
-    document.getElementById('year').textContent = new Date().getFullYear();
     document.getElementById('news-message').textContent = DEFAULT_NEWS_MESSAGE;
     document.getElementById('github-link').href = GITHUB_URL;
     document.getElementById('hetzner-link').href = HETZNER_URL;
     document.getElementById('linode-link').href = LINODE_URL;
     document.getElementById('coflnet-link').href = COFLNET_URL;
     document.getElementById('discord-link').href = DISCORD_URL;
-    document.getElementById('frikadellen-link').href = FRIKADELLEN_BAF_URL;
   </script>
 </body>
 </html>
