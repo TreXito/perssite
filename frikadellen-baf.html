@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frikadellen BAF</title>
+  <title>frikadellen-baf | Documented Features</title>
   <style>
     :root {
       --bg: #070b14;
@@ -207,10 +207,32 @@
       <p class="lead">
         BAF (Bazaar Auction Flipper) is a headless macro client for Hypixel Skyblock.
       </p>
-      <p>(<a href="https://github.com/TreXito/frikadellen-baf121" target="_blank" rel="noopener noreferrer">GitHub</a>)</p>
+      <a class="btn" href="https://github.com/TreXito/frikadellen-baf121" target="_blank" rel="noopener noreferrer">GitHub</a>
       <p class="notice">
         Use at your own risk: the macro violates Hypixels TOS and can get you banned
       </p>
+    </section>
+
+    <section class="grid">
+      <article class="card glass">
+        <h2>Macro features</h2>
+        <ul class="feature-list">
+          <li>Authentication flow, then automated buy/sell flipping after joining Hypixel and teleporting to island.</li>
+          <li>Skip-confirmation controls in <code>config.toml</code> using profit, finder source, skins, and price thresholds.</li>
+          <li>Automatic account switching with timed rotation across configured usernames.</li>
+          <li>SOCKS5 proxy support including optional username/password authentication.</li>
+        </ul>
+      </article>
+
+      <article class="card glass">
+        <h2>Operations & observability</h2>
+        <ul class="feature-list">
+          <li>Webhook notifications for init, purchasing, selling, and relisting events.</li>
+          <li>Bazaar flip debugging logs for message parsing, GUI state, and action traces.</li>
+          <li>Config-driven startup via <code>config.toml</code> (username, skip config, proxy config, account switching, webhook URL).</li>
+          <li>Pre-built executables for Windows, Linux, and macOS in GitHub Releases.</li>
+        </ul>
+      </article>
     </section>
 
     <footer class="glass">
