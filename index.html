@@ -110,7 +110,7 @@
     }
 
     .glass:hover {
-      transform: translateY(-2px);
+      transform: translateY(-1px);
       border-color: rgba(108, 229, 216, 0.32);
       box-shadow: 0 26px 75px rgba(0, 0, 0, 0.52);
     }
@@ -202,6 +202,16 @@
     @keyframes drift {
       from { transform: translate3d(0, 0, 0); }
       to { transform: translate3d(32px, -24px, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::before, body::after, .glass {
+        animation: none !important;
+      }
+
+      .btn:hover, .btn-outline:hover, .glass:hover {
+        transform: none;
+      }
     }
   </style>
 </head>
