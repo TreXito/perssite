@@ -1,268 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TreXito | Automation & Infrastructure</title>
-  <style>
-    :root {
-      --bg: #070b14;
-      --bg-2: #0f1729;
-      --glass: rgba(255, 255, 255, 0.07);
-      --glass-strong: rgba(255, 255, 255, 0.12);
-      --line: rgba(255, 255, 255, 0.18);
-      --text: #e8eefc;
-      --muted: #a5b3d2;
-      --accent: #6da8ff;
-      --accent-2: #6ce5d8;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TreXito — Automation &amp; Infrastructure</title>
+<meta name="description" content="TreXito builds practical automation systems with a focus on reliability, observability, and smooth deployment. Creator of Frikadellen BAF.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://trexito.com">
+<meta property="og:title" content="TreXito — Automation &amp; Infrastructure">
+<meta property="og:description" content="Practical automation systems — reliable, observable, easy to deploy. Creator of Frikadellen BAF.">
+<meta name="theme-color" content="#0a0806">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23f5b942' stroke='%23b8841f' stroke-width='6'/><text x='50' y='70' font-size='52' text-anchor='middle' fill='%237a5410' font-family='monospace' font-weight='bold'>T</text></svg>">
+<style>
+*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+:root{
+    --bg:#0a0806; --panel:#14110b; --panel-2:#1b1710; --line:#2c2417; --line-soft:#1e1810;
+    --text:#e7e0cf; --dim:#a99c7e; --head:#fff8ea;
+    --gold:#f5b942; --gold-bright:#ffd470; --gold-champ:#ffe9b0; --gold-deep:#c9881f;
+    --gold-soft:rgba(245,185,66,.13); --gold-line:rgba(245,185,66,.28); --green:#46d98c;
+    --maxw:1080px; --r:16px; --r-sm:11px; --ease:.3s cubic-bezier(.22,.61,.36,1);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    --disp:'Space Grotesk','Inter',system-ui,sans-serif;
+    --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --gold-grad:linear-gradient(100deg,#ffe9b0,#ffd470 38%,#f5b942 66%,#d9961f);
+}
+html{ scroll-behavior:smooth; }
+body{
+    font-family:var(--body); color:var(--text); background:var(--bg); line-height:1.65; overflow-x:hidden; min-height:100vh;
+    background-image:
+        radial-gradient(1000px 600px at 84% -10%, rgba(245,185,66,.15), transparent 62%),
+        radial-gradient(760px 520px at -8% 6%, rgba(201,136,31,.10), transparent 60%),
+        radial-gradient(680px 680px at 50% 130%, rgba(245,185,66,.07), transparent 62%);
+    background-attachment:fixed;
+}
+a{ color:var(--gold-bright); text-decoration:none; transition:color var(--ease); }
+a:hover{ color:var(--gold-champ); }
+::selection{ background:var(--gold); color:#241700; }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+.gold{ background:var(--gold-grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+/* nav */
+nav{ position:sticky; top:0; z-index:50; backdrop-filter:blur(14px) saturate(150%); -webkit-backdrop-filter:blur(14px) saturate(150%);
+    background:rgba(10,8,6,.6); border-bottom:1px solid var(--line-soft); }
+.nav-in{ max-width:var(--maxw); margin:0 auto; padding:0 22px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+.brand{ font-family:var(--disp); font-weight:700; font-size:1.15rem; color:var(--head); display:inline-flex; gap:8px; align-items:center; }
+.brand .coin{ color:var(--gold); filter:drop-shadow(0 0 12px rgba(245,185,66,.6)); }
+.nav-links{ display:flex; gap:24px; align-items:center; list-style:none; }
+.nav-links a{ color:var(--dim); font-size:.92rem; font-weight:500; }
+.nav-links a:hover{ color:var(--head); }
+.nav-cta{ background:var(--gold-grad); color:#241700 !important; padding:8px 15px; border-radius:var(--r-sm); font-weight:700; box-shadow:0 8px 20px -8px rgba(245,185,66,.6); }
 
-    body {
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 12% 10%, #264ea755, transparent 38%),
-        radial-gradient(circle at 85% 15%, #31b8a533, transparent 35%),
-        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 65%, #0b1223 100%);
-      min-height: 100vh;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+/* buttons */
+.btn{ position:relative; display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:var(--r-sm);
+    font-family:var(--disp); font-weight:600; font-size:.96rem; cursor:pointer; border:1px solid transparent; overflow:hidden;
+    transition:transform var(--ease), box-shadow var(--ease), border-color var(--ease), color var(--ease), filter var(--ease); }
+.btn:hover{ transform:translateY(-2px); }
+.btn-primary{ background:var(--gold-grad); color:#241700; box-shadow:0 14px 32px -14px rgba(245,185,66,.8); }
+.btn-primary::after{ content:""; position:absolute; top:0; left:-120%; width:60%; height:100%; transform:skewX(-18deg);
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent); transition:left .6s ease; }
+.btn-primary:hover::after{ left:140%; }
+.btn-ghost{ background:rgba(245,185,66,.04); color:var(--gold-champ); border-color:var(--gold-line); }
+.btn-ghost:hover{ border-color:var(--gold); color:var(--gold-bright); }
 
-    body::before, body::after {
-      content: "";
-      position: fixed;
-      width: 34rem;
-      height: 34rem;
-      border-radius: 50%;
-      filter: blur(40px);
-      opacity: 0.18;
-      z-index: -1;
-      animation: drift 14s ease-in-out infinite alternate;
-    }
+/* hero */
+.hero{ padding:96px 0 70px; position:relative; }
+.grid-bg{ position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(rgba(245,185,66,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,185,66,.05) 1px,transparent 1px);
+    background-size:48px 48px; -webkit-mask-image:radial-gradient(120% 80% at 30% 0%,#000 30%,transparent 75%); mask-image:radial-gradient(120% 80% at 30% 0%,#000 30%,transparent 75%); }
+.hero-in{ position:relative; z-index:1; display:grid; grid-template-columns:1.2fr .8fr; gap:48px; align-items:center; }
+.kicker{ display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:.74rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--gold-champ); border:1px solid var(--gold-line); background:rgba(245,185,66,.06); padding:7px 14px; border-radius:999px; }
+.kicker .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 10px var(--green); }
+.hero h1{ font-family:var(--disp); font-weight:700; font-size:clamp(2.8rem,7vw,5rem); line-height:1; letter-spacing:-.02em; color:var(--head); margin:20px 0 6px; }
+.hero h1 .gold{ background:var(--gold-grad); background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation:shimmer 6s linear infinite; filter:drop-shadow(0 4px 24px rgba(245,185,66,.35)); }
+@keyframes shimmer{ to{ background-position:200% center; } }
+.hero .role{ font-family:var(--mono); color:var(--gold); font-size:.95rem; letter-spacing:.04em; margin-bottom:18px; }
+.hero p.lead{ color:var(--dim); font-size:1.1rem; max-width:40ch; margin-bottom:28px; }
+.hero p.lead strong{ color:var(--gold-champ); font-weight:600; }
+.cta{ display:flex; gap:13px; flex-wrap:wrap; }
 
-    body::before { background: #6da8ff; top: -10rem; left: -8rem; }
-    body::after { background: #6ce5d8; right: -10rem; bottom: -12rem; animation-delay: 2s; }
+/* identity card */
+.id-card{ position:relative; background:linear-gradient(180deg,var(--panel-2),var(--panel)); border:1px solid var(--line); border-radius:var(--r);
+    padding:24px; box-shadow:0 40px 80px -40px rgba(0,0,0,.85), 0 0 60px -32px rgba(245,185,66,.35); }
+.id-card::before{ content:""; position:absolute; inset:0; border-radius:var(--r); padding:1px; pointer-events:none;
+    background:linear-gradient(160deg,var(--gold),transparent 45%,transparent 70%,rgba(245,185,66,.5));
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; }
+.id-top{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+.id-avatar{ width:52px; height:52px; border-radius:14px; background:var(--gold-grad); color:#241700; display:flex; align-items:center; justify-content:center;
+    font-family:var(--disp); font-weight:700; font-size:1.5rem; box-shadow:0 10px 24px -10px rgba(245,185,66,.7); }
+.id-name{ font-family:var(--disp); font-weight:600; color:var(--head); font-size:1.05rem; }
+.id-handle{ font-family:var(--mono); color:var(--dim); font-size:.8rem; }
+.id-rows{ display:flex; flex-direction:column; gap:10px; }
+.id-row{ display:flex; align-items:center; justify-content:space-between; font-size:.88rem; color:var(--dim); border-top:1px solid var(--line-soft); padding-top:10px; }
+.id-row:first-child{ border-top:none; padding-top:0; }
+.id-row b{ color:var(--text); font-weight:600; font-family:var(--mono); }
+.id-row .on{ color:var(--green); }
 
-    .container {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 4rem;
-    }
+/* sections */
+section{ padding:64px 0; position:relative; }
+section + section::before{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:min(960px,90%); height:1px; background:linear-gradient(90deg,transparent,var(--gold-line),transparent); }
+.sec-head{ margin-bottom:34px; }
+.sec-num{ font-family:var(--mono); font-size:.78rem; font-weight:600; color:var(--gold); }
+.sec-num::before{ content:"// "; color:var(--gold-deep); }
+.sec-head h2{ font-family:var(--disp); font-weight:700; font-size:clamp(1.6rem,3.4vw,2.2rem); color:var(--head); letter-spacing:-.02em; margin-top:8px; }
 
-    .glass {
-      background: var(--glass);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: var(--shadow);
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-      animation: rise-in 0.8s ease both;
-    }
+/* cards */
+.cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
+.card{ position:relative; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:24px; overflow:hidden;
+    transition:transform var(--ease), border-color var(--ease), box-shadow var(--ease), background var(--ease); }
+.card::before{ content:""; position:absolute; left:0; top:0; height:3px; width:100%; background:var(--gold-grad); transform:scaleX(0); transform-origin:left; transition:transform var(--ease); }
+.card:hover{ transform:translateY(-4px); border-color:var(--gold-line); background:var(--panel-2); box-shadow:0 24px 50px -30px rgba(245,185,66,.35); }
+.card:hover::before{ transform:scaleX(1); }
+.card .ix{ font-family:var(--mono); font-size:.78rem; color:var(--gold); }
+.card h3{ font-family:var(--disp); font-weight:600; color:var(--head); font-size:1.1rem; margin:10px 0 8px; }
+.card p{ color:var(--dim); font-size:.92rem; }
 
-    .nav {
-      padding: 0.85rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 2rem;
-    }
+/* featured project */
+.feature{ position:relative; display:grid; grid-template-columns:1.3fr 1fr; gap:28px; align-items:center;
+    background:linear-gradient(180deg,var(--panel-2),var(--panel)); border:1px solid var(--line); border-radius:var(--r); padding:34px; overflow:hidden;
+    box-shadow:0 0 70px -44px rgba(245,185,66,.5) inset; }
+.feature-glow{ position:absolute; right:-30%; top:-40%; width:70%; height:160%; background:radial-gradient(circle, rgba(245,185,66,.16), transparent 60%); pointer-events:none; }
+.feature .tag{ font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+.feature h3{ font-family:var(--disp); font-weight:700; font-size:1.7rem; color:var(--head); margin:10px 0 10px; }
+.feature p{ color:var(--dim); margin-bottom:20px; max-width:46ch; }
+.mini-flip{ position:relative; z-index:1; background:#0d0b07; border:1px solid var(--gold-line); border-radius:14px; padding:18px; font-family:var(--mono); }
+.mini-flip .mf-h{ display:flex; justify-content:space-between; align-items:center; font-size:.7rem; color:var(--gold); letter-spacing:.1em; margin-bottom:12px; }
+.mini-flip .mf-live{ color:var(--green); }
+.mini-flip .mf-item{ font-family:var(--disp); font-size:1.05rem; color:var(--head); margin-bottom:12px; }
+.mini-flip .mf-row{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--dim); padding:5px 0; border-top:1px solid var(--line-soft); }
+.mini-flip .mf-row b{ color:var(--text); }
+.mini-flip .mf-row.p b{ color:var(--green); }
 
-    .brand { font-weight: 800; letter-spacing: 0.03em; }
+/* links */
+.links{ display:flex; flex-wrap:wrap; gap:12px; }
+.link-chip{ display:inline-flex; align-items:center; gap:9px; padding:11px 16px; border-radius:var(--r-sm);
+    background:var(--panel); border:1px solid var(--line); color:var(--text); font-weight:500; font-size:.92rem;
+    transition:transform var(--ease), border-color var(--ease), color var(--ease), box-shadow var(--ease); }
+.link-chip:hover{ transform:translateY(-2px); border-color:var(--gold); color:var(--gold-bright); box-shadow:0 14px 30px -18px rgba(245,185,66,.6); }
+.link-chip .lc-dot{ width:7px; height:7px; border-radius:50%; background:var(--gold); }
 
-    .nav-links {
-      display: flex;
-      gap: 0.65rem;
-      flex-wrap: wrap;
-    }
+/* footer */
+footer{ border-top:1px solid var(--line); margin-top:30px; padding:34px 0; text-align:center; color:var(--dim); font-size:.85rem; position:relative; }
+footer::before{ content:""; position:absolute; top:-1px; left:50%; transform:translateX(-50%); width:min(960px,90%); height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
 
-    .btn, .btn-outline {
-      text-decoration: none;
-      border-radius: 12px;
-      padding: 0.6rem 1rem;
-      font-size: 0.92rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    }
-
-    .btn {
-      color: #071328;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-    }
-
-    .btn-outline {
-      color: var(--text);
-      border: 1px solid var(--line);
-      background: var(--glass);
-    }
-
-    .btn:hover, .btn-outline:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(109, 168, 255, 0.28);
-      border-color: rgba(108, 229, 216, 0.6);
-    }
-
-    .glass:hover {
-      transform: translateY(-1px);
-      border-color: rgba(108, 229, 216, 0.32);
-      box-shadow: 0 26px 75px rgba(0, 0, 0, 0.52);
-    }
-
-    .hero {
-      padding: clamp(2rem, 6vw, 4rem);
-      margin-bottom: 1.4rem;
-    }
-
-    .hero h1 {
-      font-size: clamp(2rem, 5.8vw, 3.8rem);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-    }
-
-    .hero p {
-      color: var(--muted);
-      max-width: 740px;
-      margin-bottom: 1.6rem;
-      font-size: clamp(1rem, 2.8vw, 1.18rem);
-    }
-
-    .hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .card {
-      padding: 1.15rem;
-    }
-
-    .card h2, .card h3 {
-      font-size: 1.02rem;
-      margin-bottom: 0.45rem;
-    }
-
-    .card p {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .links-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .kicker {
-      display: inline-block;
-      margin-bottom: 0.65rem;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent-2);
-      font-weight: 700;
-    }
-
-    footer {
-      margin-top: 1.8rem;
-      padding: 1rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .news {
-      margin-top: 1rem;
-      padding: 1rem;
-    }
-
-    .container > :nth-child(2) { animation-delay: 0.08s; }
-    .container > :nth-child(3) { animation-delay: 0.16s; }
-    .container > :nth-child(4) { animation-delay: 0.24s; }
-    .container > :nth-child(5) { animation-delay: 0.32s; }
-    .container > :nth-child(6) { animation-delay: 0.4s; }
-    .container > :nth-child(7) { animation-delay: 0.48s; }
-
-    @keyframes rise-in {
-      from { opacity: 0; transform: translateY(12px) scale(0.99); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes drift {
-      from { transform: translate3d(0, 0, 0); }
-      to { transform: translate3d(32px, -24px, 0); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      body::before, body::after, .glass {
-        animation: none !important;
-      }
-
-      .btn:hover, .btn-outline:hover, .glass:hover {
-        transform: none;
-      }
-    }
-  </style>
+@media (max-width:860px){
+    .hero-in{ grid-template-columns:1fr; gap:34px; }
+    .id-card{ max-width:420px; }
+    .feature{ grid-template-columns:1fr; }
+    .nav-links li.hide-sm{ display:none; }
+}
+@media (max-width:480px){
+    .hero h1{ font-size:2.6rem; }
+    .cta{ flex-direction:column; }
+    .btn{ width:100%; justify-content:center; }
+    .feature{ padding:24px; }
+}
+</style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero glass">
-      <span class="kicker">Automation • Infrastructure • Open Source</span>
-      <h1>TreXito</h1>
-      <p>
-        Hi, I am <strong>TreXito</strong> (20). I build practical automation systems with a focus on reliability,
-        observability, and smooth deployment.
-      </p>
-      <div class="hero-cta">
-        <a class="btn" href="https://tpm.auction" target="_blank" rel="noopener noreferrer">Frikadellen BAF</a>
-      </div>
-    </section>
 
-    <section class="grid">
-      <article class="card glass">
-        <h2>Platform Engineering</h2>
-        <p>Cloud-hosted runtime setups, deployment pipelines, and operations playbooks tailored to small teams and solo builders.</p>
-      </article>
-      <article class="card glass">
-        <h2>Automation Delivery</h2>
-        <p>From scripts to production workflows: fast implementation with operational guardrails and clear ownership.</p>
-      </article>
-      <article class="card glass">
-        <h2>Security-Aware Operations</h2>
-        <p>Defensive defaults, transparent configs, and logging-first approach to keep systems maintainable.</p>
-      </article>
-    </section>
+<nav>
+    <div class="nav-in">
+        <a href="#" class="brand"><span class="coin">◎</span> TreXito</a>
+        <ul class="nav-links">
+            <li class="hide-sm"><a href="#work">Work</a></li>
+            <li class="hide-sm"><a href="#stack">Stack</a></li>
+            <li><a href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a class="nav-cta" href="https://auctionflipper.bz" target="_blank" rel="noopener">Frikadellen BAF →</a></li>
+        </ul>
+    </div>
+</nav>
 
-    <section class="grid">
-      <article class="card glass">
-        <span class="kicker">Links</span>
-        <h3>TreXito Platform Stack</h3>
-        <p>Useful links for projects, infrastructure, and community updates.</p>
-        <div class="links-list">
-          <a class="btn-outline" id="github-link" href="https://github.com/TreXito" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a class="btn-outline" id="hetzner-link" href="https://www.hetzner.com/" target="_blank" rel="noopener noreferrer">Hetzner</a>
-          <a class="btn-outline" id="linode-link" href="https://www.linode.com/lp/refer/?r=434c0fe68b0def534e2e5e9198f9d75b08159988" target="_blank" rel="noopener noreferrer">Linode</a>
-          <a class="btn-outline" id="cloudfanatic-link" href="https://my.cloudfanatic.net/aff.php?aff=882" target="_blank" rel="noopener noreferrer">Cloudfanatic</a>
-          <a class="btn-outline" id="coflnet-link" href="https://sky.coflnet.com/flipper?refId=9KKPN9" target="_blank" rel="noopener noreferrer">Coflnet</a>
-          <a class="btn-outline" id="discord-link" href="https://discord.com/users/peenarweenar" target="_blank" rel="noopener noreferrer">Discord</a>
+<header class="hero">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="wrap hero-in">
+        <div>
+            <span class="kicker"><span class="dot"></span> Automation · Infrastructure · Open Source</span>
+            <h1>Hi, I'm <span class="gold">TreXito.</span></h1>
+            <p class="role">I build automation that runs itself.</p>
+            <p class="lead">Practical systems with a focus on <strong>reliability</strong>, <strong>observability</strong>, and smooth deployment — from a script to production, with the guardrails to keep it up 24/7.</p>
+            <div class="cta">
+                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">View Frikadellen BAF</a>
+                <a class="btn btn-ghost" href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a>
+            </div>
         </div>
-      </article>
-    </section>
 
-    <footer class="glass">
-      © 2026 TreXito
-    </footer>
-  </div>
+        <aside class="id-card">
+            <div class="id-top">
+                <div class="id-avatar">T</div>
+                <div>
+                    <div class="id-name">TreXito</div>
+                    <div class="id-handle">@trexito · age 20</div>
+                </div>
+            </div>
+            <div class="id-rows">
+                <div class="id-row"><span>Focus</span><b>Automation / Infra</b></div>
+                <div class="id-row"><span>Flagship</span><b>Frikadellen BAF</b></div>
+                <div class="id-row"><span>Stack</span><b>Rust · Node · Linux</b></div>
+                <div class="id-row"><span>Status</span><b class="on">● building</b></div>
+            </div>
+        </aside>
+    </div>
+</header>
+
+<section id="work" class="wrap">
+    <div class="sec-head">
+        <span class="sec-num">01</span>
+        <h2>What I do</h2>
+    </div>
+    <div class="cards">
+        <article class="card">
+            <span class="ix">01</span>
+            <h3>Platform Engineering</h3>
+            <p>Cloud-hosted runtimes, deployment pipelines, and operations playbooks tailored to small teams and solo builders.</p>
+        </article>
+        <article class="card">
+            <span class="ix">02</span>
+            <h3>Automation Delivery</h3>
+            <p>From scripts to production workflows — fast to ship, with operational guardrails and clear ownership.</p>
+        </article>
+        <article class="card">
+            <span class="ix">03</span>
+            <h3>Security-Aware Ops</h3>
+            <p>Defensive defaults, transparent configs, and a logging-first approach that keeps systems maintainable.</p>
+        </article>
+    </div>
+</section>
+
+<section class="wrap">
+    <div class="sec-head">
+        <span class="sec-num">02</span>
+        <h2>Flagship project</h2>
+    </div>
+    <div class="feature">
+        <div class="feature-glow" aria-hidden="true"></div>
+        <div>
+            <span class="tag">Hypixel SkyBlock · Rust</span>
+            <h3>Frikadellen <span class="gold">BAF</span></h3>
+            <p>A Coflnet-powered Auction House &amp; Bazaar flipper: sub-second BIN sniping, automatic selling, a web panel and full Discord control, with live profit tracking.</p>
+            <div class="cta">
+                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">Visit auctionflipper.bz</a>
+                <a class="btn btn-ghost" href="frikadellen-baf.html">Features</a>
+            </div>
+        </div>
+        <div class="mini-flip">
+            <div class="mf-h"><span>LEGENDARY FLIP</span><span class="mf-live">● live</span></div>
+            <div class="mf-item">Heroic Hyperion ✪✪✪✪✪</div>
+            <div class="mf-row"><span>Bought</span><b>600.0M</b></div>
+            <div class="mf-row"><span>Target</span><b>726.9M</b></div>
+            <div class="mf-row p"><span>Profit</span><b>+108.7M</b></div>
+        </div>
+    </div>
+</section>
+
+<section id="stack" class="wrap">
+    <div class="sec-head">
+        <span class="sec-num">03</span>
+        <h2>Links &amp; stack</h2>
+    </div>
+    <div class="links">
+        <a class="link-chip" href="https://github.com/TreXito" target="_blank" rel="noopener"><span class="lc-dot"></span> GitHub</a>
+        <a class="link-chip" href="https://sky.coflnet.com/flipper?refId=9KKPN9" target="_blank" rel="noopener"><span class="lc-dot"></span> Coflnet</a>
+        <a class="link-chip" href="https://www.hetzner.com/" target="_blank" rel="noopener"><span class="lc-dot"></span> Hetzner</a>
+        <a class="link-chip" href="https://www.linode.com/lp/refer/?r=434c0fe68b0def534e2e5e9198f9d75b08159988" target="_blank" rel="noopener"><span class="lc-dot"></span> Linode</a>
+        <a class="link-chip" href="https://my.cloudfanatic.net/aff.php?aff=882" target="_blank" rel="noopener"><span class="lc-dot"></span> Cloudfanatic</a>
+        <a class="link-chip" href="https://discord.com/users/peenarweenar" target="_blank" rel="noopener"><span class="lc-dot"></span> Discord</a>
+    </div>
+</section>
+
+<footer>
+    <div class="wrap">© 2026 TreXito · Automation &amp; Infrastructure</div>
+</footer>
+
 </body>
 </html>

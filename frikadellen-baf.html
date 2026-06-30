@@ -6,18 +6,18 @@
   <title>frikadellen-baf | Documented Features</title>
   <style>
     :root {
-      --bg: #070b14;
-      --bg-2: #0f1729;
-      --glass: rgba(255, 255, 255, 0.07);
-      --line: rgba(255, 255, 255, 0.18);
-      --text: #e8eefc;
-      --muted: #a5b3d2;
-      --accent: #6da8ff;
-      --accent-2: #6ce5d8;
+      --bg: #0a0806;
+      --bg-2: #0c0a07;
+      --glass: rgba(255, 247, 230, 0.04);
+      --line: rgba(245, 185, 66, 0.20);
+      --text: #e7e0cf;
+      --muted: #a99c7e;
+      --accent: #f5b942;
+      --accent-2: #ffd470;
       --warn: #ffd074;
       --danger: #ff8f8f;
-      --ok: #93ffce;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+      --ok: #46d98c;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,9 +26,9 @@
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 12% 10%, #264ea755, transparent 38%),
-        radial-gradient(circle at 85% 15%, #31b8a533, transparent 35%),
-        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 65%, #0b1223 100%);
+        radial-gradient(circle at 84% 8%, rgba(245,185,66,.16), transparent 40%),
+        radial-gradient(circle at 6% 12%, rgba(201,136,31,.12), transparent 38%),
+        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 70%, #080604 100%);
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
@@ -46,8 +46,8 @@
       animation: drift 14s ease-in-out infinite alternate;
     }
 
-    body::before { background: #6da8ff; top: -10rem; left: -8rem; }
-    body::after { background: #6ce5d8; right: -10rem; bottom: -12rem; animation-delay: 2s; }
+    body::before { background: #f5b942; top: -10rem; left: -8rem; }
+    body::after { background: #c9881f; right: -10rem; bottom: -12rem; animation-delay: 2s; }
 
     .container { max-width: 1160px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
 
@@ -87,14 +87,14 @@
       transition: transform 0.2s ease;
     }
 
-    .btn { color: #071328; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+    .btn { color: #241700; font-weight: 700; background: linear-gradient(135deg, var(--accent-2), var(--accent)); }
     .btn-outline { color: var(--text); border: 1px solid var(--line); background: var(--glass); }
     .btn:hover, .btn-outline:hover { transform: translateY(-1px); }
 
     .glass:hover {
       transform: translateY(-1px);
-      border-color: rgba(108, 229, 216, 0.32);
-      box-shadow: 0 26px 75px rgba(0, 0, 0, 0.52);
+      border-color: rgba(245, 185, 66, 0.34);
+      box-shadow: 0 26px 75px rgba(0, 0, 0, 0.6);
     }
 
     .hero { padding: clamp(2rem, 6vw, 3.3rem); margin-bottom: 1rem; }
