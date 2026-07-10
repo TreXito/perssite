@@ -18,154 +18,238 @@
 <meta name="twitter:title" content="TreXito — Automation & Infrastructure">
 <meta name="twitter:description" content="Practical automation systems — reliable, observable, easy to deploy. Creator of Frikadellen BAF.">
 <meta name="twitter:image" content="https://trexito.com/og.png">
-<meta name="theme-color" content="#f5b942">
+<meta name="theme-color" content="#f5efe1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23f5b942' stroke='%23b8841f' stroke-width='6'/><text x='50' y='70' font-size='52' text-anchor='middle' fill='%237a5410' font-family='monospace' font-weight='bold'>T</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23e9a83a' stroke='%23b57e1f' stroke-width='6'/><text x='50' y='70' font-size='52' text-anchor='middle' fill='%231c1204' font-family='monospace' font-weight='bold'>T</text></svg>">
 <style>
+/* ============================================================
+   trexito.com — "ledger" design system (paper variant)
+   Same type, gold and rules as auctionflipper.bz — in daylight.
+   ============================================================ */
 *,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
 :root{
-    --bg:#0a0806; --panel:#14110b; --panel-2:#1b1710; --line:#2c2417; --line-soft:#1e1810;
-    --text:#e7e0cf; --dim:#a99c7e; --head:#fff8ea;
-    --gold:#f5b942; --gold-bright:#ffd470; --gold-champ:#ffe9b0; --gold-deep:#c9881f;
-    --gold-soft:rgba(245,185,66,.13); --gold-line:rgba(245,185,66,.28); --green:#46d98c;
-    --maxw:1080px; --r:16px; --r-sm:11px; --ease:.3s cubic-bezier(.22,.61,.36,1);
-    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
-    --disp:'Space Grotesk','Inter',system-ui,sans-serif;
-    --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-    --gold-grad:linear-gradient(100deg,#ffe9b0,#ffd470 38%,#f5b942 66%,#d9961f);
+    --paper:  #f5efe1;
+    --paper-2:#efe7d3;
+    --panel:  #faf5e9;
+    --ink:    #211b10;
+    --mut:    #77694c;
+    --head:   #191307;
+
+    --gold:    #a06d0d;   /* readable on paper */
+    --gold-hi: #e9a83a;
+    --green:   #1e7d52;
+
+    --line:   #d6c9a8;
+    --line-2: #e4dabf;
+
+    /* the dark product palette, for the flagship inset */
+    --dk-bg:   #0f0d09;
+    --dk-panel:#171309;
+    --dk-line: #2a2314;
+    --dk-ink:  #e9e1cc;
+    --dk-mut:  #9d9174;
+    --dk-gold: #e9a83a;
+    --dk-green:#45c98a;
+
+    --maxw: 980px;
+    --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    --disp: 'Bricolage Grotesque', 'Instrument Sans', system-ui, sans-serif;
+    --body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
-html{ scroll-behavior:smooth; }
+html{ scroll-behavior:smooth; overflow-x:hidden; }
 body{
-    font-family:var(--body); color:var(--text); background:var(--bg); line-height:1.65; overflow-x:hidden; min-height:100vh;
-    background-image:
-        radial-gradient(1000px 600px at 84% -10%, rgba(245,185,66,.15), transparent 62%),
-        radial-gradient(760px 520px at -8% 6%, rgba(201,136,31,.10), transparent 60%),
-        radial-gradient(680px 680px at 50% 130%, rgba(245,185,66,.07), transparent 62%);
-    background-attachment:fixed;
+    font-family:var(--body); color:var(--ink); background:var(--paper);
+    line-height:1.65; font-size:16.5px; overflow-x:hidden; min-height:100vh;
 }
-a{ color:var(--gold-bright); text-decoration:none; transition:color var(--ease); }
-a:hover{ color:var(--gold-champ); }
-::selection{ background:var(--gold); color:#241700; }
-.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
-.gold{ background:var(--gold-grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+/* same film grain as the product site */
+body::after{
+    content:""; position:fixed; inset:0; z-index:2000; pointer-events:none; opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+a{ color:var(--gold); text-decoration:none; }
+a:hover{ color:var(--head); }
+::selection{ background:var(--gold-hi); color:#1c1204; }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+b, strong{ color:var(--head); font-weight:600; }
 
-/* nav */
-nav{ position:sticky; top:0; z-index:50; backdrop-filter:blur(14px) saturate(150%); -webkit-backdrop-filter:blur(14px) saturate(150%);
-    background:rgba(10,8,6,.6); border-bottom:1px solid var(--line-soft); }
-.nav-in{ max-width:var(--maxw); margin:0 auto; padding:0 22px; height:64px; display:flex; align-items:center; justify-content:space-between; }
-.brand{ font-family:var(--disp); font-weight:700; font-size:1.15rem; color:var(--head); display:inline-flex; gap:8px; align-items:center; }
-.brand .coin{ color:var(--gold); filter:drop-shadow(0 0 12px rgba(245,185,66,.6)); }
+/* ── nav ─────────────────────────────────────────────────── */
+nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,239,225,.88); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+}
+.nav-in{ max-width:var(--maxw); margin:0 auto; padding:0 24px; height:60px; display:flex; align-items:center; justify-content:space-between; }
+.brand{ font-family:var(--disp); font-weight:700; font-size:1.08rem; color:var(--head); display:inline-flex; gap:9px; align-items:center; }
+.brand .coin{ color:var(--gold); }
 .nav-links{ display:flex; gap:24px; align-items:center; list-style:none; }
-.nav-links a{ color:var(--dim); font-size:.92rem; font-weight:500; }
+.nav-links a{ color:var(--mut); font-size:.88rem; font-weight:500; }
 .nav-links a:hover{ color:var(--head); }
-.nav-cta{ background:var(--gold-grad); color:#241700 !important; padding:8px 15px; border-radius:var(--r-sm); font-weight:700; box-shadow:0 8px 20px -8px rgba(245,185,66,.6); }
+.nav-cta{
+    font-family:var(--mono); font-size:.78rem; font-weight:600;
+    background:var(--dk-bg); color:var(--gold-hi) !important;
+    padding:8px 14px; border-radius:4px; border:1px solid var(--dk-bg);
+}
+.nav-cta:hover{ color:#fff !important; }
 
-/* buttons */
-.btn{ position:relative; display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:var(--r-sm);
-    font-family:var(--disp); font-weight:600; font-size:.96rem; cursor:pointer; border:1px solid transparent; overflow:hidden;
-    transition:transform var(--ease), box-shadow var(--ease), border-color var(--ease), color var(--ease), filter var(--ease); }
-.btn:hover{ transform:translateY(-2px); }
-.btn-primary{ background:var(--gold-grad); color:#241700; box-shadow:0 14px 32px -14px rgba(245,185,66,.8); }
-.btn-primary::after{ content:""; position:absolute; top:0; left:-120%; width:60%; height:100%; transform:skewX(-18deg);
-    background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent); transition:left .6s ease; }
-.btn-primary:hover::after{ left:140%; }
-.btn-ghost{ background:rgba(245,185,66,.04); color:var(--gold-champ); border-color:var(--gold-line); }
-.btn-ghost:hover{ border-color:var(--gold); color:var(--gold-bright); }
+/* ── buttons ─────────────────────────────────────────────── */
+.btn{
+    display:inline-flex; align-items:center; gap:9px; padding:12px 22px; border-radius:4px;
+    font-family:var(--mono); font-weight:600; font-size:.86rem;
+    cursor:pointer; border:1px solid transparent;
+    transition:background .2s ease, border-color .2s ease, color .2s ease;
+}
+.btn-primary{ background:var(--gold-hi); color:#1c1204; }
+.btn-primary:hover{ background:#f4c161; color:#1c1204; }
+.btn-ghost{ background:transparent; color:var(--ink); border-color:var(--line); }
+.btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
 
-/* hero */
-.hero{ padding:96px 0 70px; position:relative; }
-.grid-bg{ position:absolute; inset:0; z-index:0; pointer-events:none;
-    background-image:linear-gradient(rgba(245,185,66,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,185,66,.05) 1px,transparent 1px);
-    background-size:48px 48px; -webkit-mask-image:radial-gradient(120% 80% at 30% 0%,#000 30%,transparent 75%); mask-image:radial-gradient(120% 80% at 30% 0%,#000 30%,transparent 75%); }
-.hero-in{ position:relative; z-index:1; display:grid; grid-template-columns:1.2fr .8fr; gap:48px; align-items:center; }
-.kicker{ display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:.74rem; letter-spacing:.06em; text-transform:uppercase;
-    color:var(--gold-champ); border:1px solid var(--gold-line); background:rgba(245,185,66,.06); padding:7px 14px; border-radius:999px; }
-.kicker .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 10px var(--green); }
-.hero h1{ font-family:var(--disp); font-weight:700; font-size:clamp(2.8rem,7vw,5rem); line-height:1; letter-spacing:-.02em; color:var(--head); margin:20px 0 6px; }
-.hero h1 .gold{ background:var(--gold-grad); background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation:shimmer 6s linear infinite; filter:drop-shadow(0 4px 24px rgba(245,185,66,.35)); }
-@keyframes shimmer{ to{ background-position:200% center; } }
-.hero .role{ font-family:var(--mono); color:var(--gold); font-size:.95rem; letter-spacing:.04em; margin-bottom:18px; }
-.hero p.lead{ color:var(--dim); font-size:1.1rem; max-width:40ch; margin-bottom:28px; }
-.hero p.lead strong{ color:var(--gold-champ); font-weight:600; }
-.cta{ display:flex; gap:13px; flex-wrap:wrap; }
+/* ── hero ────────────────────────────────────────────────── */
+.hero{ padding:88px 0 72px; position:relative; }
+.hero-in{ display:grid; grid-template-columns:1.2fr .8fr; gap:56px; align-items:center; }
+.hero-in > *{ min-width:0; }
+.kicker{
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); display:inline-flex; align-items:center; gap:10px;
+}
+.kicker::before{ content:""; width:26px; height:1px; background:var(--gold); }
+.hero h1{
+    font-family:var(--disp); font-weight:750;
+    font-size:clamp(2.8rem,7vw,4.6rem); line-height:1; letter-spacing:-.03em;
+    color:var(--head); margin:18px 0 10px;
+}
+.hero h1 .gold{ color:var(--gold); }
+.hero .role{ font-family:var(--mono); color:var(--mut); font-size:.9rem; letter-spacing:.02em; margin-bottom:18px; }
+.hero p.lead{ color:var(--mut); font-size:1.08rem; max-width:42ch; margin-bottom:28px; }
+.cta{ display:flex; gap:12px; flex-wrap:wrap; }
 
-/* identity card */
-.id-card{ position:relative; background:linear-gradient(180deg,var(--panel-2),var(--panel)); border:1px solid var(--line); border-radius:var(--r);
-    padding:24px; box-shadow:0 40px 80px -40px rgba(0,0,0,.85), 0 0 60px -32px rgba(245,185,66,.35); }
-.id-card::before{ content:""; position:absolute; inset:0; border-radius:var(--r); padding:1px; pointer-events:none;
-    background:linear-gradient(160deg,var(--gold),transparent 45%,transparent 70%,rgba(245,185,66,.5));
-    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; }
-.id-top{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
-.id-avatar{ width:52px; height:52px; border-radius:14px; background:var(--gold-grad); color:#241700; display:flex; align-items:center; justify-content:center;
-    font-family:var(--disp); font-weight:700; font-size:1.5rem; box-shadow:0 10px 24px -10px rgba(245,185,66,.7); }
-.id-name{ font-family:var(--disp); font-weight:600; color:var(--head); font-size:1.05rem; }
-.id-handle{ font-family:var(--mono); color:var(--dim); font-size:.8rem; }
-.id-rows{ display:flex; flex-direction:column; gap:10px; }
-.id-row{ display:flex; align-items:center; justify-content:space-between; font-size:.88rem; color:var(--dim); border-top:1px solid var(--line-soft); padding-top:10px; }
-.id-row:first-child{ border-top:none; padding-top:0; }
-.id-row b{ color:var(--text); font-weight:600; font-family:var(--mono); }
+/* identity card — a ledger entry about me */
+.id-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding:22px 24px; position:relative;
+    box-shadow:0 24px 50px -36px rgba(60,40,0,.45);
+}
+.id-card::before{ content:""; position:absolute; left:-1px; top:18px; bottom:18px; width:2px; background:var(--gold-hi); }
+.id-top{ display:flex; align-items:center; gap:14px; padding-bottom:16px; border-bottom:1px solid var(--line-2); }
+.id-avatar{
+    width:48px; height:48px; border-radius:8px; background:var(--dk-bg); color:var(--gold-hi);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--disp); font-weight:700; font-size:1.4rem;
+}
+.id-name{ font-family:var(--disp); font-weight:650; color:var(--head); font-size:1.02rem; }
+.id-handle{ font-family:var(--mono); color:var(--mut); font-size:.76rem; }
+.id-rows{ display:flex; flex-direction:column; }
+.id-row{
+    display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+    font-size:.85rem; color:var(--mut); padding:9px 0; border-top:1px dashed var(--line-2);
+}
+.id-row:first-child{ border-top:none; padding-top:14px; }
+.id-row b{ color:var(--ink); font-weight:600; font-family:var(--mono); font-size:.8rem; text-align:right; }
 .id-row .on{ color:var(--green); }
 
-/* sections */
-section{ padding:64px 0; position:relative; }
-section + section::before{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:min(960px,90%); height:1px; background:linear-gradient(90deg,transparent,var(--gold-line),transparent); }
-.sec-head{ margin-bottom:34px; }
-.sec-num{ font-family:var(--mono); font-size:.78rem; font-weight:600; color:var(--gold); }
-.sec-num::before{ content:"// "; color:var(--gold-deep); }
-.sec-head h2{ font-family:var(--disp); font-weight:700; font-size:clamp(1.6rem,3.4vw,2.2rem); color:var(--head); letter-spacing:-.02em; margin-top:8px; }
+/* ── sections ────────────────────────────────────────────── */
+section{ padding:64px 0; }
+section.wrap{ padding-top:64px; padding-bottom:64px; } /* .wrap's shorthand must not eat the vertical rhythm */
+.sec-head{ margin-bottom:36px; }
+.sec-num{
+    display:flex; align-items:center; gap:14px;
+    font-family:var(--mono); font-size:.7rem; font-weight:600;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:12px;
+}
+.sec-num::after{ content:""; flex:1; height:1px; background:var(--line); min-width:40px; }
+.sec-head h2{
+    font-family:var(--disp); font-weight:700; font-size:clamp(1.5rem,3.2vw,2.1rem);
+    color:var(--head); letter-spacing:-.02em;
+}
 
-/* cards */
-.cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
-.card{ position:relative; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:24px; overflow:hidden;
-    transition:transform var(--ease), border-color var(--ease), box-shadow var(--ease), background var(--ease); }
-.card::before{ content:""; position:absolute; left:0; top:0; height:3px; width:100%; background:var(--gold-grad); transform:scaleX(0); transform-origin:left; transition:transform var(--ease); }
-.card:hover{ transform:translateY(-4px); border-color:var(--gold-line); background:var(--panel-2); box-shadow:0 24px 50px -30px rgba(245,185,66,.35); }
-.card:hover::before{ transform:scaleX(1); }
-.card .ix{ font-family:var(--mono); font-size:.78rem; color:var(--gold); }
-.card h3{ font-family:var(--disp); font-weight:600; color:var(--head); font-size:1.1rem; margin:10px 0 8px; }
-.card p{ color:var(--dim); font-size:.92rem; }
+/* what i do — numbered rows, no cards */
+.rows{ border-top:1px solid var(--line); }
+.row{
+    display:grid; grid-template-columns:56px 220px 1fr; gap:8px 24px; align-items:baseline;
+    padding:22px 0; border-bottom:1px solid var(--line);
+}
+.row .ix{ font-family:var(--mono); font-size:.78rem; color:var(--mut); }
+.row h3{ font-family:var(--disp); font-weight:650; color:var(--head); font-size:1.05rem; }
+.row p{ color:var(--mut); font-size:.94rem; }
+.row:hover .ix{ color:var(--gold); }
 
-/* featured project */
-.feature{ position:relative; display:grid; grid-template-columns:1.3fr 1fr; gap:28px; align-items:center;
-    background:linear-gradient(180deg,var(--panel-2),var(--panel)); border:1px solid var(--line); border-radius:var(--r); padding:34px; overflow:hidden;
-    box-shadow:0 0 70px -44px rgba(245,185,66,.5) inset; }
-.feature-glow{ position:absolute; right:-30%; top:-40%; width:70%; height:160%; background:radial-gradient(circle, rgba(245,185,66,.16), transparent 60%); pointer-events:none; }
-.feature .tag{ font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
-.feature h3{ font-family:var(--disp); font-weight:700; font-size:1.7rem; color:var(--head); margin:10px 0 10px; }
-.feature p{ color:var(--dim); margin-bottom:20px; max-width:46ch; }
-.mini-flip{ position:relative; z-index:1; background:#0d0b07; border:1px solid var(--gold-line); border-radius:14px; padding:18px; font-family:var(--mono); }
-.mini-flip .mf-h{ display:flex; justify-content:space-between; align-items:center; font-size:.7rem; color:var(--gold); letter-spacing:.1em; margin-bottom:12px; }
-.mini-flip .mf-live{ color:var(--green); }
-.mini-flip .mf-item{ font-family:var(--disp); font-size:1.05rem; color:var(--head); margin-bottom:12px; }
-.mini-flip .mf-row{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--dim); padding:5px 0; border-top:1px solid var(--line-soft); }
-.mini-flip .mf-row b{ color:var(--text); }
-.mini-flip .mf-row.p b{ color:var(--green); }
+/* ── flagship — the dark product palette, quoted ─────────── */
+.feature{
+    display:grid; grid-template-columns:1.25fr 1fr; gap:36px; align-items:center;
+    background:var(--dk-bg); border:1px solid var(--dk-line); border-radius:10px;
+    padding:40px; overflow:hidden; position:relative;
+    box-shadow:0 40px 80px -50px rgba(30,20,0,.8);
+}
+.feature > *{ min-width:0; }
+.feature .tag{
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--dk-gold); display:inline-flex; align-items:center; gap:10px;
+}
+.feature .tag::before{ content:""; width:22px; height:1px; background:var(--dk-gold); }
+.feature h3{
+    font-family:var(--disp); font-weight:700; font-size:clamp(1.6rem,3.4vw,2.2rem);
+    color:#f7f0dc; margin:14px 0 10px; letter-spacing:-.02em;
+}
+.feature h3 .gold{ color:var(--dk-gold); }
+.feature p{ color:var(--dk-mut); margin-bottom:24px; max-width:46ch; font-size:.98rem; }
+.feature .btn-ghost{ color:var(--dk-ink); border-color:var(--dk-line); }
+.feature .btn-ghost:hover{ border-color:var(--dk-gold); color:var(--dk-gold); }
 
-/* links */
-.links{ display:flex; flex-wrap:wrap; gap:12px; }
-.link-chip{ display:inline-flex; align-items:center; gap:9px; padding:11px 16px; border-radius:var(--r-sm);
-    background:var(--panel); border:1px solid var(--line); color:var(--text); font-weight:500; font-size:.92rem;
-    transition:transform var(--ease), border-color var(--ease), color var(--ease), box-shadow var(--ease); }
-.link-chip:hover{ transform:translateY(-2px); border-color:var(--gold); color:var(--gold-bright); box-shadow:0 14px 30px -18px rgba(245,185,66,.6); }
-.link-chip .lc-dot{ width:7px; height:7px; border-radius:50%; background:var(--gold); }
+/* the receipt (same one that lives on auctionflipper.bz) */
+.mini-flip{
+    background:var(--dk-panel); border:1px solid var(--dk-line); border-radius:8px;
+    padding:20px 22px 16px; font-family:var(--mono); position:relative;
+}
+.mini-flip::before{ content:""; position:absolute; left:-1px; top:16px; bottom:16px; width:2px; background:var(--dk-gold); }
+.mini-flip .mf-h{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.66rem; color:var(--dk-gold); letter-spacing:.16em; font-weight:600;
+    padding-bottom:12px; border-bottom:1px solid var(--dk-line);
+}
+.mini-flip .mf-live{ color:var(--dk-green); letter-spacing:.02em; font-weight:400; }
+.mini-flip .mf-item{ font-family:var(--disp); font-weight:650; font-size:1.05rem; color:#f7f0dc; margin:12px 0 10px; }
+.mini-flip .mf-row{
+    display:flex; justify-content:space-between; font-size:.8rem; color:var(--dk-mut);
+    padding:6px 0; border-top:1px dashed var(--dk-line);
+}
+.mini-flip .mf-row:first-of-type{ border-top:none; }
+.mini-flip .mf-row b{ color:var(--dk-ink); font-weight:600; }
+.mini-flip .mf-row.p b{ color:var(--dk-green); }
 
-/* footer */
-footer{ border-top:1px solid var(--line); margin-top:30px; padding:34px 0; text-align:center; color:var(--dim); font-size:.85rem; position:relative; }
-footer::before{ content:""; position:absolute; top:-1px; left:50%; transform:translateX(-50%); width:min(960px,90%); height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+/* ── links ───────────────────────────────────────────────── */
+.links{ border-top:1px solid var(--line); }
+.link-row{
+    display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+    padding:15px 2px; border-bottom:1px solid var(--line);
+    color:var(--ink); font-weight:500; font-size:.95rem;
+    transition:padding .2s ease;
+}
+.link-row:hover{ padding-left:10px; color:var(--head); }
+.link-row .lr-note{ font-family:var(--mono); font-size:.72rem; color:var(--mut); text-align:right; }
+.link-row:hover .lr-note{ color:var(--gold); }
+
+/* ── footer ──────────────────────────────────────────────── */
+footer{
+    border-top:1px solid var(--line); margin-top:24px; padding:30px 0 26px;
+    text-align:center; color:var(--mut); font-family:var(--mono); font-size:.72rem;
+}
 
 @media (max-width:860px){
-    .hero-in{ grid-template-columns:1fr; gap:34px; }
-    .id-card{ max-width:420px; }
-    .feature{ grid-template-columns:1fr; }
+    .hero-in{ grid-template-columns:1fr; gap:36px; }
+    .id-card{ max-width:440px; }
+    .feature{ grid-template-columns:1fr; padding:28px; }
+    .row{ grid-template-columns:44px 1fr; }
+    .row p{ grid-column:2; }
     .nav-links li.hide-sm{ display:none; }
 }
 @media (max-width:480px){
-    .hero h1{ font-size:2.6rem; }
+    .hero{ padding:60px 0 52px; }
+    .hero h1{ font-size:2.7rem; }
     .cta{ flex-direction:column; }
     .btn{ width:100%; justify-content:center; }
-    .feature{ padding:24px; }
+    .link-row{ flex-direction:column; gap:2px; }
+    .link-row .lr-note{ text-align:left; }
 }
 </style>
 </head>
@@ -176,7 +260,7 @@ footer::before{ content:""; position:absolute; top:-1px; left:50%; transform:tra
         <a href="#" class="brand"><span class="coin">◎</span> TreXito</a>
         <ul class="nav-links">
             <li class="hide-sm"><a href="#work">Work</a></li>
-            <li class="hide-sm"><a href="#stack">Stack</a></li>
+            <li class="hide-sm"><a href="#links">Links</a></li>
             <li><a href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a></li>
             <li><a class="nav-cta" href="https://auctionflipper.bz" target="_blank" rel="noopener">Frikadellen BAF →</a></li>
         </ul>
@@ -184,15 +268,14 @@ footer::before{ content:""; position:absolute; top:-1px; left:50%; transform:tra
 </nav>
 
 <header class="hero">
-    <div class="grid-bg" aria-hidden="true"></div>
     <div class="wrap hero-in">
         <div>
-            <span class="kicker"><span class="dot"></span> Automation · Infrastructure · Open Source</span>
+            <span class="kicker">Automation · Infrastructure · Open source</span>
             <h1>Hi, I'm <span class="gold">TreXito.</span></h1>
             <p class="role">I build automation that runs itself.</p>
-            <p class="lead">Practical systems with a focus on <strong>reliability</strong>, <strong>observability</strong>, and smooth deployment — from a script to production, with the guardrails to keep it up 24/7.</p>
+            <p class="lead">Practical systems with a focus on <strong>reliability</strong>, <strong>observability</strong> and smooth deployment — from a script to production, with the guardrails to keep it up 24/7.</p>
             <div class="cta">
-                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">View Frikadellen BAF</a>
+                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">View Frikadellen BAF →</a>
                 <a class="btn btn-ghost" href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a>
             </div>
         </div>
@@ -217,23 +300,23 @@ footer::before{ content:""; position:absolute; top:-1px; left:50%; transform:tra
 
 <section id="work" class="wrap">
     <div class="sec-head">
-        <span class="sec-num">01</span>
-        <h2>What I do</h2>
+        <span class="sec-num">01 · What I do</span>
+        <h2>Systems that stay up</h2>
     </div>
-    <div class="cards">
-        <article class="card">
+    <div class="rows">
+        <article class="row">
             <span class="ix">01</span>
-            <h3>Platform Engineering</h3>
+            <h3>Platform engineering</h3>
             <p>Cloud-hosted runtimes, deployment pipelines, and operations playbooks tailored to small teams and solo builders.</p>
         </article>
-        <article class="card">
+        <article class="row">
             <span class="ix">02</span>
-            <h3>Automation Delivery</h3>
+            <h3>Automation delivery</h3>
             <p>From scripts to production workflows — fast to ship, with operational guardrails and clear ownership.</p>
         </article>
-        <article class="card">
+        <article class="row">
             <span class="ix">03</span>
-            <h3>Security-Aware Ops</h3>
+            <h3>Security-aware ops</h3>
             <p>Defensive defaults, transparent configs, and a logging-first approach that keeps systems maintainable.</p>
         </article>
     </div>
@@ -241,17 +324,16 @@ footer::before{ content:""; position:absolute; top:-1px; left:50%; transform:tra
 
 <section class="wrap">
     <div class="sec-head">
-        <span class="sec-num">02</span>
-        <h2>Flagship project</h2>
+        <span class="sec-num">02 · Flagship</span>
+        <h2>The one that flips</h2>
     </div>
     <div class="feature">
-        <div class="feature-glow" aria-hidden="true"></div>
         <div>
             <span class="tag">Hypixel SkyBlock · Rust</span>
             <h3>Frikadellen <span class="gold">BAF</span></h3>
             <p>A Coflnet-powered Auction House &amp; Bazaar flipper: sub-second BIN sniping, automatic selling, a web panel and full Discord control, with live profit tracking.</p>
             <div class="cta">
-                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">Visit auctionflipper.bz</a>
+                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a>
                 <a class="btn btn-ghost" href="frikadellen-baf.html">Features</a>
             </div>
         </div>
@@ -265,23 +347,23 @@ footer::before{ content:""; position:absolute; top:-1px; left:50%; transform:tra
     </div>
 </section>
 
-<section id="stack" class="wrap">
+<section id="links" class="wrap">
     <div class="sec-head">
-        <span class="sec-num">03</span>
-        <h2>Links &amp; stack</h2>
+        <span class="sec-num">03 · Links</span>
+        <h2>Around the web</h2>
     </div>
     <div class="links">
-        <a class="link-chip" href="https://github.com/TreXito" target="_blank" rel="noopener"><span class="lc-dot"></span> GitHub</a>
-        <a class="link-chip" href="https://sky.coflnet.com/flipper?refId=9KKPN9" target="_blank" rel="noopener"><span class="lc-dot"></span> Coflnet</a>
-        <a class="link-chip" href="https://www.hetzner.com/" target="_blank" rel="noopener"><span class="lc-dot"></span> Hetzner</a>
-        <a class="link-chip" href="https://www.linode.com/lp/refer/?r=434c0fe68b0def534e2e5e9198f9d75b08159988" target="_blank" rel="noopener"><span class="lc-dot"></span> Linode</a>
-        <a class="link-chip" href="https://my.cloudfanatic.net/aff.php?aff=882" target="_blank" rel="noopener"><span class="lc-dot"></span> Cloudfanatic</a>
-        <a class="link-chip" href="https://discord.com/users/peenarweenar" target="_blank" rel="noopener"><span class="lc-dot"></span> Discord</a>
+        <a class="link-row" href="https://github.com/TreXito" target="_blank" rel="noopener"><span>GitHub</span><span class="lr-note">code &amp; releases</span></a>
+        <a class="link-row" href="https://sky.coflnet.com/flipper?refId=9KKPN9" target="_blank" rel="noopener"><span>Coflnet</span><span class="lr-note">the flip feed BAF runs on</span></a>
+        <a class="link-row" href="https://www.hetzner.com/" target="_blank" rel="noopener"><span>Hetzner</span><span class="lr-note">where my infra lives</span></a>
+        <a class="link-row" href="https://www.linode.com/lp/refer/?r=434c0fe68b0def534e2e5e9198f9d75b08159988" target="_blank" rel="noopener"><span>Linode</span><span class="lr-note">US VPS for low ping</span></a>
+        <a class="link-row" href="https://my.cloudfanatic.net/aff.php?aff=882" target="_blank" rel="noopener"><span>Cloudfanatic</span><span class="lr-note">budget VPS</span></a>
+        <a class="link-row" href="https://discord.com/users/peenarweenar" target="_blank" rel="noopener"><span>Discord</span><span class="lr-note">@peenarweenar</span></a>
     </div>
 </section>
 
 <footer>
-    <div class="wrap">© 2026 TreXito · Automation &amp; Infrastructure</div>
+    <div class="wrap">© 2026 TreXito · automation &amp; infrastructure</div>
 </footer>
 
 </body>
