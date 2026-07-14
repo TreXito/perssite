@@ -3,111 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Frikadellen BAF — Documented Features</title>
-<meta name="description" content="What Frikadellen BAF, the headless Auction House &amp; Bazaar macro for Hypixel SkyBlock, actually does — documented features, operations and observability.">
+<title>Frikadellen BAF · Documented Features</title>
+<meta name="description" content="What Frikadellen BAF, the headless Auction House and Bazaar macro for Hypixel SkyBlock, actually does: documented features, operations and observability.">
+<meta name="theme-color" content="#05080a">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23e9a83a' stroke='%23b57e1f' stroke-width='6'/><text x='50' y='70' font-size='52' text-anchor='middle' fill='%231c1204' font-family='monospace' font-weight='bold'>T</text></svg>">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23070c0f'/><circle cx='50' cy='50' r='30' fill='none' stroke='%2339d353' stroke-width='7'/><text x='50' y='68' font-size='46' text-anchor='middle' fill='%2339d353' font-family='monospace' font-weight='bold'>❯</text></svg>">
 <style>
 *,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
 :root{
-    --paper:#f5efe1; --panel:#faf5e9; --ink:#211b10; --mut:#77694c; --head:#191307;
-    --gold:#a06d0d; --gold-hi:#e9a83a; --red:#a03a2e;
-    --line:#d6c9a8; --line-2:#e4dabf;
-    --maxw:880px;
-    --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
-    --disp:'Bricolage Grotesque','Instrument Sans',system-ui,sans-serif;
-    --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --bg:#05080a; --bg-1:#080d10; --panel:#0a1014; --line:#16211c; --line-2:#1f2c26;
+    --green:#39d353; --green-hi:#6bf085; --green-dim:#2aa544; --amber:#f0b429; --red:#ff5d5d;
+    --fg:#e8f1ea; --fg-body:#aebdb4; --mut:#6f8077; --cream:#ece7d9;
+    --maxw:880px; --r:14px; --ease:cubic-bezier(.16,1,.3,1);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    --disp:'Clash Display','Space Grotesk',system-ui,sans-serif;
+    --body:'Satoshi','Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
 }
-html{ scroll-behavior:smooth; overflow-x:hidden; }
-body{ font-family:var(--body); color:var(--ink); background:var(--paper); line-height:1.65; font-size:16.5px; overflow-x:hidden; }
-body::after{
-    content:""; position:fixed; inset:0; z-index:2000; pointer-events:none; opacity:.05;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-a{ color:var(--gold); text-decoration:none; }
-a:hover{ color:var(--head); }
-::selection{ background:var(--gold-hi); color:#1c1204; }
-code{
-    font-family:var(--mono); font-size:.84em; color:var(--gold);
-    background:rgba(160,109,13,.08); border:1px solid var(--line-2);
-    padding:.06em .35em; border-radius:4px;
-}
-.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+html{ scroll-behavior:smooth; }
+body{ font-family:var(--body); color:var(--fg-body); background:var(--bg); line-height:1.65; font-size:16.5px; overflow-x:hidden; min-height:100dvh; -webkit-font-smoothing:antialiased; }
+body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:radial-gradient(1000px 560px at 82% -10%, rgba(57,211,83,.10), transparent 60%), radial-gradient(760px 520px at -6% 4%, rgba(240,180,41,.05), transparent 58%); }
+a{ color:var(--green); text-decoration:none; transition:color .2s var(--ease); }
+a:hover{ color:var(--green-hi); }
+b,strong{ color:var(--fg); font-weight:600; }
+code{ font-family:var(--mono); font-size:.86em; color:var(--green-hi); background:rgba(57,211,83,.08); border:1px solid var(--line-2); padding:.08em .38em; border-radius:6px; }
+::selection{ background:rgba(57,211,83,.28); color:#eafff0; }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
 
-nav{
-    position:sticky; top:0; z-index:50;
-    background:rgba(245,239,225,.88); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-}
-.nav-in{ max-width:var(--maxw); margin:0 auto; padding:0 24px; height:60px; display:flex; align-items:center; justify-content:space-between; }
-.brand{ font-family:var(--disp); font-weight:700; font-size:1.05rem; color:var(--head); display:inline-flex; gap:9px; align-items:center; }
-.brand .coin{ color:var(--gold); }
-.nav-links{ display:flex; gap:20px; align-items:center; list-style:none; font-size:.88rem; }
+nav{ position:sticky; top:0; z-index:50; height:60px; display:flex; align-items:center; background:rgba(5,8,10,.6); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+.nav-in{ max-width:var(--maxw); width:100%; margin:0 auto; padding:0 22px; display:flex; align-items:center; justify-content:space-between; }
+.brand{ font-family:var(--mono); font-weight:600; font-size:1rem; color:var(--cream); display:inline-flex; gap:8px; align-items:center; letter-spacing:-.02em; }
+.brand .coin{ color:var(--green); text-shadow:0 0 12px rgba(57,211,83,.5); font-weight:700; }
+.nav-links{ display:flex; gap:18px; align-items:center; list-style:none; font-size:.86rem; }
+.nav-links a{ color:var(--mut); }
+.nav-links a:hover{ color:var(--fg); }
 
-header{ padding:72px 0 48px; }
-header.wrap{ padding-top:72px; padding-bottom:48px; }
-section.wrap{ padding-top:36px; padding-bottom:36px; }
-.kicker{
-    font-family:var(--mono); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--gold); display:inline-flex; align-items:center; gap:10px;
-}
-.kicker::before{ content:""; width:26px; height:1px; background:var(--gold); }
-h1{
-    font-family:var(--disp); font-weight:750; font-size:clamp(2.2rem,6vw,3.4rem);
-    line-height:1.02; letter-spacing:-.03em; color:var(--head); margin:16px 0 12px;
-}
-.lead{ color:var(--mut); max-width:60ch; font-size:1.05rem; }
+header{ padding:clamp(56px,9vw,88px) 0 clamp(32px,5vw,48px); }
+.kicker{ font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--green); display:inline-flex; align-items:center; gap:10px; }
+.kicker::before{ content:""; width:24px; height:1px; background:linear-gradient(90deg,transparent,var(--green)); }
+h1{ font-family:var(--disp); font-weight:700; font-size:clamp(2.2rem,6vw,3.6rem); line-height:1; letter-spacing:-.03em; color:var(--cream); margin:16px 0 14px; }
+.lead{ color:var(--fg-body); max-width:60ch; font-size:1.05rem; }
 .cta{ display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
-.btn{
-    display:inline-flex; align-items:center; gap:9px; padding:11px 20px; border-radius:4px;
-    font-family:var(--mono); font-weight:600; font-size:.84rem; border:1px solid transparent;
-    transition:background .2s ease, border-color .2s ease, color .2s ease;
-}
-.btn-primary{ background:var(--gold-hi); color:#1c1204; }
-.btn-primary:hover{ background:#f4c161; color:#1c1204; }
-.btn-ghost{ color:var(--ink); border-color:var(--line); }
-.btn-ghost:hover{ border-color:var(--gold); color:var(--gold); }
-
-.notice{
-    margin-top:28px; padding:14px 18px; border:1px solid rgba(160,58,46,.35);
-    border-left:3px solid var(--red); border-radius:0 6px 6px 0;
-    background:rgba(160,58,46,.06); color:var(--red); font-size:.9rem; max-width:64ch;
-}
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 20px; border-radius:8px; font-family:var(--mono); font-weight:600; font-size:.84rem; border:1px solid transparent; transition:transform .18s var(--ease), background .2s, border-color .2s, color .2s; }
+.btn-primary{ background:var(--green); color:#04140a; } .btn-primary:hover{ background:var(--green-hi); transform:translateY(-2px); }
+.btn-ghost{ color:var(--fg); border-color:var(--line-2); } .btn-ghost:hover{ border-color:var(--green); color:var(--green-hi); transform:translateY(-2px); }
+.notice{ margin-top:28px; padding:14px 18px; border:1px solid rgba(255,93,93,.35); border-left:3px solid var(--red); border-radius:0 8px 8px 0; background:rgba(255,93,93,.06); color:var(--red); font-size:.9rem; max-width:64ch; }
 .notice b{ font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; display:block; margin-bottom:4px; }
 
-section{ padding:36px 0; }
-.sec-num{
-    display:flex; align-items:center; gap:14px;
-    font-family:var(--mono); font-size:.7rem; font-weight:600;
-    letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;
-}
-.sec-num::after{ content:""; flex:1; height:1px; background:var(--line); }
+section{ padding:clamp(28px,4vw,40px) 0; }
+.sec-num{ display:inline-flex; align-items:center; gap:12px; font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--green); margin-bottom:16px; }
+.sec-num::after{ content:""; flex:1; height:1px; background:var(--line); min-width:40px; }
 .feature-list{ list-style:none; border-top:1px solid var(--line); }
-.feature-list li{
-    color:var(--mut); font-size:.95rem; padding:13px 0 13px 26px; position:relative;
-    border-bottom:1px solid var(--line-2);
-}
-.feature-list li::before{ content:"+"; position:absolute; left:2px; color:var(--gold); font-family:var(--mono); font-weight:600; }
-.feature-list li b{ color:var(--ink); font-weight:600; }
+.feature-list li{ color:var(--fg-body); font-size:.95rem; padding:14px 0 14px 26px; position:relative; border-bottom:1px solid var(--line); }
+.feature-list li::before{ content:"+"; position:absolute; left:2px; color:var(--green-dim); font-family:var(--mono); font-weight:600; }
 
-footer{
-    border-top:1px solid var(--line); margin-top:48px; padding:28px 0;
-    text-align:center; color:var(--mut); font-family:var(--mono); font-size:.72rem;
-}
-@media (max-width:480px){
-    header{ padding:52px 0 36px; }
-    .cta{ flex-direction:column; }
-    .btn{ width:100%; justify-content:center; }
-}
+footer{ border-top:1px solid var(--line); margin-top:40px; padding:32px 0; text-align:center; color:var(--mut); font-family:var(--mono); font-size:.74rem; }
+@media (max-width:480px){ .cta{ flex-direction:column; } .btn{ width:100%; } }
 </style>
 </head>
 <body>
 
 <nav>
     <div class="nav-in">
-        <a href="index.html" class="brand"><span class="coin">◎</span> TreXito</a>
+        <a href="index.html" class="brand"><span class="coin">❯</span> trexito</a>
         <ul class="nav-links">
             <li><a href="index.html">← back</a></li>
         </ul>
@@ -117,7 +79,7 @@ footer{
 <header class="wrap">
     <span class="kicker">Hypixel SkyBlock · Headless macro client</span>
     <h1>Frikadellen BAF</h1>
-    <p class="lead">BAF (Bazaar Auction Flipper) is a headless macro client for Hypixel SkyBlock — it joins the server, listens to Coflnet's flip feed, and flips the Auction House and Bazaar on its own. This page documents what it actually does.</p>
+    <p class="lead">BAF (Bazaar Auction Flipper) is a headless macro client for Hypixel SkyBlock. It joins the server, listens to Coflnet's flip feed, and flips the Auction House and Bazaar on its own. This page documents what it actually does.</p>
     <div class="cta">
         <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a>
         <a class="btn btn-ghost" href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener">GitHub</a>
@@ -128,7 +90,7 @@ footer{
 <section class="wrap">
     <span class="sec-num">01 · Macro features</span>
     <ul class="feature-list">
-        <li><b>Full flipping loop</b> — authentication flow, then automated buy/sell flipping after joining Hypixel and teleporting to the island.</li>
+        <li><b>Full flipping loop</b>: authentication, then automated buy/sell flipping after joining Hypixel and teleporting to the island.</li>
         <li><b>Skip-confirmation controls</b> in <code>config.toml</code> using profit, finder source, skins, and price thresholds.</li>
         <li><b>Automatic account switching</b> with timed rotation across configured usernames.</li>
         <li><b>SOCKS5 proxy support</b> including optional username/password authentication.</li>
@@ -140,7 +102,7 @@ footer{
     <ul class="feature-list">
         <li><b>Webhook notifications</b> for init, purchasing, selling, and relisting events.</li>
         <li><b>Bazaar flip debugging logs</b> for message parsing, GUI state, and action traces.</li>
-        <li><b>Config-driven startup</b> via <code>config.toml</code> — username, skip config, proxy config, account switching, webhook URL.</li>
+        <li><b>Config-driven startup</b> via <code>config.toml</code>: username, skip config, proxy config, account switching, webhook URL.</li>
         <li><b>Pre-built executables</b> for Windows, Linux, and macOS in GitHub Releases.</li>
     </ul>
 </section>
