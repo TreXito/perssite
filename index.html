@@ -162,11 +162,17 @@ footer a{ color:var(--fg-body); }
 .no-js .reveal{ opacity:1; transform:none; }
 
 @media (max-width:860px){
-    .hero-in{ grid-template-columns:1fr; gap:36px; }
-    .term-wrap{ order:-1; }
+    .hero-in{ grid-template-columns:1fr; gap:34px; }
     .cards{ grid-template-columns:1fr; }
     .feature{ grid-template-columns:1fr; }
     .nav-links li.hide-sm{ display:none; }
+}
+@media (max-width:520px){
+    .hero h1{ font-size:clamp(2.3rem,10vw,3rem); }
+    .nav-links a:not(.nav-cta){ display:none; }
+    .nav-cta{ padding:8px 12px !important; font-size:.74rem; }
+    .cta{ width:100%; } .cta .btn{ flex:1; }
+    .term-body{ font-size:.74rem; }
 }
 @media (prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; } .pulse,.term-body .cur{ animation:none; } }
 </style>
