@@ -1,243 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>frikadellen-baf | Documented Features</title>
-  <style>
-    :root {
-      --bg: #0a0806;
-      --bg-2: #0c0a07;
-      --glass: rgba(255, 247, 230, 0.04);
-      --line: rgba(245, 185, 66, 0.20);
-      --text: #e7e0cf;
-      --muted: #a99c7e;
-      --accent: #f5b942;
-      --accent-2: #ffd470;
-      --warn: #ffd074;
-      --danger: #ff8f8f;
-      --ok: #46d98c;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frikadellen BAF · Documented Features</title>
+<meta name="description" content="What Frikadellen BAF, the headless Auction House and Bazaar macro for Hypixel SkyBlock, actually does: documented features, operations and observability.">
+<meta name="theme-color" content="#05080a">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23070c0f'/><circle cx='50' cy='50' r='30' fill='none' stroke='%2339d353' stroke-width='7'/><text x='50' y='68' font-size='46' text-anchor='middle' fill='%2339d353' font-family='monospace' font-weight='bold'>❯</text></svg>">
+<style>
+*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+:root{
+    --bg:#05080a; --bg-1:#080d10; --panel:#0a1014; --line:#16211c; --line-2:#1f2c26;
+    --green:#39d353; --green-hi:#6bf085; --green-dim:#2aa544; --amber:#f0b429; --red:#ff5d5d;
+    --fg:#e8f1ea; --fg-body:#aebdb4; --mut:#6f8077; --cream:#ece7d9;
+    --maxw:880px; --r:14px; --ease:cubic-bezier(.16,1,.3,1);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    --disp:'Clash Display','Space Grotesk',system-ui,sans-serif;
+    --body:'Satoshi','Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+html{ scroll-behavior:smooth; }
+body{ font-family:var(--body); color:var(--fg-body); background:var(--bg); line-height:1.65; font-size:16.5px; overflow-x:hidden; min-height:100dvh; -webkit-font-smoothing:antialiased; }
+body::before{ content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:radial-gradient(1000px 560px at 82% -10%, rgba(57,211,83,.10), transparent 60%), radial-gradient(760px 520px at -6% 4%, rgba(240,180,41,.05), transparent 58%); }
+a{ color:var(--green); text-decoration:none; transition:color .2s var(--ease); }
+a:hover{ color:var(--green-hi); }
+b,strong{ color:var(--fg); font-weight:600; }
+code{ font-family:var(--mono); font-size:.86em; color:var(--green-hi); background:rgba(57,211,83,.08); border:1px solid var(--line-2); padding:.08em .38em; border-radius:6px; }
+::selection{ background:rgba(57,211,83,.28); color:#eafff0; }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+nav{ position:sticky; top:0; z-index:50; height:60px; display:flex; align-items:center; background:rgba(5,8,10,.6); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+.nav-in{ max-width:var(--maxw); width:100%; margin:0 auto; padding:0 22px; display:flex; align-items:center; justify-content:space-between; }
+.brand{ font-family:var(--mono); font-weight:600; font-size:1rem; color:var(--cream); display:inline-flex; gap:8px; align-items:center; letter-spacing:-.02em; }
+.brand .coin{ color:var(--green); text-shadow:0 0 12px rgba(57,211,83,.5); font-weight:700; }
+.nav-links{ display:flex; gap:18px; align-items:center; list-style:none; font-size:.86rem; }
+.nav-links a{ color:var(--mut); }
+.nav-links a:hover{ color:var(--fg); }
 
-    body {
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 84% 8%, rgba(245,185,66,.16), transparent 40%),
-        radial-gradient(circle at 6% 12%, rgba(201,136,31,.12), transparent 38%),
-        linear-gradient(160deg, var(--bg) 0%, var(--bg-2) 70%, #080604 100%);
-      min-height: 100vh;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+header{ padding:clamp(56px,9vw,88px) 0 clamp(32px,5vw,48px); }
+.kicker{ font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--green); display:inline-flex; align-items:center; gap:10px; }
+.kicker::before{ content:""; width:24px; height:1px; background:linear-gradient(90deg,transparent,var(--green)); }
+h1{ font-family:var(--disp); font-weight:700; font-size:clamp(2.2rem,6vw,3.6rem); line-height:1; letter-spacing:-.03em; color:var(--cream); margin:16px 0 14px; }
+.lead{ color:var(--fg-body); max-width:60ch; font-size:1.05rem; }
+.cta{ display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 20px; border-radius:8px; font-family:var(--mono); font-weight:600; font-size:.84rem; border:1px solid transparent; transition:transform .18s var(--ease), background .2s, border-color .2s, color .2s; }
+.btn-primary{ background:var(--green); color:#04140a; } .btn-primary:hover{ background:var(--green-hi); transform:translateY(-2px); }
+.btn-ghost{ color:var(--fg); border-color:var(--line-2); } .btn-ghost:hover{ border-color:var(--green); color:var(--green-hi); transform:translateY(-2px); }
+.notice{ margin-top:28px; padding:14px 18px; border:1px solid rgba(255,93,93,.35); border-left:3px solid var(--red); border-radius:0 8px 8px 0; background:rgba(255,93,93,.06); color:var(--red); font-size:.9rem; max-width:64ch; }
+.notice b{ font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; display:block; margin-bottom:4px; }
 
-    body::before, body::after {
-      content: "";
-      position: fixed;
-      width: 34rem;
-      height: 34rem;
-      border-radius: 50%;
-      filter: blur(40px);
-      opacity: 0.18;
-      z-index: -1;
-      animation: drift 14s ease-in-out infinite alternate;
-    }
+section{ padding:clamp(28px,4vw,40px) 0; }
+.sec-num{ display:inline-flex; align-items:center; gap:12px; font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--green); margin-bottom:16px; }
+.sec-num::after{ content:""; flex:1; height:1px; background:var(--line); min-width:40px; }
+.feature-list{ list-style:none; border-top:1px solid var(--line); }
+.feature-list li{ color:var(--fg-body); font-size:.95rem; padding:14px 0 14px 26px; position:relative; border-bottom:1px solid var(--line); }
+.feature-list li::before{ content:"+"; position:absolute; left:2px; color:var(--green-dim); font-family:var(--mono); font-weight:600; }
 
-    body::before { background: #f5b942; top: -10rem; left: -8rem; }
-    body::after { background: #c9881f; right: -10rem; bottom: -12rem; animation-delay: 2s; }
-
-    .container { max-width: 1160px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
-
-    .glass {
-      background: var(--glass);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: var(--shadow);
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-      animation: rise-in 0.8s ease both;
-    }
-
-    .nav {
-      padding: 0.85rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.2rem;
-      gap: 0.9rem;
-      flex-wrap: wrap;
-    }
-
-    .brand { font-weight: 800; letter-spacing: 0.02em; }
-    .nav-links { display: flex; gap: 0.65rem; flex-wrap: wrap; }
-
-    .btn, .btn-outline {
-      text-decoration: none;
-      border-radius: 12px;
-      padding: 0.6rem 1rem;
-      font-size: 0.92rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s ease;
-    }
-
-    .btn { color: #241700; font-weight: 700; background: linear-gradient(135deg, var(--accent-2), var(--accent)); }
-    .btn-outline { color: var(--text); border: 1px solid var(--line); background: var(--glass); }
-    .btn:hover, .btn-outline:hover { transform: translateY(-1px); }
-
-    .glass:hover {
-      transform: translateY(-1px);
-      border-color: rgba(245, 185, 66, 0.34);
-      box-shadow: 0 26px 75px rgba(0, 0, 0, 0.6);
-    }
-
-    .hero { padding: clamp(2rem, 6vw, 3.3rem); margin-bottom: 1rem; }
-
-    .kicker {
-      display: inline-block;
-      margin-bottom: 0.65rem;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent-2);
-      font-weight: 700;
-    }
-
-    h1 {
-      font-size: clamp(2rem, 5.6vw, 3.5rem);
-      line-height: 1.1;
-      margin-bottom: 0.8rem;
-      letter-spacing: -0.02em;
-    }
-
-    .lead {
-      color: var(--muted);
-      max-width: 820px;
-      margin-bottom: 1.2rem;
-      font-size: clamp(1rem, 2.7vw, 1.12rem);
-    }
-
-    .notice {
-      margin-top: 0.9rem;
-      border-radius: 12px;
-      padding: 0.65rem 0.8rem;
-      border: 1px solid rgba(255, 143, 143, 0.4);
-      background: rgba(255, 143, 143, 0.09);
-      color: var(--danger);
-      font-size: 0.9rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .card { padding: 1.1rem; }
-    .card h2, .card h3 { font-size: 1.03rem; margin-bottom: 0.45rem; }
-    .card p { color: var(--muted); font-size: 0.95rem; }
-
-    .feature-list {
-      margin-left: 1.1rem;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .feature-list li { margin-bottom: 0.4rem; }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      border-radius: 999px;
-      padding: 0.32rem 0.7rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-top: 0.6rem;
-    }
-
-    .pill.ok { color: var(--ok); border: 1px solid rgba(147, 255, 206, 0.4); background: rgba(147, 255, 206, 0.09); }
-    .pill.danger { color: var(--danger); border: 1px solid rgba(255, 143, 143, 0.4); background: rgba(255, 143, 143, 0.09); }
-
-    footer {
-      margin-top: 1.4rem;
-      padding: 1rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-
-    .container > :nth-child(2) { animation-delay: 0.08s; }
-    .container > :nth-child(3) { animation-delay: 0.16s; }
-    .container > :nth-child(4) { animation-delay: 0.24s; }
-    .container > :nth-child(5) { animation-delay: 0.32s; }
-
-    @keyframes rise-in {
-      from { opacity: 0; transform: translateY(12px) scale(0.99); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    @keyframes drift {
-      from { transform: translate3d(0, 0, 0); }
-      to { transform: translate3d(32px, -24px, 0); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      body::before, body::after, .glass {
-        animation: none !important;
-      }
-
-      .btn:hover, .btn-outline:hover, .glass:hover {
-        transform: none;
-      }
-    }
-  </style>
+footer{ border-top:1px solid var(--line); margin-top:40px; padding:32px 0; text-align:center; color:var(--mut); font-family:var(--mono); font-size:.74rem; }
+@media (max-width:480px){ .cta{ flex-direction:column; } .btn{ width:100%; } }
+</style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero glass">
-      <h1>Frikadellen BAF</h1>
-      <p class="lead">
-        BAF (Bazaar Auction Flipper) is a headless macro client for Hypixel Skyblock.
-      </p>
-      <a class="btn" href="https://github.com/TreXito/frikadellen-baf121" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <p class="notice">
-        Use at your own risk: the macro violates Hypixels TOS and can get you banned
-      </p>
-    </section>
 
-    <section class="grid">
-      <article class="card glass">
-        <h2>Macro features</h2>
-        <ul class="feature-list">
-          <li>Authentication flow, then automated buy/sell flipping after joining Hypixel and teleporting to island.</li>
-          <li>Skip-confirmation controls in <code>config.toml</code> using profit, finder source, skins, and price thresholds.</li>
-          <li>Automatic account switching with timed rotation across configured usernames.</li>
-          <li>SOCKS5 proxy support including optional username/password authentication.</li>
+<nav>
+    <div class="nav-in">
+        <a href="index.html" class="brand"><span class="coin">❯</span> trexito</a>
+        <ul class="nav-links">
+            <li><a href="index.html">← back</a></li>
         </ul>
-      </article>
+    </div>
+</nav>
 
-      <article class="card glass">
-        <h2>Operations & observability</h2>
-        <ul class="feature-list">
-          <li>Webhook notifications for init, purchasing, selling, and relisting events.</li>
-          <li>Bazaar flip debugging logs for message parsing, GUI state, and action traces.</li>
-          <li>Config-driven startup via <code>config.toml</code> (username, skip config, proxy config, account switching, webhook URL).</li>
-          <li>Pre-built executables for Windows, Linux, and macOS in GitHub Releases.</li>
-        </ul>
-      </article>
-    </section>
+<header class="wrap">
+    <span class="kicker">Hypixel SkyBlock · Headless macro client</span>
+    <h1>Frikadellen BAF</h1>
+    <p class="lead">BAF (Bazaar Auction Flipper) is a headless macro client for Hypixel SkyBlock. It joins the server, listens to Coflnet's flip feed, and flips the Auction House and Bazaar on its own. This page documents what it actually does.</p>
+    <div class="cta">
+        <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a>
+        <a class="btn btn-ghost" href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="notice"><b>Use at your own risk</b> The macro violates Hypixel's TOS and can get your account banned.</p>
+</header>
 
-    <footer class="glass">
-      © 2026 TreXito
-    </footer>
-  </div>
+<section class="wrap">
+    <span class="sec-num">01 · Macro features</span>
+    <ul class="feature-list">
+        <li><b>Full flipping loop</b>: authentication, then automated buy/sell flipping after joining Hypixel and teleporting to the island.</li>
+        <li><b>Skip-confirmation controls</b> in <code>config.toml</code> using profit, finder source, skins, and price thresholds.</li>
+        <li><b>Automatic account switching</b> with timed rotation across configured usernames.</li>
+        <li><b>SOCKS5 proxy support</b> including optional username/password authentication.</li>
+    </ul>
+</section>
+
+<section class="wrap">
+    <span class="sec-num">02 · Operations &amp; observability</span>
+    <ul class="feature-list">
+        <li><b>Webhook notifications</b> for init, purchasing, selling, and relisting events.</li>
+        <li><b>Bazaar flip debugging logs</b> for message parsing, GUI state, and action traces.</li>
+        <li><b>Config-driven startup</b> via <code>config.toml</code>: username, skip config, proxy config, account switching, webhook URL.</li>
+        <li><b>Pre-built executables</b> for Windows, Linux, and macOS in GitHub Releases.</li>
+    </ul>
+</section>
+
+<footer>
+    <div class="wrap">© 2026 TreXito · <a href="index.html">trexito.com</a></div>
+</footer>
+
 </body>
 </html>
