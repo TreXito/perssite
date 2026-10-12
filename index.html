@@ -1,37 +1,177 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TreXito · Philipp Podobri</title>
-<meta name="description" content="Philipp Podobri, online as TreXito. IT systems, game automation, and the infrastructure that keeps a project running. Creator of Frikadellen BAF.">
+<title>TreXito — Automation &amp; Infrastructure</title>
+<meta name="description" content="TreXito builds practical automation systems with a focus on reliability, observability, and smooth deployment. Creator of Frikadellen BAF.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://trexito.com">
-<meta property="og:title" content="TreXito · Philipp Podobri">
-<meta property="og:description" content="IT systems, game automation, and the infrastructure that keeps a project running. Creator of Frikadellen BAF.">
+<meta property="og:title" content="TreXito — Automation &amp; Infrastructure">
+<meta property="og:description" content="Practical automation systems — reliable, observable, easy to deploy. Creator of Frikadellen BAF.">
+<meta name="theme-color" content="#0a0806">
 <meta property="og:image" content="https://trexito.com/og.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:site_name" content="TreXito">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#05080a">
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" href="cat-avatar.png" type="image/png">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23f5b942' stroke='%23b8841f' stroke-width='6'/><text x='50' y='70' font-size='52' text-anchor='middle' fill='%237a5410' font-family='monospace' font-weight='bold'>T</text></svg>">
+<style>
+*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+:root{
+    --bg:#0a0806; --panel:#14110b; --panel-2:#1b1710; --line:#2c2417; --line-soft:#1e1810;
+    --text:#e7e0cf; --dim:#a99c7e; --head:#fff8ea;
+    --gold:#f5b942; --gold-bright:#ffd470; --gold-champ:#ffe9b0; --gold-deep:#c9881f;
+    --gold-soft:rgba(245,185,66,.13); --gold-line:rgba(245,185,66,.28); --green:#46d98c;
+    --maxw:1080px; --r:16px; --r-sm:11px; --ease:.3s cubic-bezier(.22,.61,.36,1);
+    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    --disp:'Space Grotesk','Inter',system-ui,sans-serif;
+    --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --gold-grad:linear-gradient(100deg,#ffe9b0,#ffd470 38%,#f5b942 66%,#d9961f);
+}
+html{ scroll-behavior:smooth; }
+body{
+    font-family:var(--body); color:var(--text); background:var(--bg); line-height:1.65; overflow-x:hidden; min-height:100vh;
+    background-image:
+        radial-gradient(1000px 600px at 84% -10%, rgba(245,185,66,.15), transparent 62%),
+        radial-gradient(760px 520px at -8% 6%, rgba(201,136,31,.10), transparent 60%),
+        radial-gradient(680px 680px at 50% 130%, rgba(245,185,66,.07), transparent 62%);
+    background-attachment:fixed;
+}
+a{ color:var(--gold-bright); text-decoration:none; transition:color var(--ease); }
+a:hover{ color:var(--gold-champ); }
+::selection{ background:var(--gold); color:#241700; }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+.gold{ background:var(--gold-grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+/* nav */
+nav{ position:sticky; top:0; z-index:50; backdrop-filter:blur(14px) saturate(150%); -webkit-backdrop-filter:blur(14px) saturate(150%);
+    background:rgba(10,8,6,.6); border-bottom:1px solid var(--line-soft); }
+.nav-in{ max-width:var(--maxw); margin:0 auto; padding:0 22px; height:64px; display:flex; align-items:center; justify-content:space-between; }
+.brand{ font-family:var(--disp); font-weight:700; font-size:1.15rem; color:var(--head); display:inline-flex; gap:8px; align-items:center; }
+.brand .coin{ color:var(--gold); filter:drop-shadow(0 0 12px rgba(245,185,66,.6)); }
+.nav-links{ display:flex; gap:24px; align-items:center; list-style:none; }
+.nav-links a{ color:var(--dim); font-size:.92rem; font-weight:500; }
+.nav-links a:hover{ color:var(--head); }
+.nav-cta{ background:var(--gold-grad); color:#241700 !important; padding:8px 15px; border-radius:var(--r-sm); font-weight:700; box-shadow:0 8px 20px -8px rgba(245,185,66,.6); }
+
+/* buttons */
+.btn{ position:relative; display:inline-flex; align-items:center; gap:8px; padding:12px 22px; border-radius:var(--r-sm);
+    font-family:var(--disp); font-weight:600; font-size:.96rem; cursor:pointer; border:1px solid transparent; overflow:hidden;
+    transition:transform var(--ease), box-shadow var(--ease), border-color var(--ease), color var(--ease), filter var(--ease); }
+.btn:hover{ transform:translateY(-2px); }
+.btn-primary{ background:var(--gold-grad); color:#241700; box-shadow:0 14px 32px -14px rgba(245,185,66,.8); }
+.btn-primary::after{ content:""; position:absolute; top:0; left:-120%; width:60%; height:100%; transform:skewX(-18deg);
+    background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent); transition:left .6s ease; }
+.btn-primary:hover::after{ left:140%; }
+.btn-ghost{ background:rgba(245,185,66,.04); color:var(--gold-champ); border-color:var(--gold-line); }
+.btn-ghost:hover{ border-color:var(--gold); color:var(--gold-bright); }
+
+/* hero */
+.hero{ padding:96px 0 70px; position:relative; }
+.grid-bg{ position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(rgba(245,185,66,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(245,185,66,.05) 1px,transparent 1px);
+    background-size:48px 48px; -webkit-mask-image:radial-gradient(120% 80% at 30% 0%,#000 30%,transparent 75%); mask-image:radial-gradient(120% 80% at 30% 0%,#000 30%,transparent 75%); }
+.hero-in{ position:relative; z-index:1; display:grid; grid-template-columns:1.2fr .8fr; gap:48px; align-items:center; }
+.kicker{ display:inline-flex; align-items:center; gap:9px; font-family:var(--mono); font-size:.74rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--gold-champ); border:1px solid var(--gold-line); background:rgba(245,185,66,.06); padding:7px 14px; border-radius:999px; }
+.kicker .dot{ width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 10px var(--green); }
+.hero h1{ font-family:var(--disp); font-weight:700; font-size:clamp(2.8rem,7vw,5rem); line-height:1; letter-spacing:-.02em; color:var(--head); margin:20px 0 6px; }
+.hero h1 .gold{ background:var(--gold-grad); background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation:shimmer 6s linear infinite; filter:drop-shadow(0 4px 24px rgba(245,185,66,.35)); }
+@keyframes shimmer{ to{ background-position:200% center; } }
+.hero .role{ font-family:var(--mono); color:var(--gold); font-size:.95rem; letter-spacing:.04em; margin-bottom:18px; }
+.hero p.lead{ color:var(--dim); font-size:1.1rem; max-width:40ch; margin-bottom:28px; }
+.hero p.lead strong{ color:var(--gold-champ); font-weight:600; }
+.cta{ display:flex; gap:13px; flex-wrap:wrap; }
+
+/* identity card */
+.id-card{ position:relative; background:linear-gradient(180deg,var(--panel-2),var(--panel)); border:1px solid var(--line); border-radius:var(--r);
+    padding:24px; box-shadow:0 40px 80px -40px rgba(0,0,0,.85), 0 0 60px -32px rgba(245,185,66,.35); }
+.id-card::before{ content:""; position:absolute; inset:0; border-radius:var(--r); padding:1px; pointer-events:none;
+    background:linear-gradient(160deg,var(--gold),transparent 45%,transparent 70%,rgba(245,185,66,.5));
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; }
+.id-top{ display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+.id-avatar{ width:52px; height:52px; border-radius:14px; background:var(--gold-grad); color:#241700; display:flex; align-items:center; justify-content:center;
+    font-family:var(--disp); font-weight:700; font-size:1.5rem; box-shadow:0 10px 24px -10px rgba(245,185,66,.7); }
+.id-name{ font-family:var(--disp); font-weight:600; color:var(--head); font-size:1.05rem; }
+.id-handle{ font-family:var(--mono); color:var(--dim); font-size:.8rem; }
+.id-rows{ display:flex; flex-direction:column; gap:10px; }
+.id-row{ display:flex; align-items:center; justify-content:space-between; font-size:.88rem; color:var(--dim); border-top:1px solid var(--line-soft); padding-top:10px; }
+.id-row:first-child{ border-top:none; padding-top:0; }
+.id-row b{ color:var(--text); font-weight:600; font-family:var(--mono); }
+.id-row .on{ color:var(--green); }
+
+/* sections */
+section{ padding:64px 0; position:relative; }
+section + section::before{ content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:min(960px,90%); height:1px; background:linear-gradient(90deg,transparent,var(--gold-line),transparent); }
+.sec-head{ margin-bottom:34px; }
+.sec-num{ font-family:var(--mono); font-size:.78rem; font-weight:600; color:var(--gold); }
+.sec-num::before{ content:"// "; color:var(--gold-deep); }
+.sec-head h2{ font-family:var(--disp); font-weight:700; font-size:clamp(1.6rem,3.4vw,2.2rem); color:var(--head); letter-spacing:-.02em; margin-top:8px; }
+
+/* cards */
+.cards{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; }
+.card{ position:relative; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:24px; overflow:hidden;
+    transition:transform var(--ease), border-color var(--ease), box-shadow var(--ease), background var(--ease); }
+.card::before{ content:""; position:absolute; left:0; top:0; height:3px; width:100%; background:var(--gold-grad); transform:scaleX(0); transform-origin:left; transition:transform var(--ease); }
+.card:hover{ transform:translateY(-4px); border-color:var(--gold-line); background:var(--panel-2); box-shadow:0 24px 50px -30px rgba(245,185,66,.35); }
+.card:hover::before{ transform:scaleX(1); }
+.card .ix{ font-family:var(--mono); font-size:.78rem; color:var(--gold); }
+.card h3{ font-family:var(--disp); font-weight:600; color:var(--head); font-size:1.1rem; margin:10px 0 8px; }
+.card p{ color:var(--dim); font-size:.92rem; }
+
+/* featured project */
+.feature{ position:relative; display:grid; grid-template-columns:1.3fr 1fr; gap:28px; align-items:center;
+    background:linear-gradient(180deg,var(--panel-2),var(--panel)); border:1px solid var(--line); border-radius:var(--r); padding:34px; overflow:hidden;
+    box-shadow:0 0 70px -44px rgba(245,185,66,.5) inset; }
+.feature-glow{ position:absolute; right:-30%; top:-40%; width:70%; height:160%; background:radial-gradient(circle, rgba(245,185,66,.16), transparent 60%); pointer-events:none; }
+.feature .tag{ font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); }
+.feature h3{ font-family:var(--disp); font-weight:700; font-size:1.7rem; color:var(--head); margin:10px 0 10px; }
+.feature p{ color:var(--dim); margin-bottom:20px; max-width:46ch; }
+.mini-flip{ position:relative; z-index:1; background:#0d0b07; border:1px solid var(--gold-line); border-radius:14px; padding:18px; font-family:var(--mono); }
+.mini-flip .mf-h{ display:flex; justify-content:space-between; align-items:center; font-size:.7rem; color:var(--gold); letter-spacing:.1em; margin-bottom:12px; }
+.mini-flip .mf-live{ color:var(--green); }
+.mini-flip .mf-item{ font-family:var(--disp); font-size:1.05rem; color:var(--head); margin-bottom:12px; }
+.mini-flip .mf-row{ display:flex; justify-content:space-between; font-size:.82rem; color:var(--dim); padding:5px 0; border-top:1px solid var(--line-soft); }
+.mini-flip .mf-row b{ color:var(--text); }
+.mini-flip .mf-row.p b{ color:var(--green); }
+
+/* links */
+.links{ display:flex; flex-wrap:wrap; gap:12px; }
+.link-chip{ display:inline-flex; align-items:center; gap:9px; padding:11px 16px; border-radius:var(--r-sm);
+    background:var(--panel); border:1px solid var(--line); color:var(--text); font-weight:500; font-size:.92rem;
+    transition:transform var(--ease), border-color var(--ease), color var(--ease), box-shadow var(--ease); }
+.link-chip:hover{ transform:translateY(-2px); border-color:var(--gold); color:var(--gold-bright); box-shadow:0 14px 30px -18px rgba(245,185,66,.6); }
+.link-chip .lc-dot{ width:7px; height:7px; border-radius:50%; background:var(--gold); }
+
+/* footer */
+footer{ border-top:1px solid var(--line); margin-top:30px; padding:34px 0; text-align:center; color:var(--dim); font-size:.85rem; position:relative; }
+footer::before{ content:""; position:absolute; top:-1px; left:50%; transform:translateX(-50%); width:min(960px,90%); height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+
+@media (max-width:860px){
+    .hero-in{ grid-template-columns:1fr; gap:34px; }
+    .id-card{ max-width:420px; }
+    .feature{ grid-template-columns:1fr; }
+    .nav-links li.hide-sm{ display:none; }
+}
+@media (max-width:480px){
+    .hero h1{ font-size:2.6rem; }
+    .cta{ flex-direction:column; }
+    .btn{ width:100%; justify-content:center; }
+    .feature{ padding:24px; }
+}
+</style>
 </head>
 <body>
-<div class="grid-lines" aria-hidden="true"></div>
 
 <nav>
     <div class="nav-in">
-        <a href="#" class="brand"><img src="cat-avatar.png" alt="" width="26" height="26"> trexito</a>
+        <a href="#" class="brand"><span class="coin">◎</span> TreXito</a>
         <ul class="nav-links">
             <li class="hide-sm"><a href="#work">Work</a></li>
-            <li class="hide-sm"><a href="#background">Background</a></li>
+            <li class="hide-sm"><a href="#stack">Stack</a></li>
             <li><a href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a></li>
             <li><a class="nav-cta" href="https://auctionflipper.bz" target="_blank" rel="noopener">Frikadellen BAF →</a></li>
         </ul>
@@ -39,134 +179,105 @@
 </nav>
 
 <header class="hero">
+    <div class="grid-bg" aria-hidden="true"></div>
     <div class="wrap hero-in">
         <div>
-            <span class="kicker">IT systems · game automation · Austria</span>
-            <h1>I build systems that <span class="accent">run themselves.</span></h1>
-            <p class="role">Philipp "TreXito" Podobri</p>
-            <p class="lead">IT systems technician, now studying at <strong>42 Wels</strong>. I build around Minecraft automation, live data, and the infrastructure that keeps a project up while I sleep.</p>
+            <span class="kicker"><span class="dot"></span> Automation · Infrastructure · Open Source</span>
+            <h1>Hi, I'm <span class="gold">TreXito.</span></h1>
+            <p class="role">I build automation that runs itself.</p>
+            <p class="lead">Practical systems with a focus on <strong>reliability</strong>, <strong>observability</strong>, and smooth deployment — from a script to production, with the guardrails to keep it up 24/7.</p>
             <div class="cta">
-                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">See Frikadellen BAF →</a>
+                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">View Frikadellen BAF</a>
                 <a class="btn btn-ghost" href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a>
             </div>
         </div>
 
-        <div class="term-wrap">
-            <div class="term" role="img" aria-label="Terminal: whoami Philipp Podobri, TreXito, Upper Austria; stack Rust, C, Python, Bash, Linux, systemd; frikadellen-baf paused per README advisory, biggest flip on record +132.5M; currently at 42 Wels.">
-                <div class="term-bar">
-                    <div class="term-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-                    <span class="term-title"><b>trexito</b>@workstation</span>
-                    <span class="term-live"><span class="pulse"></span> online</span>
-                </div>
-                <div class="term-body" aria-hidden="true">
-                    <div class="cmd">whoami</div>
-                    <div class="out"><b>Philipp Podobri</b> · TreXito · Upper Austria</div>
-                    <div class="cmd">cat stack.txt</div>
-                    <div class="out">Rust · C · Python · Bash · Linux · systemd</div>
-                    <div class="cmd">systemctl status frikadellen-baf</div>
-                    <div class="out"><span class="a">●</span> paused · README advisory (Oct 2026)</div>
-                    <div class="out">biggest flip on record <span class="g">+132.5M</span></div>
-                    <div class="cmd">cat currently.txt</div>
-                    <div class="out"><b>42 Wels</b> · C, Bash, and a lot of man pages</div>
-                    <div class="cmd"><span class="cur">▊</span></div>
+        <aside class="id-card">
+            <div class="id-top">
+                <div class="id-avatar">T</div>
+                <div>
+                    <div class="id-name">TreXito</div>
+                    <div class="id-handle">@trexito · age 20</div>
                 </div>
             </div>
-        </div>
+            <div class="id-rows">
+                <div class="id-row"><span>Focus</span><b>Automation / Infra</b></div>
+                <div class="id-row"><span>Flagship</span><b>Frikadellen BAF</b></div>
+                <div class="id-row"><span>Stack</span><b>Rust · Node · Linux</b></div>
+                <div class="id-row"><span>Status</span><b class="on">● building</b></div>
+            </div>
+        </aside>
     </div>
 </header>
 
 <section id="work" class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">01 · Work</span>
-        <h2>Things I built and kept running</h2>
+    <div class="sec-head">
+        <span class="sec-num">01</span>
+        <h2>What I do</h2>
     </div>
     <div class="cards">
-        <article class="card reveal">
-            <span class="ix">Rust · Hypixel SkyBlock</span>
-            <h3>Frikadellen BAF</h3>
-            <p>A Coflnet-powered Auction House &amp; Bazaar flipper: ~50ms BIN buys, auto-relisting, bazaar orders, a web panel and Discord control. The flagship, and the reason this design is green.</p>
-            <div class="card-links"><a href="https://auctionflipper.bz" target="_blank" rel="noopener">Site →</a><a href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener">Source →</a></div>
+        <article class="card">
+            <span class="ix">01</span>
+            <h3>Platform Engineering</h3>
+            <p>Cloud-hosted runtimes, deployment pipelines, and operations playbooks tailored to small teams and solo builders.</p>
         </article>
-        <article class="card reveal">
-            <span class="ix">Python · self-hosted</span>
-            <h3>Sky Watch</h3>
-            <p>A flight tracker with a map, flight history and optional Discord alerts. It started with a simple question: what is flying overhead right now?</p>
-            <div class="card-links"><a href="https://github.com/TreXito/Skywatch" target="_blank" rel="noopener">Source →</a></div>
+        <article class="card">
+            <span class="ix">02</span>
+            <h3>Automation Delivery</h3>
+            <p>From scripts to production workflows — fast to ship, with operational guardrails and clear ownership.</p>
         </article>
-        <article class="card reveal">
-            <span class="ix">Rust · fork</span>
-            <h3>AzaleaPathfinder</h3>
-            <p>A pathfinding fork adapted for my Minecraft automation work. The kind of change that happens when an existing tool almost fits the job.</p>
-            <div class="card-links"><a href="https://github.com/TreXito/AzaleaPathfinder" target="_blank" rel="noopener">Source →</a></div>
+        <article class="card">
+            <span class="ix">03</span>
+            <h3>Security-Aware Ops</h3>
+            <p>Defensive defaults, transparent configs, and a logging-first approach that keeps systems maintainable.</p>
         </article>
     </div>
 </section>
 
 <section class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">02 · Flagship</span>
-        <h2>A window into the bot</h2>
+    <div class="sec-head">
+        <span class="sec-num">02</span>
+        <h2>Flagship project</h2>
     </div>
-    <div class="feature reveal">
+    <div class="feature">
+        <div class="feature-glow" aria-hidden="true"></div>
         <div>
-            <span class="tag">Frikadellen BAF · web panel</span>
-            <h3>Every flip, <span class="accent">visible.</span></h3>
-            <p>Buying is one part of it. Reconnecting, relisting, watching the current state and controlling a running session from anywhere make up the rest. The panel is real, so is the log: <strong>117 flips · 1.77B tracked profit</strong> on the anonymized public feed.</p>
+            <span class="tag">Hypixel SkyBlock · Rust</span>
+            <h3>Frikadellen <span class="gold">BAF</span></h3>
+            <p>A Coflnet-powered Auction House &amp; Bazaar flipper: sub-second BIN sniping, automatic selling, a web panel and full Discord control, with live profit tracking.</p>
             <div class="cta">
-                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a>
-                <a class="btn btn-ghost" href="frikadellen-baf.html">Project notes</a>
+                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">Visit auctionflipper.bz</a>
+                <a class="btn btn-ghost" href="frikadellen-baf.html">Features</a>
             </div>
         </div>
         <div class="mini-flip">
-            <div class="mf-h"><span>mythic flip · biggest on record</span><span class="mf-live">● log</span></div>
-            <div class="mf-item">Hegemony Artifact</div>
-            <div class="mf-row"><span>Bought</span><b>500.0M</b></div>
-            <div class="mf-row"><span>Target</span><b>648.8M</b></div>
-            <div class="mf-row p"><span>Profit</span><b>+132.5M</b></div>
+            <div class="mf-h"><span>LEGENDARY FLIP</span><span class="mf-live">● live</span></div>
+            <div class="mf-item">Heroic Hyperion ✪✪✪✪✪</div>
+            <div class="mf-row"><span>Bought</span><b>600.0M</b></div>
+            <div class="mf-row"><span>Target</span><b>726.9M</b></div>
+            <div class="mf-row p"><span>Profit</span><b>+108.7M</b></div>
         </div>
     </div>
-    <figure class="shot reveal">
-        <img src="baf-panel.png" loading="lazy" alt="The Frikadellen BAF web panel: status, controls, accounts and Minecraft inventory">
-        <figcaption>web panel · controls &amp; dashboard</figcaption>
-    </figure>
 </section>
 
-<section id="background" class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">03 · Background</span>
-        <h2>How I got here</h2>
+<section id="stack" class="wrap">
+    <div class="sec-head">
+        <span class="sec-num">03</span>
+        <h2>Links &amp; stack</h2>
     </div>
-    <div class="timeline reveal">
-        <div class="tl-row"><span class="tl-when">2026 → now</span><div><b>42 Wels</b><p>Studying programming: C, Bash, and the discipline of the man pages.</p></div></div>
-        <div class="tl-row"><span class="tl-when">2022 → 2026</span><div><b>SAATBAU LINZ eGen</b><p>IT system technician apprenticeship. Logs, networks, deployment, and the problems that only appear once something is already running.</p></div></div>
-        <div class="tl-row"><span class="tl-when">2020 → 2021</span><div><b>HTL Leonding</b><p>IT Medientechnik.</p></div></div>
-        <div class="tl-row"><span class="tl-when">off the keyboard</span><div><b>Powerlifting</b><p>Competing keeps me away from the desk. <a href="https://www.openpowerlifting.org/" target="_blank" rel="noopener">openpowerlifting.org</a></p></div></div>
-    </div>
-</section>
-
-<section id="links" class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">04 · Around the web</span>
-        <h2>Find me where the work lives</h2>
-    </div>
-    <div class="links reveal">
+    <div class="links">
         <a class="link-chip" href="https://github.com/TreXito" target="_blank" rel="noopener"><span class="lc-dot"></span> GitHub</a>
-        <a class="link-chip" href="https://www.linkedin.com/in/philipp-podobri-b92806421/" target="_blank" rel="noopener"><span class="lc-dot"></span> LinkedIn</a>
-        <a class="link-chip" href="https://auctionflipper.bz" target="_blank" rel="noopener"><span class="lc-dot"></span> auctionflipper.bz</a>
+        <a class="link-chip" href="https://sky.coflnet.com/flipper?refId=9KKPN9" target="_blank" rel="noopener"><span class="lc-dot"></span> Coflnet</a>
+        <a class="link-chip" href="https://www.hetzner.com/" target="_blank" rel="noopener"><span class="lc-dot"></span> Hetzner</a>
+        <a class="link-chip" href="https://www.linode.com/lp/refer/?r=434c0fe68b0def534e2e5e9198f9d75b08159988" target="_blank" rel="noopener"><span class="lc-dot"></span> Linode</a>
+        <a class="link-chip" href="https://my.cloudfanatic.net/aff.php?aff=882" target="_blank" rel="noopener"><span class="lc-dot"></span> Cloudfanatic</a>
         <a class="link-chip" href="https://discord.com/users/peenarweenar" target="_blank" rel="noopener"><span class="lc-dot"></span> Discord</a>
     </div>
 </section>
 
 <footer>
-    <div class="wrap">© 2026 Philipp Podobri · TreXito · built by hand, no framework</div>
+    <div class="wrap">© 2026 TreXito · Automation &amp; Infrastructure</div>
 </footer>
 
-<script>
-document.documentElement.classList.remove('no-js');
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-} else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
-</script>
 </body>
 </html>

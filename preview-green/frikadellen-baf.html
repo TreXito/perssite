@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frikadellen BAF · project notes · TreXito</title>
+<meta name="description" content="Notes on Frikadellen BAF, an open-source Rust client for Hypixel SkyBlock Auction House and Bazaar automation: the loop, the panel, and the current status.">
+<link rel="canonical" href="https://trexito.com/frikadellen-baf.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://trexito.com/frikadellen-baf.html">
+<meta property="og:title" content="Frikadellen BAF · project notes">
+<meta property="og:description" content="A Rust game automation project and the systems around it.">
+<meta property="og:image" content="https://trexito.com/og.png?v=3">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#05080a">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="../cat-avatar.png" type="image/png">
+<style>
+.note{ max-width:860px; }
+.note .kicker{ margin-bottom:18px; }
+.note h1{ font-family:var(--disp); font-weight:700; font-size:clamp(2.3rem,5.6vw,3.6rem); line-height:1; letter-spacing:-.03em; color:var(--cream); margin:0 0 18px; }
+.note h1 .accent{ color:var(--green); }
+.note .lede{ color:var(--fg-body); font-size:1.08rem; max-width:52ch; margin-bottom:26px; }
+.note-block{ margin-top:clamp(44px,6vw,64px); }
+.note-block h2{ font-family:var(--disp); font-weight:600; font-size:clamp(1.4rem,2.8vw,1.9rem); color:var(--fg); letter-spacing:-.02em; margin-bottom:14px; }
+.note-block p{ color:var(--mut); margin-bottom:14px; max-width:64ch; }
+.note-block p b{ color:var(--fg-body); }
+.note-block a{ color:var(--green); }
+.statline{ display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 4px; }
+.statline .st{ background:linear-gradient(180deg,var(--panel),var(--bg-1)); border:1px solid var(--line); border-radius:10px; padding:10px 16px; font-family:var(--mono); }
+.statline .st b{ display:block; color:var(--green-hi); font-size:1.05rem; font-weight:600; }
+.statline .st span{ font-size:.68rem; color:var(--mut); text-transform:uppercase; letter-spacing:.08em; }
+.advisory{ border:1px solid rgba(255,93,93,.35); background:rgba(255,93,93,.06); border-radius:12px; padding:16px 20px; font-size:.92rem; color:var(--fg-body); }
+.advisory b{ color:var(--red); }
+</style>
+</head>
+<body>
+<div class="grid-lines" aria-hidden="true"></div>
+
+<nav>
+    <div class="nav-in">
+        <a href="/" class="brand"><img src="../cat-avatar.png" alt="" width="26" height="26"> trexito</a>
+        <ul class="nav-links">
+            <li class="hide-sm"><a href="/#work">Work</a></li>
+            <li><a href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a class="nav-cta" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a></li>
+        </ul>
+    </div>
+</nav>
+
+<main class="wrap note" style="padding:clamp(48px,7vw,80px) 22px;">
+    <span class="kicker">Rust · Hypixel SkyBlock · AGPLv3</span>
+    <h1>Frikadellen <span class="accent">BAF</span></h1>
+    <p class="lede">A headless client for Auction House and Bazaar automation. Buying is one part of it: reconnecting, relisting, watching state and controlling a running session make up the rest.</p>
+    <div class="cta">
+        <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">Project site →</a>
+        <a class="btn btn-ghost" href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener">Source</a>
+    </div>
+
+    <div class="statline reveal">
+        <div class="st"><b>117</b><span>flips logged</span></div>
+        <div class="st"><b>1.77B</b><span>profit tracked</span></div>
+        <div class="st"><b>+132.5M</b><span>biggest flip</span></div>
+        <div class="st"><b>~50ms</b><span>buy path (VPS)</span></div>
+    </div>
+
+    <div class="note-block reveal">
+        <h2>The loop</h2>
+        <p>BAF listens to the Coflnet flip feed, buys underpriced Auction House BINs on a fast path that pre-clicks Confirm, relists them at target, and claims sold auctions the moment the sale is signalled. In parallel it runs the Bazaar: placing buy and sell orders, tracking fills, collecting, and cancelling stale orders.</p>
+        <p>The client is built in Rust on Azalea. A real-time web panel and a Discord integration expose state and controls remotely. The <a href="https://github.com/TreXito/frikadellen-baf-121#features" target="_blank" rel="noopener">repository documentation</a> is the source of truth for current features.</p>
+    </div>
+
+    <div class="note-block reveal">
+        <h2>The interesting problems</h2>
+        <p>The happy path is easy. What kept me on this project is everything after it: recovering from a disconnect mid-purchase, tracking an order that fills an hour later, rotating accounts without losing the Coflnet license, and reconstructing what happened overnight from logs instead of guesses.</p>
+    </div>
+
+    <figure class="shot reveal">
+        <img src="../baf-panel.png" loading="lazy" alt="The Frikadellen BAF web panel: status, controls, accounts and Minecraft inventory">
+        <figcaption>web panel · controls &amp; dashboard</figcaption>
+    </figure>
+
+    <div class="note-block reveal">
+        <h2>Current status</h2>
+        <div class="advisory">As of <b>October 2026</b> the <a href="https://github.com/TreXito/frikadellen-baf-121#readme" target="_blank" rel="noopener">project README</a> <b>advises against running BAF</b> because of recent ban waves. The source, documentation and releases stay up; the automation itself sits paused.</div>
+        <p style="margin-top:14px">Automating gameplay violates Hypixel's rules and can lead to account penalties. Flip values in the feed are targets and estimates, not confirmed profit.</p>
+    </div>
+
+    <div class="note-block reveal">
+        <div class="cta">
+            <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a>
+            <a class="btn btn-ghost" href="/">← Back to trexito.com</a>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="wrap">© 2026 Philipp Podobri · TreXito</div>
+</footer>
+
+<script>
+document.documentElement.classList.remove('no-js');
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+} else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
+</script>
+</body>
+</html>
