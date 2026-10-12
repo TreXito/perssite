@@ -1,306 +1,67 @@
-<!DOCTYPE html>
-<html lang="en" class="no-js">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TreXito · Automation &amp; Infrastructure</title>
-<meta name="description" content="TreXito builds practical automation systems with a focus on reliability, observability, and smooth deployment. Creator of Frikadellen BAF.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://trexito.com">
-<meta property="og:title" content="TreXito · Automation &amp; Infrastructure">
-<meta property="og:description" content="Practical automation systems: reliable, observable, easy to deploy. Creator of Frikadellen BAF.">
-<meta property="og:image" content="https://trexito.com/og.png?v=2">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="TreXito · Automation &amp; Infrastructure">
-<meta property="og:site_name" content="TreXito">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="TreXito · Automation &amp; Infrastructure">
-<meta name="twitter:description" content="Practical automation systems: reliable, observable, easy to deploy. Creator of Frikadellen BAF.">
-<meta name="twitter:image" content="https://trexito.com/og.png?v=2">
-<meta name="theme-color" content="#05080a">
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23070c0f'/><circle cx='50' cy='50' r='30' fill='none' stroke='%2339d353' stroke-width='7'/><text x='50' y='68' font-size='46' text-anchor='middle' fill='%2339d353' font-family='monospace' font-weight='bold'>❯</text></svg>">
-<style>
-*,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
-:root{
-    --bg:#05080a; --bg-1:#080d10; --panel:#0a1014; --panel-2:#0d151a; --line:#16211c; --line-2:#1f2c26;
-    --green:#39d353; --green-hi:#6bf085; --green-dim:#2aa544; --amber:#f0b429; --red:#ff5d5d; --cyan:#4fd0dd;
-    --fg:#e8f1ea; --fg-body:#aebdb4; --mut:#6f8077; --cream:#ece7d9; --term:#cbe8d3;
-    --maxw:1080px; --r:14px; --r-sm:8px; --ease:cubic-bezier(.16,1,.3,1);
-    --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
-    --disp:'Clash Display','Space Grotesk',system-ui,sans-serif;
-    --body:'Satoshi','Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-}
-html{ scroll-behavior:smooth; }
-@media (prefers-reduced-motion:reduce){ html{ scroll-behavior:auto; } }
-body{ font-family:var(--body); color:var(--fg-body); background:var(--bg); line-height:1.65; font-size:16.5px; overflow-x:hidden; min-height:100dvh; -webkit-font-smoothing:antialiased; }
-body::before{ content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
-    background:radial-gradient(1100px 620px at 80% -8%, rgba(57,211,83,.10), transparent 60%), radial-gradient(900px 600px at 6% 4%, rgba(240,180,41,.05), transparent 55%); }
-.grid-lines{ position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.5;
-    background-image:linear-gradient(to right, rgba(57,211,83,.045) 1px, transparent 1px),linear-gradient(to bottom, rgba(57,211,83,.045) 1px, transparent 1px);
-    background-size:64px 64px; -webkit-mask-image:radial-gradient(ellipse 90% 60% at 40% 0%, #000 0%, transparent 75%); mask-image:radial-gradient(ellipse 90% 60% at 40% 0%, #000 0%, transparent 75%); }
-a{ color:var(--green); text-decoration:none; transition:color .2s var(--ease); }
-a:hover{ color:var(--green-hi); }
-b,strong{ color:var(--fg); font-weight:600; }
-::selection{ background:rgba(57,211,83,.28); color:#eafff0; }
-.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
-
-/* nav */
-nav{ position:sticky; top:0; z-index:50; height:64px; display:flex; align-items:center;
-    background:rgba(5,8,10,.6); backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%); border-bottom:1px solid var(--line); }
-.nav-in{ max-width:var(--maxw); width:100%; margin:0 auto; padding:0 22px; display:flex; align-items:center; justify-content:space-between; }
-.brand{ font-family:var(--mono); font-weight:600; font-size:1rem; color:var(--cream); display:inline-flex; gap:8px; align-items:center; letter-spacing:-.02em; }
-.brand .coin{ color:var(--green); text-shadow:0 0 12px rgba(57,211,83,.5); font-weight:700; }
-.nav-links{ display:flex; gap:6px; align-items:center; list-style:none; }
-.nav-links a{ color:var(--mut); font-size:.86rem; font-weight:500; padding:8px 12px; border-radius:6px; }
-.nav-links a:not(.nav-cta):hover{ color:var(--fg); background:rgba(255,255,255,.03); }
-.nav-cta{ font-family:var(--mono); font-size:.78rem; font-weight:600; background:var(--green); color:#04140a !important; padding:9px 15px !important; border-radius:6px; margin-left:8px; transition:box-shadow .3s, transform .18s var(--ease); }
-.nav-cta:hover{ background:var(--green-hi) !important; box-shadow:0 6px 22px -6px rgba(57,211,83,.6); transform:translateY(-1px); }
-
-/* buttons */
-.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 22px; border-radius:var(--r-sm); cursor:pointer;
-    font-family:var(--mono); font-weight:600; font-size:.86rem; border:1px solid transparent; white-space:nowrap;
-    transition:transform .18s var(--ease), background .2s, border-color .2s, box-shadow .3s, color .2s; }
-.btn:active{ transform:translateY(1px); }
-.btn-primary{ background:var(--green); color:#04140a; }
-.btn-primary:hover{ background:var(--green-hi); box-shadow:0 8px 30px -8px rgba(57,211,83,.6); transform:translateY(-2px); }
-.btn-ghost{ background:rgba(255,255,255,.015); color:var(--fg); border-color:var(--line-2); }
-.btn-ghost:hover{ border-color:var(--green); color:var(--green-hi); transform:translateY(-2px); }
-
-/* kicker + section heads */
-.kicker{ font-family:var(--mono); font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--green); display:inline-flex; align-items:center; gap:10px; }
-.kicker::before{ content:""; width:24px; height:1px; background:linear-gradient(90deg,transparent,var(--green)); }
-section{ padding:clamp(56px,8vw,92px) 0; position:relative; }
-.sec-num{ display:inline-flex; align-items:center; gap:12px; font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--green); margin-bottom:14px; }
-.sec-num::before{ content:""; width:26px; height:1px; background:var(--line-2); }
-.sec-head h2{ font-family:var(--disp); font-weight:600; font-size:clamp(1.8rem,3.6vw,2.6rem); color:var(--fg); letter-spacing:-.025em; }
-.sec-head{ margin-bottom:36px; }
-
-/* hero */
-.hero{ padding:clamp(48px,7vw,92px) 0 clamp(48px,7vw,80px); }
-.hero-in{ display:grid; grid-template-columns:1.05fr 1fr; gap:clamp(32px,5vw,64px); align-items:center; }
-.hero-in>*{ min-width:0; }
-.hero h1{ font-family:var(--disp); font-weight:700; font-size:clamp(2.6rem,6vw,4.4rem); line-height:1; letter-spacing:-.035em; color:var(--cream); margin:18px 0 14px; }
-.hero h1 .accent{ color:var(--green); }
-.hero .role{ font-family:var(--mono); color:var(--mut); font-size:.9rem; letter-spacing:.02em; margin-bottom:18px; }
-.hero p.lead{ color:var(--fg-body); font-size:1.08rem; max-width:44ch; margin-bottom:28px; }
-.hero p.lead strong{ color:var(--green-hi); }
-.cta{ display:flex; gap:13px; flex-wrap:wrap; }
-
-/* whoami terminal */
-.term-wrap{ position:relative; }
-.term-wrap::before{ content:""; position:absolute; inset:-2px; border-radius:16px; z-index:0; background:radial-gradient(120% 100% at 50% 0%, rgba(57,211,83,.2), transparent 62%); filter:blur(20px); opacity:.8; }
-.term{ position:relative; z-index:1; border:1px solid var(--line-2); border-radius:16px; overflow:hidden; background:linear-gradient(180deg,#0a1014,#070c0f); box-shadow:0 40px 90px -50px rgba(0,0,0,.9); }
-.term-bar{ display:flex; align-items:center; gap:12px; padding:11px 16px; background:rgba(255,255,255,.02); border-bottom:1px solid var(--line); }
-.term-dots{ display:flex; gap:7px; }
-.term-dots i{ width:11px; height:11px; border-radius:50%; display:block; }
-.term-dots i:nth-child(1){ background:#ff5f56; } .term-dots i:nth-child(2){ background:#ffbd2e; } .term-dots i:nth-child(3){ background:#27c93f; }
-.term-title{ font-family:var(--mono); font-size:.76rem; color:var(--mut); }
-.term-title b{ color:var(--fg-body); font-weight:500; }
-.term-live{ margin-left:auto; display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:.66rem; text-transform:uppercase; letter-spacing:.14em; color:var(--green); }
-.pulse{ width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 0 0 rgba(57,211,83,.6); animation:pulse 1.8s var(--ease) infinite; }
-@keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(57,211,83,.55);} 70%{ box-shadow:0 0 0 7px rgba(57,211,83,0);} 100%{ box-shadow:0 0 0 0 rgba(57,211,83,0);} }
-.term-body{ font-family:var(--mono); font-size:.8rem; line-height:1.85; color:var(--term); padding:18px 18px 16px; }
-.term-body .cmd{ color:var(--fg); } .term-body .cmd::before{ content:"$ "; color:var(--green); }
-.term-body .out{ color:var(--mut); padding-left:14px; }
-.term-body .out b{ color:var(--fg-body); }
-.term-body .g{ color:var(--green-hi); font-weight:600; } .term-body .a{ color:var(--amber); }
-.term-body .cur{ color:var(--green); animation:blink 1.1s step-end infinite; }
-@keyframes blink{ 50%{ opacity:0; } }
-
-/* cards */
-.cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-.card{ position:relative; background:linear-gradient(180deg,var(--panel),var(--bg-1)); border:1px solid var(--line); border-radius:var(--r); padding:26px 22px; overflow:hidden;
-    transition:transform .3s var(--ease), border-color .3s; }
-.card::after{ content:""; position:absolute; inset:6px; pointer-events:none;
-    background-image:linear-gradient(var(--green),var(--green)),linear-gradient(var(--green),var(--green)),linear-gradient(var(--green),var(--green)),linear-gradient(var(--green),var(--green));
-    background-size:5px 5px; background-repeat:no-repeat; background-position:top left,top right,bottom left,bottom right; opacity:.26; transition:opacity .3s; }
-.card:hover{ transform:translateY(-4px); border-color:var(--line-2); }
-.card:hover::after{ opacity:.7; }
-.card .ix{ font-family:var(--mono); font-size:.74rem; color:var(--green); font-weight:600; }
-.card h3{ font-family:var(--disp); font-weight:600; color:var(--fg); font-size:1.08rem; margin:12px 0 8px; letter-spacing:-.01em; }
-.card p{ color:var(--mut); font-size:.9rem; line-height:1.6; }
-
-/* featured */
-.feature{ position:relative; display:grid; grid-template-columns:1.3fr 1fr; gap:32px; align-items:center;
-    background:linear-gradient(180deg,var(--panel),var(--bg-1)); border:1px solid var(--line-2); border-radius:18px; padding:clamp(26px,3vw,40px); overflow:hidden; }
-.feature::after{ content:""; position:absolute; right:-20%; top:-30%; width:60%; height:150%; background:radial-gradient(circle, rgba(57,211,83,.14), transparent 60%); pointer-events:none; }
-.feature .tag{ font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--green); }
-.feature h3{ font-family:var(--disp); font-weight:700; font-size:clamp(1.5rem,3vw,2rem); color:var(--fg); margin:12px 0 12px; letter-spacing:-.02em; }
-.feature h3 .accent{ color:var(--green); }
-.feature p{ color:var(--mut); margin-bottom:22px; max-width:46ch; }
-.mini-flip{ position:relative; z-index:1; background:#070c0f; border:1px solid var(--line-2); border-radius:12px; padding:18px 20px; font-family:var(--mono); }
-.mini-flip::before{ content:""; position:absolute; left:-1px; top:16px; bottom:16px; width:2px; background:var(--green); }
-.mini-flip .mf-h{ display:flex; justify-content:space-between; align-items:center; font-size:.66rem; color:var(--green); letter-spacing:.14em; font-weight:600; padding-bottom:12px; border-bottom:1px solid var(--line); }
-.mini-flip .mf-live{ color:var(--green-hi); letter-spacing:.02em; font-weight:400; }
-.mini-flip .mf-item{ font-family:var(--disp); font-weight:600; font-size:1.05rem; color:var(--amber); margin:12px 0 10px; }
-.mini-flip .mf-row{ display:flex; justify-content:space-between; font-size:.8rem; color:var(--mut); padding:6px 0; border-top:1px dashed var(--line); }
-.mini-flip .mf-row:first-of-type{ border-top:none; }
-.mini-flip .mf-row b{ color:var(--fg-body); }
-.mini-flip .mf-row.p b{ color:var(--green-hi); font-weight:600; }
-
-/* links */
-.links{ display:flex; flex-wrap:wrap; gap:12px; }
-.link-chip{ display:inline-flex; align-items:center; gap:9px; padding:11px 16px; border-radius:var(--r-sm);
-    background:var(--panel); border:1px solid var(--line); color:var(--fg-body); font-family:var(--mono); font-size:.86rem;
-    transition:transform .2s var(--ease), border-color .2s, color .2s; }
-.link-chip:hover{ transform:translateY(-2px); border-color:var(--green); color:var(--green-hi); }
-.link-chip .lc-dot{ width:7px; height:7px; border-radius:50%; background:var(--green); }
-
-/* footer */
-footer{ border-top:1px solid var(--line); margin-top:24px; padding:36px 0; text-align:center; color:var(--mut); font-family:var(--mono); font-size:.74rem; }
-footer a{ color:var(--fg-body); }
-
-/* reveal */
-.reveal{ opacity:0; transform:translateY(24px); }
-.reveal.in{ opacity:1; transform:none; transition:opacity .7s var(--ease), transform .7s var(--ease); }
-.no-js .reveal{ opacity:1; transform:none; }
-
-@media (max-width:860px){
-    .hero-in{ grid-template-columns:1fr; gap:34px; }
-    .cards{ grid-template-columns:1fr; }
-    .feature{ grid-template-columns:1fr; }
-    .nav-links li.hide-sm{ display:none; }
-}
-@media (max-width:520px){
-    .hero h1{ font-size:clamp(2.3rem,10vw,3rem); }
-    .nav-links a:not(.nav-cta){ display:none; }
-    .nav-cta{ padding:8px 12px !important; font-size:.74rem; }
-    .cta{ width:100%; } .cta .btn{ flex:1; }
-    .term-body{ font-size:.74rem; }
-}
-@media (prefers-reduced-motion:reduce){ .reveal{ opacity:1; transform:none; } .pulse,.term-body .cur{ animation:none; } }
-</style>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e9e4d7">
+  <title>Philipp Podobri / TreXito — systems, games and useful detours</title>
+  <meta name="description" content="Philipp Podobri, also TreXito, is an IT system technician in Austria studying at 42 Wels. A personal portfolio of game automation, flight tracking and small systems.">
+  <link rel="canonical" href="https://trexito.com/">
+  <meta property="og:type" content="website"><meta property="og:url" content="https://trexito.com/">
+  <meta property="og:title" content="Philipp Podobri / TreXito">
+  <meta property="og:description" content="Systems, games and useful detours. Selected projects and notes from an IT system technician in Austria.">
+  <meta property="og:image" content="https://trexito.com/og.png"><meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght,SOFT@9..144,400,40;9..144,500,40;9..144,600,40&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="grid-lines" aria-hidden="true"></div>
-
-<nav>
-    <div class="nav-in">
-        <a href="#" class="brand"><span class="coin">❯</span> trexito</a>
-        <ul class="nav-links">
-            <li class="hide-sm"><a href="#work">Work</a></li>
-            <li class="hide-sm"><a href="#links">Links</a></li>
-            <li><a href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a class="nav-cta" href="https://auctionflipper.bz" target="_blank" rel="noopener">Frikadellen BAF →</a></li>
-        </ul>
-    </div>
-</nav>
-
-<header class="hero">
-    <div class="wrap hero-in">
-        <div>
-            <span class="kicker">Automation · Infrastructure · Open source</span>
-            <h1>I build automation that <span class="accent">runs itself.</span></h1>
-            <p class="role">Hi, I'm TreXito.</p>
-            <p class="lead">Practical systems with a focus on <strong>reliability</strong>, <strong>observability</strong>, and smooth deployment. From a script to production, with the guardrails to keep it up 24/7.</p>
-            <div class="cta">
-                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">View Frikadellen BAF →</a>
-                <a class="btn btn-ghost" href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a>
-            </div>
-        </div>
-
-        <div class="term-wrap">
-            <div class="term" role="img" aria-label="Terminal: whoami TreXito, automation and infrastructure; frikadellen-baf.service active, uptime 41 days, profit +2.4B, 0 restarts.">
-                <div class="term-bar">
-                    <div class="term-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-                    <span class="term-title"><b>trexito</b>@infra</span>
-                    <span class="term-live"><span class="pulse"></span> online</span>
-                </div>
-                <div class="term-body" aria-hidden="true">
-                    <div class="cmd">whoami</div>
-                    <div class="out"><b>TreXito</b> · automation &amp; infrastructure</div>
-                    <div class="cmd">cat stack.txt</div>
-                    <div class="out">Rust · Node · Linux · systemd</div>
-                    <div class="cmd">systemctl status frikadellen-baf</div>
-                    <div class="out"><span class="g">●</span> active (running) · uptime <b>41d</b></div>
-                    <div class="out">flips <b>12,480</b> · profit <span class="g">+2.4B</span> · restarts <b>0</b></div>
-                    <div class="cmd"><span class="cur">▊</span></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<section id="work" class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">01 · Work</span>
-        <h2>Systems that stay up</h2>
-    </div>
-    <div class="cards">
-        <article class="card reveal">
-            <span class="ix">01</span>
-            <h3>Platform engineering</h3>
-            <p>Cloud-hosted runtimes, deployment pipelines, and operations playbooks tailored to small teams and solo builders.</p>
-        </article>
-        <article class="card reveal">
-            <span class="ix">02</span>
-            <h3>Automation delivery</h3>
-            <p>From scripts to production workflows: fast to ship, with operational guardrails and clear ownership.</p>
-        </article>
-        <article class="card reveal">
-            <span class="ix">03</span>
-            <h3>Security-aware ops</h3>
-            <p>Defensive defaults, transparent configs, and a logging-first approach that keeps systems maintainable.</p>
-        </article>
-    </div>
-</section>
-
-<section class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">02 · Flagship</span>
-        <h2>The one that flips</h2>
-    </div>
-    <div class="feature reveal">
-        <div>
-            <span class="tag">Hypixel SkyBlock · Rust</span>
-            <h3>Frikadellen <span class="accent">BAF</span></h3>
-            <p>A Coflnet-powered Auction House &amp; Bazaar flipper: it snipes underpriced BINs, relists at target, runs your bazaar orders, and reports every coin. Controllable from a web panel or straight from Discord.</p>
-            <div class="cta">
-                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a>
-                <a class="btn btn-ghost" href="frikadellen-baf.html">Features</a>
-            </div>
-        </div>
-        <div class="mini-flip">
-            <div class="mf-h"><span>LEGENDARY FLIP</span><span class="mf-live">● live</span></div>
-            <div class="mf-item">Heroic Hyperion ✪✪✪✪✪</div>
-            <div class="mf-row"><span>Bought</span><b>600.0M</b></div>
-            <div class="mf-row"><span>Target</span><b>726.9M</b></div>
-            <div class="mf-row p"><span>Profit</span><b>+108.7M</b></div>
-        </div>
-    </div>
-</section>
-
-<section id="links" class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">03 · Around the web</span>
-        <h2>Links &amp; stack</h2>
-    </div>
-    <div class="links reveal">
-        <a class="link-chip" href="https://github.com/TreXito" target="_blank" rel="noopener"><span class="lc-dot"></span> GitHub</a>
-        <a class="link-chip" href="https://sky.coflnet.com/flipper?refId=9KKPN9" target="_blank" rel="noopener"><span class="lc-dot"></span> Coflnet</a>
-        <a class="link-chip" href="https://www.hetzner.com/" target="_blank" rel="noopener"><span class="lc-dot"></span> Hetzner</a>
-        <a class="link-chip" href="https://www.linode.com/lp/refer/?r=434c0fe68b0def534e2e5e9198f9d75b08159988" target="_blank" rel="noopener"><span class="lc-dot"></span> Linode</a>
-        <a class="link-chip" href="https://my.cloudfanatic.net/aff.php?aff=882" target="_blank" rel="noopener"><span class="lc-dot"></span> Cloudfanatic</a>
-        <a class="link-chip" href="https://discord.com/users/peenarweenar" target="_blank" rel="noopener"><span class="lc-dot"></span> Discord</a>
-    </div>
-</section>
-
-<footer>
-    <div class="wrap">© 2026 TreXito · automation &amp; infrastructure</div>
-</footer>
-
-<script>
-document.documentElement.classList.remove('no-js');
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-} else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
-</script>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="TreXito home"><span class="mark" aria-hidden="true">✳</span> TreXito<span class="wordmark-dot">.</span></a>
+    <nav aria-label="Main navigation"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+    <a class="header-link" href="https://github.com/TreXito" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main">
+    <section class="hero page-grid" aria-labelledby="hero-title">
+      <div class="hero-main">
+        <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Philipp Podobri · Upper Austria</p>
+        <h1 id="hero-title">I like knowing<br><em>how things work.</em><span class="hero-asterisk" aria-hidden="true">*</span></h1>
+        <p class="hero-intro">I’m Philipp, online as TreXito. I trained as an IT system technician, and I’m now studying at 42 Wels. Outside that, I build tools around games, live data and the small bits of infrastructure that keep them going.</p>
+        <div class="hero-actions"><a class="text-link strong-link" href="#work">Explore the work <span aria-hidden="true">↘</span></a><a class="text-link" href="https://www.linkedin.com/in/philipp-podobri-b92806421/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <aside class="hero-aside" aria-label="A note from Philipp">
+        <div class="aside-top"><span>FIELD NOTE / 001</span><span>AT · 2026</span></div>
+        <div class="orbit-drawing" aria-hidden="true"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><span class="orbit-core">t<span>.</span></span><span class="orbit-point point-one"></span><span class="orbit-point point-two"></span><span class="orbit-point point-three"></span></div>
+        <p>I’m interested in the point where a curious idea turns into something you can leave running.</p>
+        <div class="aside-bottom">Rust / Python / Linux / C</div>
+      </aside>
+      <p class="hero-footnote">* Usually after taking it apart first.</p>
+    </section>
+    <section id="work" class="work-section" aria-labelledby="work-title">
+      <div class="section-heading page-grid"><div><p class="eyebrow">01 / Selected work</p><h2 id="work-title">Projects, not pitches.</h2></div><p>Things I have built or adapted because I wanted to use them. Source links are included, and forks are labelled.</p></div>
+      <article class="project project-baf page-grid">
+        <div class="project-index">01 <span>OPEN SOURCE · RUST</span></div>
+        <div class="project-body"><p class="project-kicker">Minecraft automation / ongoing</p><h3>Frikadellen <em>BAF</em></h3><p>A headless Hypixel SkyBlock client for Auction House and Bazaar flipping. The interesting part to me is everything around the flip: reconnecting, relisting, tracking what happened and being able to see or control it remotely.</p><div class="project-links"><a href="frikadellen-baf.html">Read the project notes <span aria-hidden="true">↗</span></a><a href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a></div></div>
+        <figure class="project-visual baf-schematic" aria-label="Simplified Frikadellen BAF flow: flip feed, buy decision, client action and relisting"><div class="schematic-title"><span>BAF / SYSTEM SKETCH</span><span>01 : 04</span></div><div class="schematic-flow"><span>COFL FEED</span><i aria-hidden="true">→</i><span>DECIDE</span><i aria-hidden="true">→</i><span>BUY</span><i aria-hidden="true">→</i><span>RELIST</span></div><div class="schematic-sub">AH + Bazaar <span>·</span> Rust client <span>·</span> web &amp; Discord control</div><div class="schematic-corner" aria-hidden="true">✳</div></figure>
+      </article>
+      <article class="project page-grid">
+        <div class="project-index">02 <span>OPEN SOURCE · PYTHON</span></div>
+        <div class="project-body"><p class="project-kicker">Flight tracking / side project</p><h3>Sky <em>Watch</em></h3><p>A self-hostable flight tracker with a map, flight history and optional Discord alerts. It began with a simple question: what is flying over here right now?</p><div class="project-links"><a href="https://github.com/TreXito/Skywatch" target="_blank" rel="noopener noreferrer">Explore the repository <span aria-hidden="true">↗</span></a></div></div>
+        <div class="project-annotation"><span class="annotation-glyph" aria-hidden="true">↗</span><span>OpenSky data<br>FastAPI + Leaflet<br>Runs on your own machine</span></div>
+      </article>
+      <article class="project page-grid">
+        <div class="project-index">03 <span>FORK · RUST</span></div>
+        <div class="project-body"><p class="project-kicker">Game tooling / adaptation</p><h3>Azalea <em>Pathfinder</em></h3><p>A custom pathfinding fork for Azalea, used in my Minecraft automation work. It is a practical example of changing an existing tool to fit a real use case.</p><div class="project-links"><a href="https://github.com/TreXito/AzaleaPathfinder" target="_blank" rel="noopener noreferrer">View the fork <span aria-hidden="true">↗</span></a></div></div>
+        <div class="project-annotation annotation-path" aria-hidden="true"><span>start</span><svg viewBox="0 0 220 90"><path d="M8 70H60V16H119V54H180V20H212" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5"/><circle cx="8" cy="70" r="5" fill="currentColor"/><circle cx="212" cy="20" r="5" fill="currentColor"/></svg><span>goal</span></div>
+      </article>
+    </section>
+    <section id="about" class="about-section page-grid" aria-labelledby="about-title">
+      <div class="about-heading"><p class="eyebrow">02 / A little context</p><h2 id="about-title">The person<br>behind the <em>handle.</em></h2><p>I’m based in Upper Austria. My route into software started with IT systems work, and I still enjoy the practical side: logs, networks, deployment and the odd problem that only appears once something is running.</p><p class="personal-note">Away from a keyboard, I compete in powerlifting. It is a different kind of long project, and a good reason to leave the desk.</p></div>
+      <div class="timeline" aria-label="Background"><div class="timeline-entry"><span class="timeline-date">2026 → now</span><div><h3>42 Wels</h3><p>Studying programming, with C and Bash in the mix.</p></div></div><div class="timeline-entry"><span class="timeline-date">2022 → 2026</span><div><h3>SAATBAU LINZ eGen</h3><p>IT system technician apprenticeship. Four years of hands-on systems work.</p></div></div><div class="timeline-entry"><span class="timeline-date">2020 → 2021</span><div><h3>HTL Leonding</h3><p>IT Medientechnik.</p></div></div><a class="text-link timeline-link" href="https://www.linkedin.com/in/philipp-podobri-b92806421/" target="_blank" rel="noopener noreferrer">More background on LinkedIn <span aria-hidden="true">↗</span></a></div>
+    </section>
+    <section id="contact" class="contact-section page-grid" aria-labelledby="contact-title"><div><p class="eyebrow">03 / Find me</p><h2 id="contact-title">Follow the<br><em>thread.</em></h2></div><div class="contact-links"><p>Code and project updates live on GitHub. For the work history and a way to connect, LinkedIn is the better place.</p><a href="https://github.com/TreXito" target="_blank" rel="noopener noreferrer"><span>GitHub</span><span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/philipp-podobri-b92806421/" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><span aria-hidden="true">↗</span></a><a href="https://auctionflipper.bz/" target="_blank" rel="noopener noreferrer"><span>Frikadellen BAF</span><span aria-hidden="true">↗</span></a></div></section>
+  </main>
+  <footer class="site-footer"><span>© 2026 Philipp Podobri · TreXito</span><span>Made in Upper Austria <span aria-hidden="true">✳</span></span><a href="#main">Back to top ↑</a></footer>
 </body>
 </html>
