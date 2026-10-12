@@ -1,15 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#e9e4d7"/>
-  <path d="M40 41h1120M40 589h1120" stroke="#1c2622" stroke-width="2"/>
-  <text x="46" y="84" font-family="Noto Sans Mono,monospace" font-size="23" fill="#bb6847">✳</text>
-  <text x="84" y="84" font-family="Noto Sans Mono,monospace" font-size="18" fill="#1c2622">TREXITO / PERSONAL PORTFOLIO</text>
-  <text x="48" y="240" font-family="Noto Serif,Georgia,serif" font-size="76" fill="#1c2622">Philipp Podobri</text>
-  <text x="48" y="326" font-family="Noto Serif,Georgia,serif" font-size="63" font-style="italic" fill="#bb6847">systems, games &amp;</text>
-  <text x="48" y="404" font-family="Noto Serif,Georgia,serif" font-size="63" font-style="italic" fill="#bb6847">useful detours.</text>
-  <text x="48" y="557" font-family="Noto Sans Mono,monospace" font-size="20" fill="#56615a">RUST / PYTHON / LINUX / C</text>
-  <circle cx="1010" cy="310" r="150" fill="#183e32"/>
-  <circle cx="1010" cy="310" r="110" fill="none" stroke="#78977a" stroke-width="2"/>
-  <circle cx="1010" cy="310" r="70" fill="none" stroke="#78977a" stroke-width="2"/>
-  <text x="957" y="349" font-family="Noto Serif,Georgia,serif" font-size="115" fill="#e9e4d7">t.</text>
-  <circle cx="987" cy="160" r="7" fill="#c8df75"/>
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#1b2d2f" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#0b1317"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <path d="M40 43h1120M40 586h1120" stroke="#3d5550" stroke-width="2"/>
+  <text x="46" y="86" font-family="monospace" font-size="24" fill="#e5a876">✳</text>
+  <text x="84" y="85" font-family="monospace" font-size="18" fill="#b2c6bd">TREXITO / PERSONAL PORTFOLIO</text>
+  <text x="48" y="240" font-family="Georgia,serif" font-size="78" fill="#e8f0eb">Philipp Podobri</text>
+  <text x="48" y="328" font-family="Georgia,serif" font-size="63" font-style="italic" fill="#e5a876">systems, games &amp;</text>
+  <text x="48" y="407" font-family="Georgia,serif" font-size="63" font-style="italic" fill="#e5a876">useful detours.</text>
+  <text x="48" y="555" font-family="monospace" font-size="20" fill="#a7bbb2">RUST / PYTHON / LINUX / C</text>
+  <circle cx="1010" cy="310" r="150" fill="#16332f" stroke="#45645a" stroke-width="2"/>
+  <circle cx="1010" cy="310" r="110" fill="none" stroke="#58796a" stroke-width="2"/>
+  <circle cx="1010" cy="310" r="70" fill="none" stroke="#58796a" stroke-width="2"/>
+  <text x="957" y="349" font-family="Georgia,serif" font-size="115" fill="#e8f0eb">t.</text>
+  <circle cx="987" cy="160" r="7" fill="#b9ee6d"/>
 </svg>
