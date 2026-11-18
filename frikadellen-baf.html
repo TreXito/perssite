@@ -1,114 +1,151 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Frikadellen BAF · project notes · TreXito</title>
-<meta name="description" content="Notes on Frikadellen BAF, an open-source Rust client for Hypixel SkyBlock Auction House and Bazaar automation: the loop, the panel, and the current status.">
+<meta name="description" content="Notes on Frikadellen BAF, an open-source Rust client for Hypixel SkyBlock Auction House and Bazaar automation: the loop, the pieces, and the panel.">
 <link rel="canonical" href="https://trexito.com/frikadellen-baf.html">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://trexito.com/frikadellen-baf.html">
 <meta property="og:title" content="Frikadellen BAF · project notes">
 <meta property="og:description" content="A Rust game automation project and the systems around it.">
-<meta property="og:image" content="https://trexito.com/og.png?v=3">
+<meta property="og:image" content="https://trexito.com/og.png?v=4">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#05080a">
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<meta name="theme-color" content="#060608">
+<link rel="icon" href="cat-avatar.png" type="image/png">
+<link rel="apple-touch-icon" href="cat-avatar.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<link rel="icon" href="cat-avatar.png" type="image/png">
-<style>
-.note{ max-width:860px; }
-.note .kicker{ margin-bottom:18px; }
-.note h1{ font-family:var(--disp); font-weight:700; font-size:clamp(2.3rem,5.6vw,3.6rem); line-height:1; letter-spacing:-.03em; color:var(--cream); margin:0 0 18px; }
-.note h1 .accent{ color:var(--green); }
-.note .lede{ color:var(--fg-body); font-size:1.08rem; max-width:52ch; margin-bottom:26px; }
-.note-block{ margin-top:clamp(44px,6vw,64px); }
-.note-block h2{ font-family:var(--disp); font-weight:600; font-size:clamp(1.4rem,2.8vw,1.9rem); color:var(--fg); letter-spacing:-.02em; margin-bottom:14px; }
-.note-block p{ color:var(--mut); margin-bottom:14px; max-width:64ch; }
-.note-block p b{ color:var(--fg-body); }
-.note-block a{ color:var(--green); }
-.statline{ display:flex; gap:12px; flex-wrap:wrap; margin:22px 0 4px; }
-.statline .st{ background:linear-gradient(180deg,var(--panel),var(--bg-1)); border:1px solid var(--line); border-radius:10px; padding:10px 16px; font-family:var(--mono); }
-.statline .st b{ display:block; color:var(--green-hi); font-size:1.05rem; font-weight:600; }
-.statline .st span{ font-size:.68rem; color:var(--mut); text-transform:uppercase; letter-spacing:.08em; }
-.advisory{ border:1px solid rgba(255,93,93,.35); background:rgba(255,93,93,.06); border-radius:12px; padding:16px 20px; font-size:.92rem; color:var(--fg-body); }
-.advisory b{ color:var(--red); }
-</style>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=5">
+<script>
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('js-motion');
+  setTimeout(function () { if (!window.__appReady) document.documentElement.classList.remove('js-motion'); }, 3500);
+}
+</script>
 </head>
-<body>
-<div class="grid-lines" aria-hidden="true"></div>
+<body class="baf">
+<a class="skip" href="#main">Skip to content</a>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
 
-<nav>
-    <div class="nav-in">
-        <a href="/" class="brand"><img src="cat-avatar.png" alt="" width="26" height="26"> trexito</a>
-        <ul class="nav-links">
-            <li class="hide-sm"><a href="/#work">Work</a></li>
-            <li><a href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a class="nav-cta" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a></li>
-        </ul>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-buoy" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/><circle cx="12" cy="12" r="4"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1"/></symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1.5"/><rect width="7" height="5" x="14" y="3" rx="1.5"/><rect width="7" height="9" x="14" y="12" rx="1.5"/><rect width="7" height="5" x="3" y="16" rx="1.5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M9 2v2M15 20v2M9 20v2M2 15h2M2 9h2M20 15h2M20 9h2"/></symbol>
+</svg>
+
+<main id="main">
+
+<header class="wrap" id="top">
+  <div class="page-hero">
+    <span class="icon ic-baf" data-rise aria-hidden="true"><svg class="i"><use href="#i-trend"/></svg></span>
+    <div data-rise="soft">
+      <span class="eyebrow">Rust · Hypixel SkyBlock · AGPLv3</span>
+      <h1>Frikadellen BAF</h1>
     </div>
-</nav>
+  </div>
+  <p class="lede page-lede" data-rise="soft">A headless client for Auction House and Bazaar automation. Buying is one part of it: reconnecting, relisting, watching state and controlling a running session make up the rest.</p>
+  <div class="btn-row" data-rise="soft" style="margin-top:26px">
+    <a class="btn btn-fill press" href="https://auctionflipper.bz" target="_blank" rel="noopener">Project site <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a class="btn btn-glass glass press" href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener"><svg class="i"><use href="#i-github"/></svg> Source</a>
+  </div>
 
-<main class="wrap note" style="padding:clamp(48px,7vw,80px) 22px;">
-    <span class="kicker">Rust · Hypixel SkyBlock · AGPLv3</span>
-    <h1>Frikadellen <span class="accent">BAF</span></h1>
-    <p class="lede">A headless client for Auction House and Bazaar automation. Buying is one part of it: reconnecting, relisting, watching state and controlling a running session make up the rest.</p>
-    <div class="cta">
-        <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">Project site →</a>
-        <a class="btn btn-ghost" href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener">Source</a>
+  <div class="prose glass" data-rise style="margin-top:clamp(36px,5vw,56px);padding:12px">
+    <div class="stats four">
+      <div class="stat"><b data-count="37805">37,805</b><span>profitable sales</span></div>
+      <div class="stat"><b data-count="232.3" data-dec="1" data-suf="B">232.3B</b><span>realized profit</span></div>
+      <div class="stat"><b class="g" data-count="2.16" data-dec="2" data-pre="+" data-suf="B">+2.16B</b><span>biggest single flip</span></div>
+      <div class="stat"><b>~50 ms</b><span>buy path on a VPS</span></div>
     </div>
+  </div>
+</header>
 
-    <div class="statline reveal">
-        <div class="st"><b>37,805</b><span>profitable sales</span></div>
-        <div class="st"><b>232.3B</b><span>realized profit</span></div>
-        <div class="st"><b>+2.16B</b><span>biggest flip</span></div>
-        <div class="st"><b>~50ms</b><span>buy path (VPS)</span></div>
-    </div>
+<section id="loop" class="wrap">
+  <div class="two" data-stagger>
+    <article class="prose glass lit" data-rise>
+      <h3><span class="icon sm ic-baf" aria-hidden="true"><svg class="i"><use href="#i-repeat"/></svg></span>The loop</h3>
+      <p>BAF listens to the Coflnet flip feed, buys underpriced Auction House BINs on a fast path that pre-clicks Confirm, relists them at target, and claims sold auctions the moment the sale is signalled. In parallel it runs the Bazaar: placing buy and sell orders, tracking fills, collecting, and cancelling stale orders.</p>
+      <p>The <a href="https://github.com/TreXito/frikadellen-baf-121#features" target="_blank" rel="noopener">repository documentation</a> is the source of truth for current features.</p>
+    </article>
+    <article class="prose glass lit" data-rise>
+      <h3><span class="icon sm ic-lift" aria-hidden="true"><svg class="i"><use href="#i-buoy"/></svg></span>The interesting problems</h3>
+      <p>The happy path is easy. What kept me on this project is everything after it: recovering from a disconnect mid-purchase, tracking an order that fills an hour later, rotating accounts without losing the Coflnet license, and reconstructing what happened overnight from logs instead of guesses.</p>
+    </article>
+  </div>
+</section>
 
-    <div class="note-block reveal">
-        <h2>The loop</h2>
-        <p>BAF listens to the Coflnet flip feed, buys underpriced Auction House BINs on a fast path that pre-clicks Confirm, relists them at target, and claims sold auctions the moment the sale is signalled. In parallel it runs the Bazaar: placing buy and sell orders, tracking fills, collecting, and cancelling stale orders.</p>
-        <p>The client is built in Rust on Azalea. A real-time web panel and a Discord integration expose state and controls remotely. The <a href="https://github.com/TreXito/frikadellen-baf-121#features" target="_blank" rel="noopener">repository documentation</a> is the source of truth for current features.</p>
-    </div>
+<section id="pieces" class="wrap">
+  <div class="sec-head" data-rise="soft"><div><span class="eyebrow">Architecture</span><h2>The pieces</h2></div></div>
+  <ul class="group glass" data-rise>
+    <li class="row">
+      <span class="icon sm ic-work" aria-hidden="true"><svg class="i"><use href="#i-tag"/></svg></span>
+      <b class="t">Auction House</b><span class="w">BIN · relist · claim</span>
+      <span class="d">Underpriced BINs bought on a pre-clicked fast path, relisted at target, claimed as soon as the sale lands.</span>
+    </li>
+    <li class="row">
+      <span class="icon sm ic-school" aria-hidden="true"><svg class="i"><use href="#i-layers"/></svg></span>
+      <b class="t">Bazaar</b><span class="w">orders · fills</span>
+      <span class="d">Buy and sell orders, fill tracking, collecting, and cancelling orders that went stale.</span>
+    </li>
+    <li class="row">
+      <span class="icon sm ic-baf" aria-hidden="true"><svg class="i"><use href="#i-dash"/></svg></span>
+      <b class="t">Web panel</b><span class="w">real time</span>
+      <span class="d">Status, controls, accounts, inventory, profit charts and the full config in one page.</span>
+    </li>
+    <li class="row">
+      <span class="icon sm ic-dc" aria-hidden="true"><svg class="i"><use href="#i-chat"/></svg></span>
+      <b class="t">Discord</b><span class="w">remote control</span>
+      <span class="d">State and controls from anywhere, plus webhooks for the events worth knowing about.</span>
+    </li>
+    <li class="row">
+      <span class="icon sm ic-42" aria-hidden="true"><svg class="i"><use href="#i-cpu"/></svg></span>
+      <b class="t">Azalea</b><span class="w">Rust</span>
+      <span class="d">A headless Minecraft client underneath, no game window, no Java.</span>
+    </li>
+  </ul>
+</section>
 
-    <div class="note-block reveal">
-        <h2>The interesting problems</h2>
-        <p>The happy path is easy. What kept me on this project is everything after it: recovering from a disconnect mid-purchase, tracking an order that fills an hour later, rotating accounts without losing the Coflnet license, and reconstructing what happened overnight from logs instead of guesses.</p>
-    </div>
+<section id="panel" class="wrap">
+  <div class="sec-head" data-rise="soft"><div><span class="eyebrow">Interface</span><h2>The control panel</h2></div></div>
+  <figure class="frame glass" data-rise>
+    <img src="baf-panel.webp" alt="The Frikadellen BAF web panel: status, controls, accounts and Minecraft inventory" width="1500" height="950" loading="lazy">
+    <figcaption>Web panel · controls and dashboard</figcaption>
+  </figure>
+  <div class="btn-row" data-rise="soft" style="margin-top:28px;justify-content:center">
+    <a class="btn btn-fill press" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz <svg class="i"><use href="#i-arrow"/></svg></a>
+    <a class="btn btn-glass glass press" href="/">Back to trexito.com</a>
+  </div>
+</section>
 
-    <figure class="shot reveal">
-        <img src="baf-panel.png" loading="lazy" alt="The Frikadellen BAF web panel: status, controls, accounts and Minecraft inventory">
-        <figcaption>web panel · controls &amp; dashboard</figcaption>
-    </figure>
-
-    <div class="note-block reveal">
-        <h2>Current status</h2>
-        <div class="advisory">As of <b>October 2026</b> the <a href="https://github.com/TreXito/frikadellen-baf-121#readme" target="_blank" rel="noopener">project README</a> <b>advises against running BAF</b> because of recent ban waves. The source, documentation and releases stay up; the automation itself sits paused.</div>
-        <p style="margin-top:14px">Automating gameplay violates Hypixel's rules and can lead to account penalties. Flip values in the feed are targets and estimates, not confirmed profit.</p>
-    </div>
-
-    <div class="note-block reveal">
-        <div class="cta">
-            <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a>
-            <a class="btn btn-ghost" href="/">← Back to trexito.com</a>
-        </div>
-    </div>
 </main>
 
-<footer>
-    <div class="wrap">© 2026 Philipp Podobri · TreXito</div>
-</footer>
+<footer class="wrap">© 2026 TreXito</footer>
 
-<script>
-document.documentElement.classList.remove('no-js');
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-} else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
-</script>
+<nav class="dock glass" aria-label="Sections">
+  <span class="lens" aria-hidden="true"></span>
+  <a href="/"><svg class="i"><use href="#i-home"/></svg>Home</a>
+  <span class="sep" aria-hidden="true"></span>
+  <a href="#top" data-sec="top"><svg class="i"><use href="#i-info"/></svg>Overview</a>
+  <a href="#pieces" data-sec="pieces"><svg class="i"><use href="#i-layers"/></svg>Pieces</a>
+  <a href="#panel" data-sec="panel"><svg class="i"><use href="#i-monitor"/></svg>Panel</a>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/motion@14.14.0/dist/motion.js" integrity="sha384-h780inJe2b0CurpoaBazVbWeqDdoRKVyEJr6FKch+CK4v6XkrP0WzW/FINvvvUKw" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" integrity="sha384-R18XzqnxvVLEF+BYfhpmDx30v7eP83fAckyfoRzK7/Uf6nGqufcmsk0eAKo7S3RU" crossorigin="anonymous" defer></script>
+<script src="app.js?v=5" defer></script>
 </body>
 </html>

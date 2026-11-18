@@ -1,172 +1,221 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TreXito · Philipp Podobri</title>
-<meta name="description" content="Philipp Podobri, online as TreXito. IT systems, game automation, and the infrastructure that keeps a project running. Creator of Frikadellen BAF.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TreXito</title>
+<meta name="description" content="TreXito: IT systems, game automation, and the infrastructure that keeps a project running. Creator of Frikadellen BAF.">
+<link rel="canonical" href="https://trexito.com/">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://trexito.com">
-<meta property="og:title" content="TreXito · Philipp Podobri">
+<meta property="og:url" content="https://trexito.com/">
+<meta property="og:title" content="TreXito">
 <meta property="og:description" content="IT systems, game automation, and the infrastructure that keeps a project running. Creator of Frikadellen BAF.">
-<meta property="og:image" content="https://trexito.com/og.png?v=3">
+<meta property="og:image" content="https://trexito.com/og.png?v=4">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:site_name" content="TreXito">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#05080a">
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<meta name="theme-color" content="#060608">
+<link rel="icon" href="cat-avatar.png" type="image/png">
+<link rel="apple-touch-icon" href="cat-avatar.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<link rel="icon" href="cat-avatar.png" type="image/png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=5">
+<script>
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.documentElement.classList.add('js-motion');
+  setTimeout(function () { if (!window.__appReady) document.documentElement.classList.remove('js-motion'); }, 3500);
+}
+</script>
 </head>
 <body>
-<div class="grid-lines" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="grain" aria-hidden="true"></div>
 
-<nav>
-    <div class="nav-in">
-        <a href="#" class="brand"><img src="cat-avatar.png" alt="" width="26" height="26"> trexito</a>
-        <ul class="nav-links">
-            <li class="hide-sm"><a href="#work">Work</a></li>
-            <li class="hide-sm"><a href="#background">Background</a></li>
-            <li><a href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a></li>
-            <li><a class="nav-cta" href="https://auctionflipper.bz" target="_blank" rel="noopener">Frikadellen BAF →</a></li>
-        </ul>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" stroke="none" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-lift" viewBox="0 0 24 24"><path d="M14.4 14.4 9.6 9.6"/><path d="M18.657 21.485a2 2 0 1 1-2.829-2.828l-1.767 1.768a2 2 0 1 1-2.829-2.829l6.364-6.364a2 2 0 1 1 2.829 2.829l-1.768 1.767a2 2 0 1 1 2.828 2.829z"/><path d="m21.5 21.5-1.4-1.4"/><path d="M3.9 3.9 2.5 2.5"/><path d="M6.404 12.768a2 2 0 1 1-2.829-2.829l1.768-1.767a2 2 0 1 1-2.828-2.829l2.828-2.828a2 2 0 1 1 2.829 2.828l1.767-1.768a2 2 0 1 1 2.829 2.829z"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1.5"/><rect width="7" height="7" x="14" y="3" rx="1.5"/><rect width="7" height="7" x="14" y="14" rx="1.5"/><rect width="7" height="7" x="3" y="14" rx="1.5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+</svg>
+
+<main id="main">
+
+<header class="hero wrap" id="top">
+  <div class="hero-grid">
+    <div class="poster glass" data-rise>
+      <div class="poster-bg" aria-hidden="true"></div>
+      <div class="avatar">
+        <img src="cat-avatar.png" alt="TreXito's avatar, a ginger kitten" width="136" height="136">
+        <span class="status" title="Online"></span>
+      </div>
+      <h1>TreXito</h1>
+      <p class="handle-sub">IT systems · game automation</p>
+      <nav class="actions" aria-label="Quick links">
+        <a class="action glass press" href="https://github.com/TreXito" target="_blank" rel="noopener"><svg class="i"><use href="#i-github"/></svg>GitHub</a>
+        <a class="action glass press" href="https://auctionflipper.bz" target="_blank" rel="noopener"><svg class="i"><use href="#i-trend"/></svg>BAF</a>
+        <a class="action glass press" href="https://discord.com/users/385374352138436608" target="_blank" rel="noopener"><svg class="i"><use href="#i-chat"/></svg>Discord</a>
+        <a class="action glass press" href="#work"><svg class="i"><use href="#i-grid"/></svg>Work</a>
+      </nav>
     </div>
-</nav>
 
-<header class="hero">
-    <div class="wrap hero-in">
-        <div>
-            <span class="kicker">IT systems · game automation · Austria</span>
-            <h1>I build systems that <span class="accent">run themselves.</span></h1>
-            <p class="role">Philipp "TreXito" Podobri</p>
-            <p class="lead">IT systems technician, now studying at <strong>42 Wels</strong>. I build around Minecraft automation, live data, and the infrastructure that keeps a project up while I sleep.</p>
-            <div class="cta">
-                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">See Frikadellen BAF →</a>
-                <a class="btn btn-ghost" href="https://github.com/TreXito" target="_blank" rel="noopener">GitHub</a>
-            </div>
-        </div>
-
-        <div class="term-wrap">
-            <div class="term" role="img" aria-label="Terminal: whoami Philipp Podobri, TreXito, Upper Austria; stack Rust, C, Python, Bash, Linux, systemd; frikadellen-baf paused per README advisory, biggest flip on record +2.16B; currently at 42 Wels.">
-                <div class="term-bar">
-                    <div class="term-dots" aria-hidden="true"><i></i><i></i><i></i></div>
-                    <span class="term-title"><b>trexito</b>@workstation</span>
-                    <span class="term-live"><span class="pulse"></span> online</span>
-                </div>
-                <div class="term-body" aria-hidden="true">
-                    <div class="cmd">whoami</div>
-                    <div class="out"><b>Philipp Podobri</b> · TreXito · Upper Austria</div>
-                    <div class="cmd">cat stack.txt</div>
-                    <div class="out">Rust · C · Python · Bash · Linux · systemd</div>
-                    <div class="cmd">systemctl status frikadellen-baf</div>
-                    <div class="out"><span class="a">●</span> paused · README advisory (Oct 2026)</div>
-                    <div class="out">biggest flip on record <span class="g">+2.16B</span></div>
-                    <div class="cmd">cat currently.txt</div>
-                    <div class="out"><b>42 Wels</b> · C, Bash, and a lot of man pages</div>
-                    <div class="cmd"><span class="cur">▊</span></div>
-                </div>
-            </div>
-        </div>
+    <div class="intro">
+      <h2 data-rise="soft">I build systems that <span class="soft">run themselves.</span></h2>
+      <p class="lede" data-rise="soft">IT systems technician, now studying at <b>42</b>. I build Minecraft automation, live data, and the infrastructure that keeps a project up while I sleep.</p>
+      <div class="btn-row" data-rise="soft">
+        <a class="btn btn-fill press" href="https://auctionflipper.bz" target="_blank" rel="noopener">Frikadellen BAF <svg class="i"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-glass glass press" href="#work">See the work</a>
+      </div>
+      <div class="widgets" data-stagger>
+        <article class="widget glass lit" data-rise>
+          <div class="w-head"><svg class="i"><use href="#i-cap"/></svg>Now</div>
+          <div class="w-big">42</div>
+          <p class="w-sub">C, Bash, and a lot of man pages.</p>
+        </article>
+        <article class="widget glass lit" data-rise style="--tint:var(--green)">
+          <div class="w-head"><svg class="i"><use href="#i-trend"/></svg>Biggest flip</div>
+          <div class="w-big green" data-count="2.16" data-dec="2" data-pre="+" data-suf="B">+2.16B</div>
+          <p class="w-sub">Ancient Crown of Avarice, bought for 2.6M.</p>
+        </article>
+        <article class="widget wide glass lit" data-rise>
+          <div class="w-head"><svg class="i"><use href="#i-terminal"/></svg>Stack</div>
+          <ul class="chips"><li>Rust</li><li>C</li><li>Python</li><li>Bash</li><li>Linux</li><li>systemd</li></ul>
+        </article>
+      </div>
     </div>
+  </div>
 </header>
 
 <section id="work" class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">01 · Work</span>
-        <h2>Things I built and kept running</h2>
-    </div>
-    <div class="cards">
-        <article class="card reveal">
-            <span class="ix">Rust · Hypixel SkyBlock</span>
-            <h3>Frikadellen BAF</h3>
-            <p>A Coflnet-powered Auction House &amp; Bazaar flipper: ~50ms BIN buys, auto-relisting, bazaar orders, a web panel and Discord control. The flagship, and the reason this design is green.</p>
-            <div class="card-links"><a href="https://auctionflipper.bz" target="_blank" rel="noopener">Site →</a><a href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener">Source →</a></div>
-        </article>
-        <article class="card reveal">
-            <span class="ix">Python · self-hosted</span>
-            <h3>Sky Watch</h3>
-            <p>A flight tracker with a map, flight history and optional Discord alerts. It started with a simple question: what is flying overhead right now?</p>
-            <div class="card-links"><a href="https://github.com/TreXito/Skywatch" target="_blank" rel="noopener">Source →</a></div>
-        </article>
-        <article class="card reveal">
-            <span class="ix">Rust · fork</span>
-            <h3>AzaleaPathfinder</h3>
-            <p>A pathfinding fork adapted for my Minecraft automation work. The kind of change that happens when an existing tool almost fits the job.</p>
-            <div class="card-links"><a href="https://github.com/TreXito/AzaleaPathfinder" target="_blank" rel="noopener">Source →</a></div>
-        </article>
-    </div>
-</section>
+  <div class="sec-head" data-rise="soft">
+    <div><span class="eyebrow">Work</span><h2>Things I built and kept running</h2></div>
+  </div>
 
-<section class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">02 · Flagship</span>
-        <h2>A window into the bot</h2>
+  <article class="story glass lit" data-rise>
+    <div class="story-cover" data-parallax>
+      <span class="story-tag glass">Flagship</span>
+      <img src="baf-panel.webp" alt="The Frikadellen BAF web panel: status, controls, accounts and Minecraft inventory" width="1500" height="950" loading="lazy">
     </div>
-    <div class="feature reveal">
-        <div>
-            <span class="tag">Frikadellen BAF · web panel</span>
-            <h3>Every flip, <span class="accent">visible.</span></h3>
-            <p>Buying is one part of it. Reconnecting, relisting, watching the current state and controlling a running session from anywhere make up the rest. The panel is real, so is the log: <strong>37,805 profitable sales · 232.3B realized profit</strong> tracked by the live backend.</p>
-            <div class="cta">
-                <a class="btn btn-primary" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz →</a>
-                <a class="btn btn-ghost" href="frikadellen-baf.html">Project notes</a>
-            </div>
+    <div class="story-body">
+      <div>
+        <span class="eyebrow">Frikadellen BAF · Rust</span>
+        <h3>Every flip, <span class="g">visible.</span></h3>
+        <p>A Coflnet-powered Auction House and Bazaar flipper for Hypixel SkyBlock: ~50 ms BIN buys, auto-relisting, bazaar orders, a web panel and Discord control. Buying is one part of it. Reconnecting, relisting and steering a running session from anywhere make up the rest.</p>
+        <div class="btn-row">
+          <a class="btn btn-fill press" href="https://auctionflipper.bz" target="_blank" rel="noopener">auctionflipper.bz <svg class="i"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-glass glass press" href="frikadellen-baf.html">Project notes</a>
         </div>
-        <div class="mini-flip">
-            <div class="mf-h"><span>legendary flip · biggest on record</span><span class="mf-live">● live log</span></div>
-            <div class="mf-item">Ancient Crown of Avarice</div>
-            <div class="mf-row"><span>Bought</span><b>2.6M</b></div>
-            <div class="mf-row"><span>Sold for</span><b>2.22B</b></div>
-            <div class="mf-row p"><span>Profit</span><b>+2.16B</b></div>
-        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b data-count="37805">37,805</b><span>profitable sales</span></div>
+        <div class="stat"><b data-count="232.3" data-dec="1" data-suf="B">232.3B</b><span>realized profit</span></div>
+        <div class="stat"><b class="g" data-count="2.16" data-dec="2" data-pre="+" data-suf="B">+2.16B</b><span>biggest single flip</span></div>
+      </div>
     </div>
-    <figure class="shot reveal">
-        <img src="baf-panel.png" loading="lazy" alt="The Frikadellen BAF web panel: status, controls, accounts and Minecraft inventory">
-        <figcaption>web panel · controls &amp; dashboard</figcaption>
-    </figure>
+  </article>
+
+  <div class="list glass" data-rise style="margin-top:18px">
+    <div class="app">
+      <span class="icon ic-baf" aria-hidden="true"><svg class="i"><use href="#i-trend"/></svg></span>
+      <div><h3>Frikadellen BAF</h3><span class="meta">Rust · Hypixel SkyBlock</span></div>
+      <div class="get">
+        <a class="pill press" href="https://auctionflipper.bz" target="_blank" rel="noopener">Site</a>
+        <a class="pill press" href="https://github.com/TreXito/frikadellen-baf-121" target="_blank" rel="noopener">Source</a>
+      </div>
+      <p>Headless AH and Bazaar automation on Azalea, with a real-time web panel and Discord integration.</p>
+    </div>
+    <div class="app">
+      <span class="icon ic-sky" aria-hidden="true"><svg class="i"><use href="#i-plane"/></svg></span>
+      <div><h3>Sky Watch</h3><span class="meta">Python · self-hosted</span></div>
+      <div class="get"><a class="pill press" href="https://github.com/TreXito/Skywatch" target="_blank" rel="noopener">Source</a></div>
+      <p>A flight tracker with a map, flight history and optional Discord alerts. It started with one question: what is flying overhead right now?</p>
+    </div>
+    <div class="app">
+      <span class="icon ic-path" aria-hidden="true"><svg class="i"><use href="#i-route"/></svg></span>
+      <div><h3>AzaleaPathfinder</h3><span class="meta">Rust · fork</span></div>
+      <div class="get"><a class="pill press" href="https://github.com/TreXito/AzaleaPathfinder" target="_blank" rel="noopener">Source</a></div>
+      <p>A pathfinding fork adapted for my Minecraft automation. The kind of change that happens when an existing tool almost fits the job.</p>
+    </div>
+  </div>
 </section>
 
-<section id="background" class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">03 · Background</span>
-        <h2>How I got here</h2>
+<section id="about" class="wrap">
+  <div class="two">
+    <div>
+      <div class="sec-head" data-rise="soft"><div><span class="eyebrow">Background</span><h2>How I got here</h2></div></div>
+      <ul class="group glass" data-rise>
+        <li class="row">
+          <span class="icon sm ic-42" aria-hidden="true"><svg class="i"><use href="#i-cap"/></svg></span>
+          <b class="t">42</b><span class="w">2026 – now</span>
+          <span class="d">Studying programming: C, Bash, and the discipline of the man pages.</span>
+        </li>
+        <li class="row">
+          <span class="icon sm ic-work" aria-hidden="true"><svg class="i"><use href="#i-brief"/></svg></span>
+          <b class="t">IT system technician</b><span class="w">2022 – 2026</span>
+          <span class="d">Apprenticeship. Logs, networks, deployment, and the problems that only appear once something is already running.</span>
+        </li>
+        <li class="row">
+          <span class="icon sm ic-school" aria-hidden="true"><svg class="i"><use href="#i-book"/></svg></span>
+          <b class="t">HTL · IT-Medientechnik</b><span class="w">2020 – 2021</span>
+          <span class="d">Technical college, media technology track.</span>
+        </li>
+        <li class="row">
+          <span class="icon sm ic-lift" aria-hidden="true"><svg class="i"><use href="#i-lift"/></svg></span>
+          <b class="t">Powerlifting</b><span class="w">off the keyboard</span>
+          <span class="d">Competing keeps me away from the desk.</span>
+        </li>
+      </ul>
     </div>
-    <div class="timeline reveal">
-        <div class="tl-row"><span class="tl-when">2026 → now</span><div><b>42 Wels</b><p>Studying programming: C, Bash, and the discipline of the man pages.</p></div></div>
-        <div class="tl-row"><span class="tl-when">2022 → 2026</span><div><b>SAATBAU LINZ eGen</b><p>IT system technician apprenticeship. Logs, networks, deployment, and the problems that only appear once something is already running.</p></div></div>
-        <div class="tl-row"><span class="tl-when">2020 → 2021</span><div><b>HTL Leonding</b><p>IT Medientechnik.</p></div></div>
-        <div class="tl-row"><span class="tl-when">off the keyboard</span><div><b>Powerlifting</b><p>Competing keeps me away from the desk. <a href="https://www.openipf.org/u/philipppodobri/" target="_blank" rel="noopener">openpowerlifting.org</a></p></div></div>
+    <div>
+      <div class="sec-head" data-rise="soft"><div><span class="eyebrow">Elsewhere</span><h2>Find me where the work lives</h2></div></div>
+      <div class="group glass" data-rise>
+        <a class="row" href="https://github.com/TreXito" target="_blank" rel="noopener">
+          <span class="icon sm ic-gh" aria-hidden="true"><svg class="i"><use href="#i-github"/></svg></span>
+          <b class="t">GitHub</b><span class="v">TreXito</span><svg class="i ch"><use href="#i-chev"/></svg>
+        </a>
+        <a class="row" href="https://auctionflipper.bz" target="_blank" rel="noopener">
+          <span class="icon sm ic-web" aria-hidden="true"><svg class="i"><use href="#i-globe"/></svg></span>
+          <b class="t">Frikadellen BAF</b><span class="v">auctionflipper.bz</span><svg class="i ch"><use href="#i-chev"/></svg>
+        </a>
+        <a class="row" href="https://discord.com/users/385374352138436608" target="_blank" rel="noopener">
+          <span class="icon sm ic-dc" aria-hidden="true"><svg class="i"><use href="#i-chat"/></svg></span>
+          <b class="t">Discord</b><span class="v">peenarweenar</span><svg class="i ch"><use href="#i-chev"/></svg>
+        </a>
+      </div>
     </div>
+  </div>
 </section>
 
-<section id="links" class="wrap">
-    <div class="sec-head reveal">
-        <span class="sec-num">04 · Around the web</span>
-        <h2>Find me where the work lives</h2>
-    </div>
-    <div class="links reveal">
-        <a class="link-chip" href="https://github.com/TreXito" target="_blank" rel="noopener"><span class="lc-dot"></span> GitHub</a>
-        <a class="link-chip" href="https://www.linkedin.com/in/philipp-podobri-b92806421/" target="_blank" rel="noopener"><span class="lc-dot"></span> LinkedIn</a>
-        <a class="link-chip" href="https://auctionflipper.bz" target="_blank" rel="noopener"><span class="lc-dot"></span> auctionflipper.bz</a>
-        <a class="link-chip" href="https://discord.com/users/peenarweenar" target="_blank" rel="noopener"><span class="lc-dot"></span> Discord</a>
-    </div>
-</section>
+</main>
 
-<footer>
-    <div class="wrap">© 2026 Philipp Podobri · TreXito · built by hand, no framework</div>
-</footer>
+<footer class="wrap">© 2026 TreXito · built by hand</footer>
 
-<script>
-document.documentElement.classList.remove('no-js');
-if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-} else { document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in');}); }
-</script>
+<nav class="dock glass" aria-label="Sections">
+  <span class="lens" aria-hidden="true"></span>
+  <a href="#top" data-sec="top"><svg class="i"><use href="#i-home"/></svg>Home</a>
+  <a href="#work" data-sec="work"><svg class="i"><use href="#i-grid"/></svg>Work</a>
+  <a href="#about" data-sec="about"><svg class="i"><use href="#i-user"/></svg>About</a>
+  <span class="sep" aria-hidden="true"></span>
+  <a href="frikadellen-baf.html"><svg class="i"><use href="#i-trend"/></svg>BAF</a>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/motion@14.14.0/dist/motion.js" integrity="sha384-h780inJe2b0CurpoaBazVbWeqDdoRKVyEJr6FKch+CK4v6XkrP0WzW/FINvvvUKw" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js" integrity="sha384-R18XzqnxvVLEF+BYfhpmDx30v7eP83fAckyfoRzK7/Uf6nGqufcmsk0eAKo7S3RU" crossorigin="anonymous" defer></script>
+<script src="app.js?v=5" defer></script>
 </body>
 </html>
